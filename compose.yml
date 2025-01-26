@@ -1,0 +1,46 @@
+services: # コンテナの定義開始
+  db: # PostgreSQLデータベースの設定
+    image: postgres # PostgreSQLの公式イメージを使用
+    restart: always # コンテナを常に再起動
+    environment: # 環境変数の設定
+      TZ: Asia/Tokyo # タイムゾーンを日本に設定
+      POSTGRES_PASSWORD: password # データベースのパスワード設定
+    volumes: # データの永続化設定
+      - postgresql_data:/var/lib/postgresql # DBデータを永続化
+    ports: # ポート設定
+      - 5432:5432
+    healthcheck: # コンテナの健康チェック設定
+      test: ["CMD-SHELL", "pg_isready -d myapp_development -U postgres"]
+      interval: 10s # チェック間隔
+      timeout: 5s # タイムアウト時間
+      retries: 5 # リトライ回数
+      
+  web: # Railsアプリケーションの設定
+    build: # Dockerイメージのビルド設定
+      context: .  # ビルドコンテキストはカレントディレクトリ
+      dockerfile: Dockerfile.dev # 開発用Dockerfileを使用
+    command: bash -c "bundle install && bundle exec rails db:prepare && rm -f tmp/pids/server.pid && ./bin/dev"
+    # ↑ サーバー起動時のコマンド：
+    # - bundle install: 必要なgemをインストール
+    # - rails db:prepare: DBの準備
+    # - サーバープロセスIDファイルの削除
+    # - 開発サーバーの起動
+
+    tty: true # 疑似ターミナルを割り当て
+    stdin_open: true # 標準入力を保持
+    volumes:  # ボリュームマウントの設定
+      - .:/myapp # ソースコードのマウント
+      - bundle_data:/usr/local/bundle:cached # gemの永続化
+      - node_modules:/myapp/node_modules # node_modulesの永続化
+    environment: # 環境変数の設定
+      TZ: Asia/Tokyo # タイムゾーンを日本に設定
+    ports: # ポート設定
+      - "3000:3000" # Rails標準のポート
+    depends_on: # 依存関係の設定
+      db: # dbサービスに依存
+        condition: service_healthy # dbの健康チェックが通るまで待機
+
+volumes: # ボリュームの定義
+  bundle_data: # gemデータの永続化用ボリューム
+  postgresql_data: # PostgreSQLデータの永続化用ボリューム
+  node_modules: # Node.jsパッケージの永続化用ボリューム
