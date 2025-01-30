@@ -19,21 +19,10 @@
 
   <body class="bg-gray-100 min-h-screen flex flex-col">
   <%= render 'shared/header' %>
-
   <!-- Main Content -->
   <main class="flex-grow container mx-auto px-4 py-8">
     <%= yield %>
   </main>
-
-  <!-- Footer -->
-  <footer class="bg-gray-800 text-gray-300 py-4">
-    <div class="container mx-auto text-center">
-      <p class="text-sm">&copy; 2025 My App. All rights reserved.</p>
-      <p class="text-sm">Follow us: 
-        <a href="#" class="text-blue-400 hover:underline">Twitter</a> | 
-        <a href="#" class="text-blue-400 hover:underline">Facebook</a>
-      </p>
-    </div>
-  </footer>
+  <%= render 'shared/footer' %>
   </body>
 </html>
