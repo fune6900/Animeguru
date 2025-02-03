@@ -6,9 +6,9 @@
   <nav class="flex gap-6">
     <% if user_signed_in? %>
       <!-- ログイン後のナビゲーション -->
-      <%= link_to "みんなの投稿", posts_path, class: "link link-hover text-lg font-medium transition duration-300 hover:text-base-200" %>
-      <%= link_to "新規投稿", new_post_path, class: "link link-hover text-lg font-medium transition duration-300 hover:text-base-200" %>
-      <%= link_to "マイページ", user_path(current_user), class: "link link-hover text-lg font-medium transition duration-300 hover:text-base-200" %>
+      <%= link_to "みんなの投稿", "#", class: "link link-hover text-lg font-medium transition duration-300 hover:text-base-200" %>
+      <%= link_to "新規投稿", "#", class: "link link-hover text-lg font-medium transition duration-300 hover:text-base-200" %>
+      <%= link_to "マイページ", "#", class: "link link-hover text-lg font-medium transition duration-300 hover:text-base-200" %>
       <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "link link-hover text-lg font-medium transition duration-300 hover:text-base-200" %>
     <% else %>
       <!-- ログイン前のナビゲーション -->
