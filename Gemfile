@@ -46,6 +46,8 @@ group :development, :test do
   # デバッグツール
   gem "pry-byebug"
 
+  gem "faker"
+
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
 
