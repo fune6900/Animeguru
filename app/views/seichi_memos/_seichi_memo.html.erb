@@ -1,7 +1,7 @@
 <div class="bg-white p-4 rounded-lg shadow-md">
 <h3 class="text-lg font-bold"><%= seichi_memo.title %></h3>
 <p class="text-gray-600">作品: <%= seichi_memo.anime.title %></p>
-<p class="text-gray-600">聖地: <%= seichmemo.place.name %></p>
+<p class="text-gray-600">聖地: <%= seichi_memo.place.name %></p>
 <p class="mt-2"><%= seichi_memo.body.truncate(100) %></p>
 <p class="text-sm text-gray-400"><%= seichi_memo.created_at.strftime("%Y-%m-%d %H:%M") %></p>
 </div>
