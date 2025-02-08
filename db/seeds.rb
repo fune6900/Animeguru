@@ -21,8 +21,8 @@ places = Place.create!([
     user: user,
     anime: animes.sample,
     place: places.sample,
-    title: Faker::Lorem.characters(number: 20),
-    body: Faker::Lorem.paragraph_by_chars(number: 900)
+    title: Faker::JapaneseMedia::OnePiece.quote.truncate(30),
+    body: Faker::Lorem.paragraph(sentence_count: 5, supplemental: true)
   )
 end
 
