@@ -18,10 +18,10 @@ class Users::SessionsController < Devise::SessionsController
   #   super
   # end
 
-  # protected
+  protected
 
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_in_params
-  #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
-  # end
+  # ログイン後のリダイレクト先を変更
+  def after_sign_in_path_for(resource)
+    seichi_memos_path # 聖地メモ一覧ページにリダイレクト
+  end
 end

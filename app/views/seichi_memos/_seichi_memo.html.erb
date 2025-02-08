@@ -1,0 +1,24 @@
+<div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+  <% @seichi_memos.each do |seichi_memo| %>
+    <div class="bg-white p-4 rounded-lg shadow-md flex flex-col h-[400px]">
+
+      <!-- 画像 -->
+      <div class="h-48 flex items-center justify-center rounded-md overflow-hidden">
+        <%= image_tag "default_seichi_image.jpg", alt: "聖地画像", class: "object-cover w-full h-full" %>
+      </div>
+
+      <!-- コンテンツ -->
+      <div class="flex-grow flex flex-col">
+        <h3 class="text-lg font-bold mt-3"><%= seichi_memo.title %></h3>
+        <p class="text-gray-700"><%= seichi_memo.anime.title %></p>
+        <p class="text-gray-600 flex-grow line-clamp-3"><%= seichi_memo.body.truncate(100) %></p>
+      </div>
+
+      <!-- ユーザー情報 -->
+      <div class="flex items-center mt-4">
+        <span class="ml-2 text-gray-700"><%= seichi_memo.user.username %></span>
+      </div>
+
+    </div>
+  <% end %>
+</div>

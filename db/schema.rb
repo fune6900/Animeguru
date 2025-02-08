@@ -10,9 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_03_200815) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_06_201618) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "animes", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "official_site_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["title"], name: "index_animes_on_title", unique: true
+  end
+
+  create_table "places", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "address", null: false
+    t.string "postal_code", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_places_on_name", unique: true
+  end
+
+  create_table "seichi_memos", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "anime_id", null: false
+    t.bigint "place_id", null: false
+    t.string "title", null: false
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["anime_id"], name: "index_seichi_memos_on_anime_id"
+    t.index ["place_id"], name: "index_seichi_memos_on_place_id"
+    t.index ["user_id"], name: "index_seichi_memos_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -27,4 +57,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_03_200815) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
+
+  add_foreign_key "seichi_memos", "animes"
+  add_foreign_key "seichi_memos", "places"
+  add_foreign_key "seichi_memos", "users"
 end
