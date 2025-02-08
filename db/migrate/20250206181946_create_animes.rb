@@ -6,7 +6,7 @@ class CreateAnimes < ActiveRecord::Migration[7.2]
 
       t.timestamps
     end
-    
+
     add_index :animes, :title, unique: true
   end
 end
