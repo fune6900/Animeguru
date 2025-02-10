@@ -1,0 +1,36 @@
+<div class="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+  <!-- タイトル -->
+  <h1 class="text-2xl font-bold mb-4"><%= @seichi_memo.title %></h1>
+
+  <!-- デフォルト画像 -->
+  <div class="bg-gray-300 h-48 flex items-center justify-center rounded-md mb-4">
+    <img src="<%= asset_path('default_seichi_image.png') %>" alt="デフォルト画像" class="object-cover h-full w-full">
+  </div>
+
+  <!-- 聖地メモの本文 -->
+  <p class="text-gray-700 mb-4"><%= @seichi_memo.body %></p>
+
+  <!-- 聖地の情報 -->
+  <div class="border-t border-gray-300 pt-4">
+    <h2 class="text-lg font-bold">聖地情報</h2>
+    <p class="text-gray-700"><strong>聖地名:</strong> <%= @seichi_memo.place.name %></p>
+    <p class="text-gray-700"><strong>住所:</strong> <%= @seichi_memo.place.address.presence || "情報なし" %></p>
+    <p class="text-gray-700"><strong>郵便番号:</strong> <%= @seichi_memo.place.postal_code.presence || "情報なし" %></p>
+  </div>
+
+  <!-- 作品情報 -->
+  <div class="border-t border-gray-300 pt-4">
+    <h2 class="text-lg font-bold">作品情報</h2>
+    <p class="text-gray-700"><strong>作品名:</strong> <%= @seichi_memo.anime.title %></p>
+    <% if @seichi_memo.anime.official_site_url.present? %>
+      <p class="text-blue-500"><a href="<%= @seichi_memo.anime.official_site_url %>" target="_blank">公式サイトはこちら</a></p>
+    <% else %>
+      <p class="text-gray-700">公式サイト情報なし</p>
+    <% end %>
+  </div>
+
+  <!-- 戻るボタン -->
+  <div class="mt-6 text-center">
+    <%= link_to "一覧に戻る", seichi_memos_path, class: "px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600" %>
+  </div>
+</div>
