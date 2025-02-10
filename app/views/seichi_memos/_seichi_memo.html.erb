@@ -9,7 +9,9 @@
 
       <!-- コンテンツ -->
       <div class="flex-grow flex flex-col">
-        <h3 class="text-lg font-bold mt-3"><%= seichi_memo.title %></h3>
+        <h3 class="text-lg font-bold mt-3">
+        <%= link_to seichi_memo.title, seichi_memo_path(seichi_memo), class: "text-blue-500 hover:bg-blue-200 p-1 rounded-md transition" %>
+        </h3>
         <p class="text-gray-700"><%= seichi_memo.anime.title %></p>
         <p class="text-gray-600 flex-grow line-clamp-3"><%= seichi_memo.body.truncate(100) %></p>
       </div>
