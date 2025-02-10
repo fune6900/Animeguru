@@ -12,7 +12,7 @@ class SeichiMemoForm
   attribute :place_address, :string
   attribute :place_postal_code, :string
 
-  # 🔹 バリデーション（ユニークチェックを削除）
+  # 🔹 バリデーション
   validates :title, presence: true, length: { maximum: 30 }
   validates :body, presence: true, length: { maximum: 1000 }
   validates :anime_title, presence: true, length: { maximum: 100 }
@@ -26,15 +26,16 @@ class SeichiMemoForm
   def save
     return false unless valid?
 
-    # 🔹 既存データを再利用 or 新規作成
-    anime = Anime.find_or_create_by(title: anime_title) do |anime|
-      anime.official_site_url = anime_official_site_url
-    end
+    # 🔹 既存データを再利用 or 新規作成（公式サイトがなければ更新）
+    anime = Anime.find_or_create_by(title: anime_title)
+    anime.update(official_site_url: anime_official_site_url.presence || anime.official_site_url)
 
-    place = Place.find_or_create_by(name: place_name) do |place|
-      place.address = place_address.presence || place.address
-      place.postal_code = place_postal_code.presence || place.postal_code
-    end
+    # 🔹 既存レコードがあった場合、住所や郵便番号を更新
+    place = Place.find_or_create_by(name: place_name)
+    place.update(
+      address: place_address.presence || place.address,
+      postal_code: place_postal_code.presence || place.postal_code
+    )
 
     # 🔹 聖地メモを作成
     @seichi_memo = SeichiMemo.create!(
