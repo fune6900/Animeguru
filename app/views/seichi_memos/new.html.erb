@@ -1,8 +1,21 @@
 <h2 class="text-2xl font-bold text-center mb-6">新規投稿</h2>
 <%= form_with model: @seichi_memo_form, url: seichi_memos_path, method: :post, local: true, class: "space-y-4" do |f| %>
 
+  <!-- 🔹 巡礼記録 -->
+  <div class="border-b p-4">
+    <h2 class="text-xl font-bold">巡礼記録</h2>
+    <div class="mt-4">
+      <label class="block text-gray-700">タイトル <span class="text-red-500">（必須）</span></label>
+      <%= f.text_field :title, class: "w-full p-2 border rounded-md", placeholder: "巡礼記録のタイトルを入力してください" %>
+    </div>
+    <div class="mt-2">
+      <label class="block text-gray-700">メモ <span class="text-red-500">（必須）</span></label>
+      <%= f.text_area :body, class: "w-full p-2 border rounded-md h-32", placeholder: "シーンの解説や撮影スポットの詳細、ベストな訪問時間など" %>
+    </div>
+  </div>
+
   <!-- 🔹 聖地の基本情報 -->
-  <div class="border-b pb-4">
+  <div class="border-b p-4">
     <h2 class="text-xl font-bold">聖地の基本情報</h2>
     <div class="mt-4">
       <label class="block text-gray-700">聖地名 <span class="text-red-500">（必須）</span></label>
@@ -19,7 +32,7 @@
   </div>
 
   <!-- 🔹 作品の基本情報 -->
-  <div class="border-b pb-4">
+  <div class="p-4">
     <h2 class="text-xl font-bold">作品の基本情報</h2>
     <div class="mt-4">
       <label class="block text-gray-700">作品タイトル <span class="text-red-500">（必須）</span></label>
@@ -28,19 +41,6 @@
     <div class="mt-2">
       <label class="block text-gray-700">公式サイト <span class="text-gray-500">（任意）</span></label>
       <%= f.text_field :anime_official_site_url, class: "w-full p-2 border rounded-md", placeholder: "例: https://www.example-anime.jp/" %>
-    </div>
-  </div>
-
-  <!-- 🔹 巡礼記録 -->
-  <div class="pb-4">
-    <h2 class="text-xl font-bold">巡礼記録</h2>
-    <div class="mt-4">
-      <label class="block text-gray-700">タイトル <span class="text-red-500">（必須）</span></label>
-      <%= f.text_field :title, class: "w-full p-2 border rounded-md", placeholder: "巡礼記録のタイトルを入力してください" %>
-    </div>
-    <div class="mt-2">
-      <label class="block text-gray-700">メモ <span class="text-red-500">（必須）</span></label>
-      <%= f.text_area :body, class: "w-full p-2 border rounded-md h-32", placeholder: "シーンの解説や撮影スポットの詳細、ベストな訪問時間など" %>
     </div>
   </div>
 
