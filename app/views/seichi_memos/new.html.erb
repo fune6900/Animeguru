@@ -1,50 +1,52 @@
 <h2 class="text-2xl font-bold text-center mb-6">新規投稿</h2>
+<%= form_with model: @seichi_memo_form, url: seichi_memos_path, method: :post, local: true, class: "space-y-4" do |f| %>
 
-<div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
-  <%= form_with model: @seichi_memo_form, url: seichi_memos_path, method: :post, local: true, class: "space-y-4" do |f| %>
-    <%= render "shared/error_messages", resource: @seichi_memo_form %>
-
-    <!-- タイトル -->
-    <div class="form-control">
-      <%= f.label :title, "タイトル" %>
-      <%= f.text_field :title, class: "input input-bordered w-full" %>
+  <!-- 🔹 聖地の基本情報 -->
+  <div class="border-b pb-4">
+    <h2 class="text-xl font-bold">聖地の基本情報</h2>
+    <div class="mt-4">
+      <label class="block text-gray-700">聖地名 <span class="text-red-500">（必須）</span></label>
+      <%= f.text_field :place_name, class: "w-full p-2 border rounded-md", placeholder: "聖地の名前を入力してください" %>
     </div>
-
-    <!-- 本文 -->
-    <div class="form-control">
-      <%= f.label :body, "本文" %>
-      <%= f.text_area :body, class: "textarea textarea-bordered w-full" %>
+    <div class="mt-2">
+      <label class="block text-gray-700">住所 <span class="text-gray-500">（任意）</span></label>
+      <%= f.text_field :place_address, class: "w-full p-2 border rounded-md", placeholder: "住所を入力してください" %>
     </div>
-
-    <!-- アニメ情報 -->
-    <div class="form-control">
-      <%= f.label :anime_title, "アニメ作品名" %>
-      <%= f.text_field :anime_title, class: "input input-bordered w-full" %>
+    <div class="mt-2">
+      <label class="block text-gray-700">郵便番号 <span class="text-gray-500">（任意）</span></label>
+      <%= f.text_field :place_postal_code, class: "w-full p-2 border rounded-md", placeholder: "例: 101-0021" %>
     </div>
+  </div>
 
-    <div class="form-control">
-      <%= f.label :anime_official_site_url, "公式サイトURL" %>
-      <%= f.text_field :anime_official_site_url, class: "input input-bordered w-full" %>
+  <!-- 🔹 作品の基本情報 -->
+  <div class="border-b pb-4">
+    <h2 class="text-xl font-bold">作品の基本情報</h2>
+    <div class="mt-4">
+      <label class="block text-gray-700">作品タイトル <span class="text-red-500">（必須）</span></label>
+      <%= f.text_field :anime_title, class: "w-full p-2 border rounded-md", placeholder: "作品のタイトルを入力してください" %>
     </div>
+    <div class="mt-2">
+      <label class="block text-gray-700">公式サイト <span class="text-gray-500">（任意）</span></label>
+      <%= f.text_field :anime_official_site_url, class: "w-full p-2 border rounded-md", placeholder: "例: https://www.example-anime.jp/" %>
+    </div>
+  </div>
 
-    <!-- 聖地情報 -->
-    <div class="form-control">
-      <%= f.label :place_name, "聖地名" %>
-      <%= f.text_field :place_name, class: "input input-bordered w-full" %>
+  <!-- 🔹 巡礼記録 -->
+  <div class="pb-4">
+    <h2 class="text-xl font-bold">巡礼記録</h2>
+    <div class="mt-4">
+      <label class="block text-gray-700">タイトル <span class="text-red-500">（必須）</span></label>
+      <%= f.text_field :title, class: "w-full p-2 border rounded-md", placeholder: "巡礼記録のタイトルを入力してください" %>
     </div>
+    <div class="mt-2">
+      <label class="block text-gray-700">メモ <span class="text-red-500">（必須）</span></label>
+      <%= f.text_area :body, class: "w-full p-2 border rounded-md h-32", placeholder: "シーンの解説や撮影スポットの詳細、ベストな訪問時間など" %>
+    </div>
+  </div>
 
-    <div class="form-control">
-      <%= f.label :place_address, "住所" %>
-      <%= f.text_field :place_address, class: "input input-bordered w-full" %>
-    </div>
+  <!-- 送信ボタン -->
+  <div class="text-center">
+    <%= f.submit "投稿する", class: "btn btn-primary w-32" %>
+  </div>
 
-    <div class="form-control">
-      <%= f.label :place_postal_code, "郵便番号" %>
-      <%= f.text_field :place_postal_code, class: "input input-bordered w-full" %>
-    </div>
-
-    <div class="form-control mt-4">
-      <%= f.submit "投稿する", class: "btn btn-primary w-full" %>
-    </div>
-  <% end %>
-</div>
+<% end %>
