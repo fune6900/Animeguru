@@ -1,7 +1,7 @@
 class SeichiMemosController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [ :new, :create ]
 
-  require_dependency 'seichi_memo_form'
+  require_dependency "seichi_memo_form"
 
   def index
     @seichi_memos = SeichiMemo.includes(:anime, :place).order(created_at: :desc)
