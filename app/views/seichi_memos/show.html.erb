@@ -1,0 +1,67 @@
+<div class="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+  <!-- タイトル -->
+  <h1 class="text-2xl font-bold mp-4"><%= @seichi_memo.title %></h1>
+
+	<!-- ユーザー名 & 投稿日時 -->
+  <p class="text-black-500 text-sm p-4">
+    投稿者: <strong><%= @seichi_memo.user.username %></strong>  
+    （投稿日: <%= @seichi_memo.created_at.strftime("%Y年%m月%d日") %>）
+  </p>
+
+  <!-- 🔹 聖地の写真 & アニメのシーン -->
+  <div class="flex space-x-4 mb-4">
+    <!-- アニメのシーン -->
+    <div class="w-1/2 h-60">
+      <%= image_tag "default_scene_image.jpg", 
+        alt: "アニメのシーン", 
+        class: "rounded-lg shadow-md w-full h-full object-cover" %>
+    </div>
+
+    <!-- 聖地の実際の写真 -->
+    <div class="w-1/2 h-60">
+      <%= image_tag "default_seichi_image.jpg", 
+        alt: "聖地の写真", 
+        class: "rounded-lg shadow-md w-full h-full object-cover" %>
+    </div>
+  </div>
+
+  <!-- 聖地メモの本文 -->
+	<div class="p-4">
+	  <h2 class="text-lg font-bold">メモ</h2>
+    <p class="text-gray-700 mb-4"><%= simple_format(@seichi_memo.body) %></p>
+	</div>
+
+  <!-- 聖地の情報 -->
+  <div class="border-t border-gray-300 p-4">
+    <h2 class="text-lg font-bold">聖地情報</h2>
+    <p class="text-gray-700"><strong>聖地名:</strong> <%= @seichi_memo.place.name %></p>
+    <p class="text-gray-700"><strong>住所:</strong> <%= @seichi_memo.place.address.presence || "情報なし" %></p>
+    <p class="text-gray-700"><strong>郵便番号:</strong> <%= @seichi_memo.place.postal_code.presence || "情報なし" %></p>
+  </div>
+
+  <!-- 作品情報 -->
+  <div class="border-t border-gray-300 p-4">
+    <h2 class="text-lg font-bold">作品情報</h2>
+    <p class="text-gray-700"><strong>作品名:</strong> <%= @seichi_memo.anime.title %></p>
+    <% if @seichi_memo.anime.official_site_url.present? %>
+      <p class="text-blue-500 flex items-center space-x-1">
+        <a href="<%= @seichi_memo.anime.official_site_url %>" target="_blank" class="hover:underline flex items-center">
+          公式サイト
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M12.293 3.293a1 1 0 011.414 0L18 7.586a1 1 0 010 1.414l-5.293 5.293a1 1 0 01-1.414-1.414L15.586 9H7a1 1 0 110-2h8.586L12.293 4.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+          </svg>
+        </a>
+      </p>
+    <% else %>
+      <p class="text-gray-700">公式サイト情報なし</p>
+    <% end %>
+    <div class="mt-4 flex justify-center">
+      <%= image_tag "default_anime_image.jpg", alt: "作品イメージ", class: "rounded-lg shadow-md w-2/3 object-cover" %>
+    </div>
+  </div>
+
+  <!-- 戻るボタン -->
+  <div class="mt-6 text-center">
+    <%= link_to "みんなの投稿に戻る", seichi_memos_path, class: "btn btn-primary w-50" %>
+  </div>
+</div>
