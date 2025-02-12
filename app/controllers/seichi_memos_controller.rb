@@ -1,7 +1,7 @@
 class SeichiMemosController < ApplicationController
   before_action :authenticate_user!, only: [ :new, :create, :edit, :update ]
   before_action :set_seichi_memo, only: [ :show, :edit, :update ]
-  before_action :correct_user, only: [:edit, :update]
+  before_action :correct_user, only: [ :edit, :update ]
 
   require_dependency "seichi_memo_form"
 

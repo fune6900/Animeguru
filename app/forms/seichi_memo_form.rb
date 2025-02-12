@@ -49,18 +49,18 @@ class SeichiMemoForm
 
   def update(seichi_memo)
     return false unless valid?
-  
+
     # 🔹 既存のアニメ情報を取得 or 作成し、公式サイトを更新
     anime = Anime.find_or_create_by(title: anime_title)
     anime.update(official_site_url: anime_official_site_url.presence || anime.official_site_url)
-  
+
     # 🔹 既存の聖地情報を取得 or 作成し、住所や郵便番号を更新
     place = Place.find_or_create_by(name: place_name)
     place.update(
       address: place_address.presence || place.address,
       postal_code: place_postal_code.presence || place.postal_code
     )
-  
+
     # 🔹 聖地メモの情報を更新
     seichi_memo.update(
       title: title,
