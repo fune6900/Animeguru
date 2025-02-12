@@ -70,18 +70,6 @@ class SeichiMemoForm
     )
   end
 
-  # 🔹 削除処理
-  def destroy!
-    raise ActiveRecord::RecordNotFound unless seichi_memo
-
-    begin
-      seichi_memo.destroy!
-    rescue ActiveRecord::RecordNotDestroyed
-      errors.add(:base, "削除に失敗しました")
-      false
-    end
-  end
-
   # 🔹 persisted? メソッド
   def persisted?
     seichi_memo.present? && seichi_memo.id.present?

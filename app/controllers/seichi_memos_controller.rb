@@ -55,9 +55,7 @@ class SeichiMemosController < ApplicationController
   end
 
   def destroy
-    seichi_memo_form = SeichiMemoForm.new(@seichi_memo)
-
-    if seichi_memo_form.destroy!
+    if @seichi_memo.destroy
       flash[:notice] = "聖地メモを削除しました"
       redirect_to seichi_memos_path
     else
