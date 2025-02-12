@@ -38,13 +38,14 @@ class SeichiMemosController < ApplicationController
       place_address: @seichi_memo.place.address,
       place_postal_code: @seichi_memo.place.postal_code
     )
+    @seichi_memo_form.seichi_memo = @seichi_memo
   end
 
   def update
     @seichi_memo_form = SeichiMemoForm.new(seichi_memo_params)
     @seichi_memo_form.seichi_memo = @seichi_memo
 
-    if @seichi_memo_form.update
+    if @seichi_memo_form.update(@seichi_memo)
       flash[:notice] = "聖地メモを更新しました！"
       redirect_to seichi_memo_path(@seichi_memo)
     else

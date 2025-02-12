@@ -21,7 +21,7 @@ class SeichiMemoForm
   validates :place_address, length: { maximum: 200 }, allow_blank: true
   validates :place_postal_code, format: { with: /\A\d{3}-\d{4}\z/, message: "はXXX-XXXXの形式で入力してください" }, allow_blank: true
 
-  attr_reader :seichi_memo
+  attr_accessor :seichi_memo
 
   def save
     return false unless valid?
@@ -68,5 +68,10 @@ class SeichiMemoForm
       anime_id: anime.id,
       place_id: place.id
     )
+  end
+
+  # 🔹 persisted? メソッドを追加
+  def persisted?
+    seichi_memo.present? && seichi_memo.id.present?
   end
 end

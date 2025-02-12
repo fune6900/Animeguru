@@ -46,9 +46,10 @@
     </div>
   </div>
 
-  <!-- 送信ボタン -->
-  <div class="text-center">
+  <!-- 送信ボタンと戻るボタン -->
+  <div class="text-center flex justify-center space-x-4">
+    <%= link_to "戻る", "javascript:history.back();", class: "btn btn-primary w-32" %>
+
     <%= f.submit @seichi_memo_form.persisted? ? "更新する" : "投稿する", class: "btn btn-primary w-32" %>
   </div>
-
 <% end %>
