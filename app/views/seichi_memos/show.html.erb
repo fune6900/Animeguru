@@ -1,6 +1,12 @@
 <div class="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
-  <!-- タイトル -->
-  <h1 class="text-2xl font-bold mp-4"><%= @seichi_memo.title %></h1>
+  <!-- タイトル & 編集ボタン -->
+  <div class="flex justify-between items-center">
+    <h1 class="text-2xl font-bold"><%= @seichi_memo.title %></h1>
+
+    <% if current_user == @seichi_memo.user %>
+      <%= link_to "編集", edit_seichi_memo_path(@seichi_memo), class: "btn btn-primary w-50" %>
+    <% end %>
+  </div>
 
 	<!-- ユーザー名 & 投稿日時 -->
   <p class="text-black-500 text-sm p-4">
