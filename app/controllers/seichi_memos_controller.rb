@@ -1,7 +1,7 @@
 class SeichiMemosController < ApplicationController
-  before_action :authenticate_user!, only: [ :new, :create, :edit, :update ]
-  before_action :set_seichi_memo, only: [ :show, :edit, :update ]
-  before_action :correct_user, only: [ :edit, :update ]
+  before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy ]
+  before_action :set_seichi_memo, only: [ :show, :edit, :update, :destroy ]
+  before_action :correct_user, only: [ :edit, :update, :destroy ]
 
   require_dependency "seichi_memo_form"
 
@@ -51,6 +51,16 @@ class SeichiMemosController < ApplicationController
     else
       flash[:alert] = "聖地メモを更新できませんでした"
       render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    if @seichi_memo.destroy
+      flash[:notice] = "聖地メモを削除しました"
+      redirect_to seichi_memos_path
+    else
+      flash[:alert] = "削除に失敗しました"
+      redirect_back fallback_location: seichi_memos_path
     end
   end
 

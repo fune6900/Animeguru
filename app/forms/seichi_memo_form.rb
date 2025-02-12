@@ -70,7 +70,7 @@ class SeichiMemoForm
     )
   end
 
-  # 🔹 persisted? メソッドを追加
+  # 🔹 persisted? メソッド
   def persisted?
     seichi_memo.present? && seichi_memo.id.present?
   end

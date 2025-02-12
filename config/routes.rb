@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   sessions: "users/sessions"
   }
 
-  resources :seichi_memos, only: [ :index, :new, :create, :show, :edit, :update ]
+  resources :seichi_memos, only: [ :index, :new, :create, :show, :edit, :update, :destroy ]
 
   # Health check ルート（アップタイムモニタリング用）
   get "up" => "rails/health#show", as: :rails_health_check
