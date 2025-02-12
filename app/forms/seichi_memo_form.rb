@@ -21,7 +21,7 @@ class SeichiMemoForm
   validates :place_address, length: { maximum: 200 }, allow_blank: true
   validates :place_postal_code, format: { with: /\A\d{3}-\d{4}\z/, message: "はXXX-XXXXの形式で入力してください" }, allow_blank: true
 
-  attr_reader :seichi_memo
+  attr_accessor :seichi_memo
 
   def save
     return false unless valid?
@@ -45,5 +45,33 @@ class SeichiMemoForm
       title: title,
       body: body
     )
+  end
+
+  def update(seichi_memo)
+    return false unless valid?
+
+    # 🔹 既存のアニメ情報を取得 or 作成し、公式サイトを更新
+    anime = Anime.find_or_create_by(title: anime_title)
+    anime.update(official_site_url: anime_official_site_url.presence || anime.official_site_url)
+
+    # 🔹 既存の聖地情報を取得 or 作成し、住所や郵便番号を更新
+    place = Place.find_or_create_by(name: place_name)
+    place.update(
+      address: place_address.presence || place.address,
+      postal_code: place_postal_code.presence || place.postal_code
+    )
+
+    # 🔹 聖地メモの情報を更新
+    seichi_memo.update(
+      title: title,
+      body: body,
+      anime_id: anime.id,
+      place_id: place.id
+    )
+  end
+
+  # 🔹 persisted? メソッドを追加
+  def persisted?
+    seichi_memo.present? && seichi_memo.id.present?
   end
 end
