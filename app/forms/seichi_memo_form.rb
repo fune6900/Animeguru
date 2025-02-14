@@ -11,6 +11,9 @@ class SeichiMemoForm
   attribute :place_name, :string
   attribute :place_address, :string
   attribute :place_postal_code, :string
+  attribute :seichi_photo
+  attribute :scene_image
+  attribute :image_url
 
   # 🔹 バリデーション
   validates :title, presence: true, length: { maximum: 30 }
@@ -28,7 +31,10 @@ class SeichiMemoForm
 
     # 🔹 既存データを再利用 or 新規作成（公式サイトがなければ更新）
     anime = Anime.find_or_create_by(title: anime_title)
-    anime.update(official_site_url: anime_official_site_url.presence || anime.official_site_url)
+    anime.update(
+      official_site_url: anime_official_site_url.presence || anime.official_site_url,
+      image_url: image_url.presence || anime.image_url
+    )
 
     # 🔹 既存レコードがあった場合、住所や郵便番号を更新
     place = Place.find_or_create_by(name: place_name)
@@ -43,7 +49,9 @@ class SeichiMemoForm
       anime_id: anime.id,
       place_id: place.id,
       title: title,
-      body: body
+      body: body,
+      seichi_photo: seichi_photo,
+      scene_image: scene_image
     )
   end
 
@@ -52,7 +60,10 @@ class SeichiMemoForm
 
     # 🔹 既存のアニメ情報を取得 or 作成し、公式サイトを更新
     anime = Anime.find_or_create_by(title: anime_title)
-    anime.update(official_site_url: anime_official_site_url.presence || anime.official_site_url)
+    anime.update(
+      official_site_url: anime_official_site_url.presence || anime.official_site_url,
+      image_url: image_url.presence || anime.image_url
+    )
 
     # 🔹 既存の聖地情報を取得 or 作成し、住所や郵便番号を更新
     place = Place.find_or_create_by(name: place_name)
@@ -66,7 +77,9 @@ class SeichiMemoForm
       title: title,
       body: body,
       anime_id: anime.id,
-      place_id: place.id
+      place_id: place.id,
+      seichi_photo: seichi_photo.presence || seichi_memo.seichi_photo,
+      scene_image: scene_image.presence || seichi_memo.scene_image
     )
   end
 
