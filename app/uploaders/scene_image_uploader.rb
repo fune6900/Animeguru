@@ -1,4 +1,4 @@
-class SeichiPhotoUploader < CarrierWave::Uploader::Base
+class SceneImageUploader < CarrierWave::Uploader::Base
   # Include RMagick, MiniMagick, or Vips support:
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
@@ -17,9 +17,9 @@ class SeichiPhotoUploader < CarrierWave::Uploader::Base
   # Provide a default URL as a default if there hasn't been a file uploaded:
   #   # For Rails 3.1+ asset pipeline compatibility:
   def default_url(*args)
-    ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default_seichi_image.jpg"].compact.join('_'))
+    ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default_scene_image.jpg"].compact.join('_'))
   end
-  #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
+    #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
 
   # Process files as they are uploaded:
   # process scale: [200, 300]
