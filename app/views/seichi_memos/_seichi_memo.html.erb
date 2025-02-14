@@ -2,7 +2,9 @@
   <!-- 画像（クリックで詳細画面へ遷移） -->
   <div class="h-48 flex items-center justify-center rounded-md overflow-hidden">
     <%= link_to seichi_memo_path(seichi_memo) do %>
-      <%= image_tag "default_seichi_image.jpg", alt: "聖地画像", class: "object-cover w-full h-full cursor-pointer transition hover:opacity-80" %>
+      <%= image_tag (seichi_memo.seichi_photo.present? ? seichi_memo.seichi_photo.url : SeichiPhotoUploader.new.default_url),
+          alt: "聖地画像",
+          class: "object-cover w-full h-full cursor-pointer transition hover:opacity-80" %>
     <% end %>
   </div>
 

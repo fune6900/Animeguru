@@ -37,7 +37,7 @@ class SeichiMemosController < ApplicationController
       image_url: @seichi_memo.anime.image_url,
       place_name: @seichi_memo.place.name,
       place_address: @seichi_memo.place.address,
-      place_postal_code: @seichi_memo.place.postal_code
+      place_postal_code: @seichi_memo.place.postal_code,
       seichi_photo: @seichi_memo.seichi_photo,
       scene_image: @seichi_memo.scene_image
     )

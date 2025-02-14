@@ -17,7 +17,7 @@ class SceneImageUploader < CarrierWave::Uploader::Base
   # Provide a default URL as a default if there hasn't been a file uploaded:
   #   # For Rails 3.1+ asset pipeline compatibility:
   def default_url(*args)
-    ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default_scene_image.jpg"].compact.join('_'))
+    ActionController::Base.helpers.asset_path("default_scene_image.jpg")
   end
     #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
 
