@@ -44,4 +44,11 @@ class AnimeImageUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg"
   # end
+
+  # 本番環境と開発・テスト環境で保存先を分ける
+  if Rails.env.production?
+    storage :fog
+  else
+    storage :file
+  end
 end
