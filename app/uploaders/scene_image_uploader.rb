@@ -19,7 +19,7 @@ class SceneImageUploader < CarrierWave::Uploader::Base
   def default_url(*args)
     ActionController::Base.helpers.asset_path("default_scene_image.jpg")
   end
-    #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
+  #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
 
   # Process files as they are uploaded:
   # process scale: [200, 300]
@@ -36,7 +36,7 @@ class SceneImageUploader < CarrierWave::Uploader::Base
   # Add an allowlist of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_allowlist
-    %w(jpg jpeg gif png webp)
+    %w[jpg jpeg gif png webp]
   end
 
   # Override the filename of the uploaded files:
