@@ -34,9 +34,12 @@ class SeichiMemosController < ApplicationController
       body: @seichi_memo.body,
       anime_title: @seichi_memo.anime.title,
       anime_official_site_url: @seichi_memo.anime.official_site_url,
+      image_url: @seichi_memo.anime.image_url,
       place_name: @seichi_memo.place.name,
       place_address: @seichi_memo.place.address,
-      place_postal_code: @seichi_memo.place.postal_code
+      place_postal_code: @seichi_memo.place.postal_code,
+      seichi_photo: @seichi_memo.seichi_photo,
+      scene_image: @seichi_memo.scene_image
     )
     @seichi_memo_form.seichi_memo = @seichi_memo
   end
@@ -68,7 +71,18 @@ class SeichiMemosController < ApplicationController
 
   # 🔹 Strong Parameters
   def seichi_memo_params
-    params.require(:seichi_memo_form).permit(:title, :body, :anime_title, :anime_official_site_url, :place_name, :place_address, :place_postal_code).merge(user_id: current_user.id)
+    params.require(:seichi_memo_form).permit(
+      :title,
+      :body,
+      :anime_title,
+      :anime_official_site_url,
+      :image_url,
+      :place_name,
+      :place_address,
+      :place_postal_code,
+      :seichi_photo,
+      :scene_image
+    ).merge(user_id: current_user.id)
   end
 
   # 🔹 指定したIDの聖地メモを取得

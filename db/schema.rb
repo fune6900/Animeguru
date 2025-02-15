@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_08_073301) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_14_082012) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,6 +19,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_08_073301) do
     t.string "official_site_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image_url"
     t.index ["title"], name: "index_animes_on_title", unique: true
   end
 
@@ -39,6 +40,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_08_073301) do
     t.text "body", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "seichi_photo"
+    t.string "scene_image"
     t.index ["anime_id"], name: "index_seichi_memos_on_anime_id"
     t.index ["place_id"], name: "index_seichi_memos_on_place_id"
     t.index ["user_id"], name: "index_seichi_memos_on_user_id"
