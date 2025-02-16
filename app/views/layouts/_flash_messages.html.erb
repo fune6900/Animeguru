@@ -1,5 +1,19 @@
-<% flash.each do |message_type, message| %>
-  <div class="<%= flash_background_color(message_type) %> px-4 py-2 rounded-md text-white mb-4">
-    <%= message %>
+<% if flash.any? %>
+  <div class="fixed top-5 right-5 w-96 z-50 space-y-3">
+    <% flash.each do |message_type, message| %>
+      <div class="<%= flash_background_color(message_type) %> px-4 py-3 rounded-md text-white flex items-center shadow-lg animate-slide-in fade-out" id="flash-message-<%= message_type %>">
+        <span class="ml-3"><%= message %></span>
+        <button onclick="this.parentElement.remove();" class="ml-auto text-xl leading-none">&times;</button>
+      </div>
+    <% end %>
   </div>
+  <script>
+    // 5秒後にフェードアウトさせて削除
+    setTimeout(() => {
+      document.querySelectorAll('.fade-out').forEach(el => {
+        el.classList.add('animate-fade-out');
+        setTimeout(() => el.remove(), 500); // アニメーション完了後に削除
+      });
+    }, 5000);
+  </script>
 <% end %>
