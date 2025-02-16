@@ -13,7 +13,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     # すべての入力項目が空でないかチェック
     if params[:user][:username].blank? || params[:user][:email].blank? || params[:user][:password].blank? || params[:user][:password_confirmation].blank?
-      flash[:alert] = I18n.t('devise.failure.not_saved')  # 「アカウントを作成できませんでした」
+      flash[:alert] = I18n.t("devise.failure.not_saved")  # 「アカウントを作成できませんでした」
       redirect_to new_user_registration_path
     else
       super

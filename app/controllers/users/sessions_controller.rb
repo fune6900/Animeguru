@@ -11,7 +11,7 @@ class Users::SessionsController < Devise::SessionsController
   # POST /resource/sign_in
   def create
     if params[:user][:email].blank? || params[:user][:password].blank?
-      flash[:alert] = I18n.t('devise.failure.login_failed')
+      flash[:alert] = I18n.t("devise.failure.login_failed")
       redirect_to new_user_session_path
     else
       super
