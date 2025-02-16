@@ -22,7 +22,7 @@ class SeichiMemosController < ApplicationController
     if @seichi_memo_form.save
       redirect_to seichi_memo_path(@seichi_memo_form.seichi_memo), notice: "聖地メモを投稿しました！"
     else
-      flash[:alert] = "聖地メモを投稿できませんでした"
+      flash.now[:alert] = "聖地メモを投稿出来ませんでした"
       render :new, status: :unprocessable_entity
     end
   end
@@ -49,20 +49,18 @@ class SeichiMemosController < ApplicationController
     @seichi_memo_form.seichi_memo = @seichi_memo
 
     if @seichi_memo_form.update(@seichi_memo)
-      flash[:notice] = "聖地メモを更新しました！"
-      redirect_to seichi_memo_path(@seichi_memo)
+      redirect_to seichi_memo_path(@seichi_memo), notice: "聖地メモを更新しました！"
     else
-      flash[:alert] = "聖地メモを更新できませんでした"
+      flash.now[:alert] = "聖地メモを更新できませんでした"
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     if @seichi_memo.destroy
-      flash[:notice] = "聖地メモを削除しました"
-      redirect_to seichi_memos_path
+      redirect_to seichi_memos_path, notice: "聖地メモを削除しました！"
     else
-      flash[:alert] = "削除に失敗しました"
+      flash.now[:alert] = "削除に失敗しました"
       redirect_back fallback_location: seichi_memos_path
     end
   end
@@ -93,7 +91,7 @@ class SeichiMemosController < ApplicationController
   # 🔹 投稿者以外がアクセスしようとした場合、リダイレクト
   def correct_user
     unless @seichi_memo.user == current_user
-      flash[:alert] = "この投稿は編集できません"
+      flash[:alert] = "この聖地メモは編集できません"
       redirect_to root_path
     end
   end
