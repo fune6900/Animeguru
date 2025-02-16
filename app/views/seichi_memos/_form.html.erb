@@ -3,7 +3,8 @@
               method: @seichi_memo_form.persisted? ? :patch : :post, 
               local: true, class: "space-y-4" do |f| %>
 
-  <%= render "shared/error_messages", object: f.object %>
+  <!-- エラーメッセージを表示 -->
+  <%= render "shared/error_messages", resource: @seichi_memo_form %>
 
   <!-- 🔹 巡礼記録 -->
   <div class="border-b p-4">
