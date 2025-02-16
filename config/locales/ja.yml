@@ -1,0 +1,42 @@
+ja:
+  errors:
+    format: "%{attribute}%{message}" # 🔹 他のエラーは適用
+    messages:
+      blank: "を入力してください"
+      invalid: "は有効な値ではありません"
+      too_short: "は%{count}文字以上で入力してください"
+
+  activerecord:
+    models:
+      user: ユーザー
+      seichi_memo: 聖地メモ # 他のモデルもここに追加すると適用される
+    attributes:
+      user:
+        email: メールアドレス
+        username: ユーザー名
+        password: パスワード
+        password_confirmation: パスワード確認
+      seichi_memo:
+        title: タイトル
+        body: メモ
+        anime_title: 作品タイトル
+        place_name: 聖地名
+
+    errors:  # 🔹 `taken` の個別指定
+      models:
+        user:
+          attributes:
+            username:
+              taken: "ユーザー名は既に使用されています"  # 🔹 `username` だけ直接指定
+            email:
+              taken: "メールアドレスは既に使用されています"  # 🔹 `email` も個別指定可能
+
+  activemodel:  # 🔹 Formオブジェクトの翻訳を追加
+    models:
+      seichi_memo_form: 聖地メモ
+    attributes:
+      seichi_memo_form:
+        title: タイトル
+        body: メモ
+        anime_title: 作品タイトル
+        place_name: 聖地名

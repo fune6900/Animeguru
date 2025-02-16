@@ -2,7 +2,6 @@
 
 <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
   <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-4" }) do |f| %>
-    <%= render "devise/shared/error_messages", resource: resource %>
 
     <!-- メールアドレス -->
     <div class="form-control">
