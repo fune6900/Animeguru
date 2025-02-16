@@ -31,5 +31,9 @@ module Myapp
       g.helper false
       g.test_framework nil
     end
+
+    # Locale and timezone settings
+    config.i18n.default_locale = :ja
+    config.time_zone = "Tokyo"
   end
 end
