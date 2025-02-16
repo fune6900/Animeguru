@@ -22,12 +22,16 @@ ja:
     registrations:
       signed_up: "アカウントを作成しました"
       updated: "アカウントを更新しました"
+      failed: "アカウントを作成できませんでした。すべての項目を入力してください"
     passwords:
       send_instructions: "パスワードリセット手順を送信しました"
       updated: "パスワードを変更しました"
     failure:
       already_authenticated: "すでにログインしています"
       unauthenticated: "ログインしてください"
+      invalid: "メールアドレスまたはパスワードが間違っています"
+      not_saved: "アカウントを作成できませんでした。すべての項目を入力してください"
+      login_failed: "ログインできませんでした"
       invalid: "ログインが必要です"
       not_saved: "アカウントが作成できませんでした"
       not_found_in_database: "無効な%{authentication_keys}またはパスワードです"
