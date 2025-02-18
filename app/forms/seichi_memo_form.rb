@@ -112,7 +112,7 @@ class SeichiMemoForm
   def valid_extension?(file, allowed_extensions)
     return false unless file.respond_to?(:original_filename)
 
-    extension = file.original_filename.split('.').last&.downcase
+    extension = file.original_filename.split(".").last&.downcase
     allowed_extensions.include?(extension)
   end
 end
