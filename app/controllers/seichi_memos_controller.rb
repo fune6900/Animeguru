@@ -6,7 +6,7 @@ class SeichiMemosController < ApplicationController
   require_dependency "seichi_memo_form"
 
   def index
-    @seichi_memos = SeichiMemo.includes(:anime, :place, :user).order(created_at: :desc)
+    @seichi_memos = SeichiMemo.includes(:anime, :place, :user).order(created_at: :desc).page(params[:page]).per(18)
   end
 
   def show
