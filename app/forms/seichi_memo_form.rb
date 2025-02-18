@@ -24,6 +24,8 @@ class SeichiMemoForm
   validates :place_address, length: { maximum: 200 }, allow_blank: true
   validates :place_postal_code, format: { with: /\A\d{3}-\d{4}\z/, message: "はXXX-XXXXの形式で入力してください" }, allow_blank: true
 
+  validate :validate_image_extensions
+
   attr_accessor :seichi_memo
 
   def save
@@ -83,8 +85,34 @@ class SeichiMemoForm
     )
   end
 
+  # 🔹 画像の拡張子をチェックするカスタムバリデーション
+  def validate_image_extensions
+    allowed_extensions = %w[jpg jpeg png gif webp]
+
+    if seichi_photo.present? && !valid_extension?(seichi_photo, allowed_extensions)
+      errors.add(:seichi_photo, "は jpg, jpeg, png, gif, webpのいずれかの形式でアップロードしてください")
+    end
+
+    if scene_image.present? && !valid_extension?(scene_image, allowed_extensions)
+      errors.add(:scene_image, "は jpg, jpeg, png, gif, webpのいずれかの形式でアップロードしてください")
+    end
+
+    if image_url.present? && !valid_extension?(image_url, allowed_extensions)
+      errors.add(:image_url, "は jpg, jpeg, png, gif, webpのいずれかの形式で指定してください")
+    end
+  end
+
   # 🔹 persisted? メソッド
   def persisted?
     seichi_memo.present? && seichi_memo.id.present?
+  end
+
+  private
+
+  def valid_extension?(file, allowed_extensions)
+    return false unless file.respond_to?(:original_filename)
+
+    extension = file.original_filename.split(".").last&.downcase
+    allowed_extensions.include?(extension)
   end
 end

@@ -40,6 +40,22 @@ ja:
         body: メモ
         anime_title: 作品タイトル
         place_name: 聖地名
+        anime_official_site_url: 公式サイトURL
+        place_postal_code: 郵便番号
+        seichi_photo: 聖地の写真
+        scene_image: 聖地が登場したシーン画像
+        image_url: 作品イメージ
+
+    errors:
+      models:
+        seichi_memo_form:
+          attributes:
+            anime_official_site_url:
+              invalid: "は正しいURL形式で入力してください"
+            place_postal_code:
+              invalid: "はXXX-XXXXの形式で入力してください"
+            seichi_photo:
+              invalid_extension: "は jpg, jpeg, png, gif, webp のいずれかの形式でアップロードしてください"
 
   views:  # 🔹 ページネーションの翻訳を追加
     pagination:
