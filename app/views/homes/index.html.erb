@@ -1,2 +1,57 @@
-<h1>アニめぐる</h1>
-<p>聖地を投稿・共有・検索できるサービスです。</p>
+<style>
+  body {
+    background-image: url('<%= asset_path("background.jpg") %>');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* スクロールしても背景が固定される */
+  }
+</style>
+
+<div class="relative w-full h-screen">
+  <!-- Heroセクション（コンテンツ） -->
+  <section class="relative flex items-center justify-center text-center text-neutral-content w-full h-full">
+    <div>
+      <h1 class="text-6xl font-bold">アニめぐる</h1>
+      <p class="mt-4 text-lg">聖地情報共有サービス</p>
+      <%= link_to "聖地メモを見る", seichi_memos_path, class: "btn btn-primary mt-6" %>
+    </div>
+  </section>
+</div>
+
+<!-- できることセクション -->
+<section class="py-20 bg-transparent">
+  <h2 class="text-3xl font-bold text-center text-white">できること</h2>
+  <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mt-10">
+    <div class="card bg-white bg-opacity-80 shadow-md p-6 rounded-lg">
+      <h3 class="text-xl font-bold">聖地メモ作成投稿</h3>
+      <p class="mt-2">聖地巡礼で訪れた聖地の思い出を投稿しよう!!</p>
+    </div>
+    <div class="card bg-white bg-opacity-80 shadow-md p-6 rounded-lg">
+      <h3 class="text-xl font-bold">みんなの投稿の閲覧</h3>
+      <p class="mt-2">みんなの投稿を見て次に訪れたい聖地を見つけよう!!</p>
+    </div>
+    <div class="card bg-white bg-opacity-80 shadow-md p-6 rounded-lg">
+      <h3 class="text-xl font-bold">聖地メモ検索</h3>
+      <p class="mt-2">聖地名、作品タイトル、作品ジャンル、地図からの検索ができます</p>
+    </div>
+  </div>
+</section>
+
+<!-- こんな方におすすめセクション -->
+<section class="py-20 bg-transparent">
+  <h2 class="text-3xl font-bold text-center text-white">こんな方におすすめ!!</h2>
+  <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mt-10">
+    <div class="card bg-white bg-opacity-80 shadow-md p-6 rounded-lg">
+      <h3 class="text-xl font-bold">アニメファン</h3>
+      <p class="mt-2">好きな作品の聖地や訪れたい聖地に関する情報を提供</p>
+    </div>
+    <div class="card bg-white bg-opacity-80 shadow-md p-6 rounded-lg">
+      <h3 class="text-xl font-bold">旅行好きの方</h3>
+      <p class="mt-2">聖地巡礼に興味のある方に楽しさや魅力を提供</p>
+    </div>
+    <div class="card bg-white bg-opacity-80 shadow-md p-6 rounded-lg">
+      <h3 class="text-xl font-bold">コミュニティ好きの方</h3>
+      <p class="mt-2">同じ作品が好きなファン同士で交流できるコミュニティを提供</p>
+    </div>
+  </div>
+</section>
