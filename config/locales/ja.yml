@@ -27,9 +27,9 @@ ja:
         user:
           attributes:
             username:
-              taken: "ユーザー名は既に使用されています"  # 🔹 `username` だけ直接指定
+              taken: "ユーザー名は既に使用されています"
             email:
-              taken: "メールアドレスは既に使用されています"  # 🔹 `email` も個別指定可能
+              taken: "メールアドレスは既に使用されています"
 
   activemodel:  # 🔹 Formオブジェクトの翻訳を追加
     models:
@@ -40,3 +40,8 @@ ja:
         body: メモ
         anime_title: 作品タイトル
         place_name: 聖地名
+
+  views:  # 🔹 ページネーションの翻訳を追加
+    pagination:
+      previous: "前へ"
+      next: "次へ"
