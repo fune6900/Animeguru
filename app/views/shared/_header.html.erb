@@ -1,6 +1,7 @@
-<header class="header flex justify-between items-center p-6 bg-primary text-white rounded-lg shadow-md">
-  <div>
-    <%= link_to "アニめぐる", root_path, class: "text-xl font-bold hover:text-base-200 transition duration-300" %>
+<div class="navbar bg-primary text-white rounded-lg shadow-md">
+  <!-- ロゴ -->
+  <div class="flex-1 px-2 lg:flex-none">
+    <%= link_to "アニめぐる", root_path, class: "btn btn-ghost text-xl font-bold hover:text-base-200 transition duration-300" %>
   </div>
   
   <nav class="flex gap-6">
@@ -17,4 +18,4 @@
       <%= link_to "ログイン", new_user_session_path, class: "link link-hover text-lg font-medium transition duration-300 hover:text-base-200" %>
     <% end %>
   </nav>
-</header>
+</div>
