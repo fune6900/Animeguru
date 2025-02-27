@@ -24,8 +24,7 @@
         <% if user_signed_in? %>
           <li><%= link_to "みんなの投稿", seichi_memos_path, class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
           <li><%= link_to "新規投稿", new_seichi_memo_path, class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
-          <li><%= link_to 'ブックマークした投稿', "#", class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
-          <li><%= link_to 'いいねした投稿', "#", class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
+          <li><%= link_to '聖地巡礼の際のマナー', "#", class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
           <li><%= link_to "マイページ", "#", class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
           <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
         <% else %>
