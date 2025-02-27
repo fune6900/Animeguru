@@ -1,21 +1,47 @@
 <div class="navbar bg-primary text-white rounded-lg shadow-md">
   <!-- ロゴ -->
-  <div class="flex-1 px-2 lg:flex-none">
-    <%= link_to "アニめぐる", root_path, class: "btn btn-ghost text-xl font-bold hover:text-base-200 transition duration-300" %>
+  <div class="flex-1 px-2 flex-none">
+    <%= link_to "アニめぐる", root_path, class:"btn btn-ghost text-xl transition duration-300 font-rampart" %>
   </div>
-  
-  <nav class="flex gap-6">
-    <% if user_signed_in? %>
-      <!-- ログイン後のナビゲーション -->
-      <%= link_to "みんなの投稿", seichi_memos_path, class: "link link-hover text-lg font-medium transition duration-300 hover:text-base-200" %>
-      <%= link_to "新規投稿", new_seichi_memo_path, class: "link link-hover text-lg font-medium transition duration-300 hover:text-base-200" %>
-      <%= link_to "マイページ", "#", class: "link link-hover text-lg font-medium transition duration-300 hover:text-base-200" %>
-      <%= link_to "ログアウト", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "link link-hover text-lg font-medium transition duration-300 hover:text-base-200" %>
-    <% else %>
-      <!-- ログイン前のナビゲーション -->
-      <%= link_to "みんなの投稿", seichi_memos_path, class: "link link-hover text-lg font-medium transition duration-300 hover:text-base-200" %>
-      <%= link_to "ユーザー登録", new_user_registration_path, class: "link link-hover text-lg font-medium transition duration-300 hover:text-base-200" %>
-      <%= link_to "ログイン", new_user_session_path, class: "link link-hover text-lg font-medium transition duration-300 hover:text-base-200" %>
+
+  <div class="flex flex-1 justify-end px-2">
+    <!-- ログインしていない場合のみ、ログイン＆新規登録ボタンを表示 -->
+    <% unless user_signed_in? %>
+      <div class="flex-none flex gap-2">
+        <%= link_to "ログイン", new_user_session_path, class:"btn btn-outline text-white hover:bg-base-200 hover:shadow-md transition duration-300" %>
+        <%= link_to "新規登録", new_user_registration_path, class:"btn btn-outline text-white hover:bg-base-200 hover:shadow-md transition duration-300" %>
+      </div>
     <% end %>
-  </nav>
+
+    <!-- ドロップダウンメニュー -->
+    <div class="dropdown dropdown-end">
+      <label tabindex="0" class="btn btn-ghost btn-square hover:shadow-md transition duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-6 w-6 stroke-current text-white-700">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </label>
+      <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 p-4 shadow bg-primary rounded-box w-60">
+        <% if user_signed_in? %>
+          <li><%= link_to "みんなの投稿", seichi_memos_path, class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
+          <li><%= link_to "新規投稿", new_seichi_memo_path, class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
+          <li><%= link_to 'ブックマークした投稿', "#", class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
+          <li><%= link_to 'いいねした投稿', "#", class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
+          <li><%= link_to "マイページ", "#", class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
+          <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
+        <% else %>
+          <li><%= link_to "みんなの投稿", seichi_memos_path, class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
+        <% end %>
+
+        <!-- 利用規約・プライバシーポリシー・お問い合わせ -->
+        <hr class="border-gray-200">
+        <li><%= link_to '利用規約', "#", class:"btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
+        <li><%= link_to 'プライバシーポリシー', "#", class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
+        <li><%= link_to 'お問い合わせ', "#", class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
+
+        <!-- Copyright -->
+        <hr class="border-gray-200">
+        <li class="text-center text-xs mt-2 text-white-500">&copy; 2025 Animeguru</li>
+      </ul>
+    </div>
+  </div>
 </div>
