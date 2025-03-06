@@ -4,5 +4,8 @@
 
 import { application } from "./application"
 
+import AnimeSearchController from "./anime_search_controller"
+application.register("anime-search", AnimeSearchController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
