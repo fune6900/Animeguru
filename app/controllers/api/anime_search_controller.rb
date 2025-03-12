@@ -31,6 +31,9 @@ class Api::AnimeSearchController < ApplicationController
     # Annict APIにリクエストを送信し、レスポンスを取得
     response = http.request(request)
 
+    Rails.logger.info "Annict API Response Code: #{response.code}"
+    Rails.logger.info "Annict API Response: #{response.body}"
+
     # レスポンスのJSONをパース（Rubyのハッシュに変換）
     data = JSON.parse(response.body)
 
@@ -40,7 +43,7 @@ class Api::AnimeSearchController < ApplicationController
       render json: {
         title: anime["title"],  # 作品のタイトル
         official_site_url: anime["official_site_url"],  # 公式サイトのURL
-        image_url: anime["images"]["recommended_url"]  # 作品画像のURL
+        image_url: anime["images"]["recommended_url"].presence || anime["images"]["facebook"]["og_image_url"]  # 作品画像のURL
       }
     else
       # 作品が見つからない場合、エラーメッセージを返す（HTTPステータス 404: Not Found）

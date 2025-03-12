@@ -60,7 +60,15 @@
       <%= f.text_field :anime_title,
           class: "w-full p-2 border rounded-md",
           placeholder: "作品のタイトルを入力してください",
-          data: { action: "input->anime-search#search", anime_search_target: "title" }%>
+          data: { anime_search_target: "title" }%>
+    </div>
+    <div class="mt-2">
+      <!-- 🔍 検索ボタン（クリックでAPIリクエストを送る） -->
+      <button type="button"
+              class="btn btn-primary mt-2"
+              data-action="click->anime-search#search">
+        作品タイトルから情報を取得
+      </button>
     </div>
     <div class="mt-2">
       <label class="block text-gray-700">公式サイト <span class="text-gray-500">（任意）</span></label>
@@ -72,7 +80,7 @@
     <!-- 🎥 作品イメージ -->
     <div class="mt-4">
       <label class="block text-gray-700">作品イメージ <span class="text-gray-500">（任意）</span></label>
-      <%= f.file_field :image_url,
+      <%= f.text_field :image_url,
           class: "w-full p-2 border rounded-md",
           data: { anime_search_target: "image" } %>
     </div>
