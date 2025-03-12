@@ -1,9 +1,4 @@
 class AnimeImageUploader < CarrierWave::Uploader::Base
-  # Include RMagick, MiniMagick, or Vips support:
-  # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
-  # include CarrierWave::Vips
-
   # Choose what kind of storage to use for this uploader:
   storage :file
   # storage :fog
@@ -44,11 +39,6 @@ class AnimeImageUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg"
   # end
-
-  # URLからの画像アップロードを許可
-  def filename
-    original_filename if original_filename.present?
-  end
 
   # 本番環境と開発・テスト環境で保存先を分ける
   if Rails.env.production?

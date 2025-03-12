@@ -1,9 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
-// Stimulusのコントローラーを作成
 export default class extends Controller {
-  // Stimulusのターゲット要素（HTMLの特定の要素を操作するために指定）
-  static targets = ["title", "site", "image"];
+  static targets = ["title", "site"];
 
   // コントローラーがHTMLに適用されたときに実行される（デバッグ用）
   connect() {
@@ -24,10 +22,6 @@ export default class extends Controller {
         // 取得した公式サイトURLを入力フォームに反映
         if (data.official_site_url) {
           this.siteTarget.value = data.official_site_url;
-        }
-        // 取得した作品画像のURLを入力フォームに反映
-        if (data.image_url) {
-          this.imageTarget.value = data.image_url;
         }
       })
       .catch(error => console.error("Error fetching anime data:", error)); // エラーハンドリング

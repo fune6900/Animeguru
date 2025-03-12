@@ -31,14 +31,14 @@ class SeichiMemoForm
   def save
     return false unless valid?
 
-    # 🔹 既存データを再利用 or 新規作成（公式サイトがなければ更新）
+    # 🔹 既存の作品情報を再利用 or 新規作成（公式サイトがなければ更新）
     anime = Anime.find_or_create_by(title: anime_title)
     anime.update(
       official_site_url: anime_official_site_url.presence || anime.official_site_url,
       image_url: image_url.presence || anime.image_url
     )
 
-    # 🔹 既存レコードがあった場合、住所や郵便番号を更新
+    # 🔹 既存の聖地情報を取得 or 作成し、住所や郵便番号を更新
     place = Place.find_or_create_by(name: place_name)
     place.update(
       address: place_address.presence || place.address,
@@ -60,7 +60,7 @@ class SeichiMemoForm
   def update(seichi_memo)
     return false unless valid?
 
-    # 🔹 既存のアニメ情報を取得 or 作成し、公式サイトを更新
+    # 🔹 既存の作品情報を再利用 or 作成（公式サイトがなければ更新）
     anime = Anime.find_or_create_by(title: anime_title)
     anime.update(
       official_site_url: anime_official_site_url.presence || anime.official_site_url,
@@ -97,7 +97,7 @@ class SeichiMemoForm
       errors.add(:scene_image, "は jpg, jpeg, png, gif, webpのいずれかの形式でアップロードしてください")
     end
 
-    if image_url.present? && !image_url.match?(/\.(jpg|jpeg|png|gif|webp)\z/i)
+    if scene_image.present? && !valid_extension?(scene_image, allowed_extensions)
       errors.add(:image_url, "は jpg, jpeg, png, gif, webp のいずれかの形式で指定してください")
     end
   end
