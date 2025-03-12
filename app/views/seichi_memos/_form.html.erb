@@ -1,7 +1,8 @@
 <%= form_with model: @seichi_memo_form, 
               url: @seichi_memo_form.persisted? ? seichi_memo_path(@seichi_memo) : seichi_memos_path, 
               method: @seichi_memo_form.persisted? ? :patch : :post, 
-              local: true, class: "space-y-4" do |f| %>
+              local: true, class: "space-y-4",
+              data: { controller: "anime-search" } do |f| %>
 
   <!-- エラーメッセージを表示 -->
   <%= render "shared/error_messages", resource: @seichi_memo_form %>
@@ -56,11 +57,25 @@
     <h2 class="text-xl font-bold">作品の基本情報</h2>
     <div class="mt-4">
       <label class="block text-gray-700">作品タイトル <span class="text-red-500">（必須）</span></label>
-      <%= f.text_field :anime_title, class: "w-full p-2 border rounded-md", placeholder: "作品のタイトルを入力してください" %>
+      <%= f.text_field :anime_title,
+          class: "w-full p-2 border rounded-md",
+          placeholder: "作品のタイトルを入力してください",
+          data: { anime_search_target: "title" }%>
+    </div>
+    <div class="mt-2">
+      <!-- 🔍 検索ボタン（クリックでAPIリクエストを送る） -->
+      <button type="button"
+              class="btn btn-primary mt-2"
+              data-action="click->anime-search#search">
+        作品タイトルから公式サイトを取得
+      </button>
     </div>
     <div class="mt-2">
       <label class="block text-gray-700">公式サイト <span class="text-gray-500">（任意）</span></label>
-      <%= f.text_field :anime_official_site_url, class: "w-full p-2 border rounded-md", placeholder: "例: https://www.example-anime.jp/" %>
+      <%= f.text_field :anime_official_site_url,
+          class: "w-full p-2 border rounded-md",
+          placeholder: "例: https://www.example-anime.jp/",
+          data: { anime_search_target: "site" } %>
     </div>
     <!-- 🎥 作品イメージ -->
     <div class="mt-4">
