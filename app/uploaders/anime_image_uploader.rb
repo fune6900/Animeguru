@@ -45,6 +45,11 @@ class AnimeImageUploader < CarrierWave::Uploader::Base
   #   "something.jpg"
   # end
 
+  # URLからの画像アップロードを許可
+  def filename
+    original_filename if original_filename.present?
+  end
+
   # 本番環境と開発・テスト環境で保存先を分ける
   if Rails.env.production?
     storage :fog

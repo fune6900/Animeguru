@@ -97,8 +97,8 @@ class SeichiMemoForm
       errors.add(:scene_image, "は jpg, jpeg, png, gif, webpのいずれかの形式でアップロードしてください")
     end
 
-    if image_url.present? && !valid_extension?(image_url, allowed_extensions)
-      errors.add(:image_url, "は jpg, jpeg, png, gif, webpのいずれかの形式で指定してください")
+    if image_url.present? && !image_url.match?(/\.(jpg|jpeg|png|gif|webp)\z/i)
+      errors.add(:image_url, "は jpg, jpeg, png, gif, webp のいずれかの形式で指定してください")
     end
   end
 
