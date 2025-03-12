@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module Myapp
   class Application < Rails::Application
     # 発環境・テスト環境でのみ `.env` を読み込む
-    require 'dotenv/load' if Rails.env.development? || Rails.env.test?
+    require "dotenv/load" if Rails.env.development? || Rails.env.test?
 
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.2

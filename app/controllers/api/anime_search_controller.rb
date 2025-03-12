@@ -1,8 +1,8 @@
 # Annict APIを使ってアニメの情報を検索するコントローラー
 # ルーティング: GET /api/anime_search?title=タイトル名
-require 'net/http'
-require 'uri'
-require 'json'
+require "net/http"
+require "uri"
+require "json"
 
 class Api::AnimeSearchController < ApplicationController
   # 検索用のエンドポイント
@@ -42,7 +42,7 @@ class Api::AnimeSearchController < ApplicationController
       anime = data["works"].first # 最初の作品データを取得
       render json: {
         title: anime["title"],  # 作品のタイトル
-        official_site_url: anime["official_site_url"],  # 公式サイトのURL
+        official_site_url: anime["official_site_url"]  # 公式サイトのURL
       }
     else
       # 作品が見つからない場合、エラーメッセージを返す（HTTPステータス 404: Not Found）
