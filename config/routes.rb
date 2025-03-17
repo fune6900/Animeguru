@@ -18,8 +18,9 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
-  # Annict APIエンドポイントのルーティングを追加
+  # APIエンドポイントのルーティングを追加
   namespace :api do
     get "anime_search", to: "anime_search#index"
+    get "seichi_search", to: "seichi_search#index"
   end
 end
