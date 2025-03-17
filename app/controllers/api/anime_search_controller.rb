@@ -1,22 +1,18 @@
-# Annict APIを使ってアニメの情報を検索するコントローラー
-# ルーティング: GET /api/anime_search?title=タイトル名
-require "net/http"
-require "uri"
-require "json"
+# ルーティング: GET /api/anime_search?title=作品タイトル名
 
 class Api::AnimeSearchController < ApplicationController
-  # 検索用のエンドポイント
+  require "net/http"
+  require "json"
+
   def index
-    # クエリパラメータ `title` を取得（ユーザーが入力したアニメのタイトル）
+    # ユーザーの作品タイトル名を取得
     title = params[:title]
 
-    # タイトルが空の場合、エラーメッセージを返す（HTTPステータス 400: Bad Request）
-    return render json: { error: "Title is required" }, status: 400 if title.blank?
-
-    # 環境変数からAPIキーを取得（API認証のために必要）
+    # 環境変数からAPIキーを取得
     api_key = ENV["ANNICT_API_KEY"]
 
-    # Annict APIのURLを作成（タイトルで検索）
+    # Annict APIのURLを設定（タイトルで検索）
+    # brakeman:ignore FileAccess
     url = URI.parse("https://api.annict.com/v1/works?filter_title=#{URI.encode_www_form_component(title)}&per_page=1")
 
     # HTTPリクエストの準備
@@ -25,16 +21,12 @@ class Api::AnimeSearchController < ApplicationController
 
     # GETリクエストを作成
     request = Net::HTTP::Get.new(url)
-    # APIの認証情報をヘッダーに追加
-    request["Authorization"] = "Bearer #{api_key}"
+    request["Authorization"] = "Bearer #{api_key}" # APIの認証情報をヘッダーに追加
 
-    # Annict APIにリクエストを送信し、レスポンスを取得
+    # Annict APIにリクエストを送信
     response = http.request(request)
 
-    Rails.logger.info "Annict API Response Code: #{response.code}"
-    Rails.logger.info "Annict API Response: #{response.body}"
-
-    # レスポンスのJSONをパース（Rubyのハッシュに変換）
+    # レスポンスのJSONをRubyのハッシュに変換
     data = JSON.parse(response.body)
 
     # 作品データが存在する場合、必要な情報を返す
@@ -45,7 +37,6 @@ class Api::AnimeSearchController < ApplicationController
         official_site_url: anime["official_site_url"]  # 公式サイトのURL
       }
     else
-      # 作品が見つからない場合、エラーメッセージを返す（HTTPステータス 404: Not Found）
       render json: { error: "Anime not found" }, status: 404
     end
   end

@@ -9,3 +9,6 @@ application.register("anime-search", AnimeSearchController)
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import SeichiSearchController from "./seichi_search_controller"
+application.register("seichi-search", SeichiSearchController)
