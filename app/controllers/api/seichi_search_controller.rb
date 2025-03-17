@@ -1,4 +1,4 @@
-class SeichiSearchController < ApplicationController
+class Api::SeichiSearchController < ApplicationController
   require 'net/http'
   require 'json'
 

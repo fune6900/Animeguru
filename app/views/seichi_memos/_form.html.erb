@@ -2,7 +2,7 @@
               url: @seichi_memo_form.persisted? ? seichi_memo_path(@seichi_memo) : seichi_memos_path, 
               method: @seichi_memo_form.persisted? ? :patch : :post, 
               local: true, class: "space-y-4",
-              data: { controller: "anime-search seichi_search" } do |f| %>
+              data: { controller: "anime-search seichi-search" } do |f| %>
 
   <!-- エラーメッセージを表示 -->
   <%= render "shared/error_messages", resource: @seichi_memo_form %>
