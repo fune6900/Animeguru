@@ -1,9 +1,11 @@
+# ルーティング: GET /api/seichi_search?query=聖地名
+
 class Api::SeichiSearchController < ApplicationController
   require 'net/http'
   require 'json'
 
   def index
-    # ユーザーの検索ワードを取得
+    # ユーザーの聖地名を取得
     query = params[:query] 
     
     # Google Places APIのURLを設定
