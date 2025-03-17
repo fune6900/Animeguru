@@ -19,7 +19,7 @@ gem "kaminari"
 gem "dotenv-rails"
 
 # Google Places API
-gem 'google_places'
+gem "google_places"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.2.1"

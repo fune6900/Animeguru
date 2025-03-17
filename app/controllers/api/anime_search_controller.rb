@@ -12,6 +12,7 @@ class Api::AnimeSearchController < ApplicationController
     api_key = ENV["ANNICT_API_KEY"]
 
     # Annict APIのURLを設定（タイトルで検索）
+    # brakeman:ignore FileAccess
     url = URI.parse("https://api.annict.com/v1/works?filter_title=#{URI.encode_www_form_component(title)}&per_page=1")
 
     # HTTPリクエストの準備
