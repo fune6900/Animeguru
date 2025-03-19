@@ -1,0 +1,24 @@
+<div class="border-b p-4">
+  <h2 class="text-xl font-bold">巡礼記録</h2>
+
+  <div class="mt-4">
+    <label class="block text-gray-700">タイトル <span class="text-red-500">（必須）</span></label>
+    <%= f.text_field :title, class: "w-full p-2 border rounded-md", placeholder: "巡礼記録のタイトルを入力してください" %>
+  </div>
+
+  <div class="mt-2">
+    <label class="block text-gray-700">メモ <span class="text-red-500">（必須）</span></label>
+    <%= f.text_area :body, class: "w-full p-2 border rounded-md h-32", placeholder: "シーンの解説や撮影スポットの詳細、ベストな訪問時間など" %>
+  </div>
+
+  <!-- 🔹 画像アップロード -->
+  <div class="mt-4">
+    <label class="block text-gray-700">聖地の写真 <span class="text-gray-500">（任意）</span></label>
+    <%= f.file_field :seichi_photo, class: "w-full p-2 border rounded-md" %>
+  </div>
+
+  <div class="mt-4">
+    <label class="block text-gray-700">聖地が登場したシーン画像 <span class="text-gray-500">（任意）</span></label>
+    <%= f.file_field :scene_image, class: "w-full p-2 border rounded-md" %>
+  </div>
+</div>

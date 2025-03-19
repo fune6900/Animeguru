@@ -1,0 +1,55 @@
+<div class="border-b p-4">
+  <h2 class="text-xl font-bold">確認画面</h2>
+
+  <!-- 🔹 巡礼記録 -->
+  <div class="mt-4">
+    <h3 class="text-lg font-semibold">巡礼記録</h3>
+    <p><strong>タイトル:</strong> <%= @seichi_memo_form.title %></p>
+    <p><strong>メモ:</strong> <%= @seichi_memo_form.body %></p>
+
+    <!-- 聖地の写真 -->
+    <% if @seichi_memo_form.seichi_photo.present? %>
+      <div class="mt-2">
+        <h4 class="font-semibold">聖地の写真</h4>
+        <%= image_tag @seichi_memo_form.seichi_photo.url, class: "w-64 rounded-md" %>
+      </div>
+    <% end %>
+
+    <!-- アニメのシーン画像 -->
+    <% if @seichi_memo_form.scene_image.present? %>
+      <div class="mt-2">
+        <h4 class="font-semibold">アニメのシーン画像</h4>
+        <%= image_tag @seichi_memo_form.scene_image.url, class: "w-64 rounded-md" %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- 🔹 聖地情報 -->
+  <div class="border-b p-4">
+    <h3 class="text-lg font-semibold">聖地情報</h3>
+    <p><strong>聖地名:</strong> <%= @seichi_memo_form.place_name %></p>
+    <p><strong>住所:</strong> <%= @seichi_memo_form.place_address.presence || "未入力" %></p>
+    <p><strong>郵便番号:</strong> <%= @seichi_memo_form.place_postal_code.presence || "未入力" %></p>
+  </div>
+
+  <!-- 🔹 作品情報 -->
+  <div class="border-b p-4">
+    <h3 class="text-lg font-semibold">作品情報</h3>
+    <p><strong>タイトル:</strong> <%= @seichi_memo_form.anime_title %></p>
+    <p><strong>公式サイト:</strong> 
+      <% if @seichi_memo_form.anime_official_site_url.present? %>
+        <%= link_to @seichi_memo_form.anime_official_site_url, @seichi_memo_form.anime_official_site_url, target: "_blank", class: "text-blue-500 underline" %>
+      <% else %>
+        未入力
+      <% end %>
+    </p>
+
+    <!-- 作品のイメージ画像 -->
+    <% if @seichi_memo_form.image_url.present? %>
+      <div class="mt-2">
+        <h4 class="font-semibold">作品イメージ</h4>
+        <%= image_tag @seichi_memo_form.image_url.url, class: "w-64 rounded-md" %>
+      </div>
+    <% end %>
+  </div>
+</div>
