@@ -1,7 +1,7 @@
 class SeichiMemosController < ApplicationController
-  before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy ]
-  before_action :set_seichi_memo, only: [ :show, :edit, :update, :destroy ]
-  before_action :correct_user, only: [ :edit, :update, :destroy ]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_seichi_memo, only: [:show, :edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   require_dependency "seichi_memo_form"
 
@@ -12,14 +12,29 @@ class SeichiMemosController < ApplicationController
   def show
   end
 
+  # 🔹 ステップ1 (巡礼記録の入力)
   def new
-    @seichi_memo_form = SeichiMemoForm.new
+    @seichi_memo_form = SeichiMemoForm.from_session(session[:seichi_memo], "memo")
   end
 
+  # 🔹 各ステップごとにセッションを更新
+  def update_session
+    @seichi_memo_form = SeichiMemoForm.new(seichi_memo_params.merge(current_step: params[:step]))
+
+    if @seichi_memo_form.valid?
+      @seichi_memo_form.save_to_session(session)
+      head :ok  # 成功時は 200 OK を返す
+    else
+      render json: { errors: @seichi_memo_form.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  # 🔹 最終ステップでデータをデータベースに保存
   def create
-    @seichi_memo_form = SeichiMemoForm.new(seichi_memo_params)
+    @seichi_memo_form = SeichiMemoForm.new(session[:seichi_memo])
 
     if @seichi_memo_form.save
+      session[:seichi_memo] = nil  # セッションをクリア
       redirect_to seichi_memo_path(@seichi_memo_form.seichi_memo), notice: "聖地メモを投稿しました！"
     else
       flash.now[:alert] = "聖地メモを投稿出来ませんでした"
@@ -27,6 +42,7 @@ class SeichiMemosController < ApplicationController
     end
   end
 
+  # 🔹 編集画面を表示 (セッションなしで `SeichiMemo` を読み込む)
   def edit
     @seichi_memo_form = SeichiMemoForm.new(
       user_id: @seichi_memo.user_id,
@@ -44,6 +60,7 @@ class SeichiMemosController < ApplicationController
     @seichi_memo_form.seichi_memo = @seichi_memo
   end
 
+  # 🔹 編集したデータをデータベースに保存
   def update
     @seichi_memo_form = SeichiMemoForm.new(seichi_memo_params)
     @seichi_memo_form.seichi_memo = @seichi_memo
@@ -56,6 +73,7 @@ class SeichiMemosController < ApplicationController
     end
   end
 
+  # 🔹 削除
   def destroy
     if @seichi_memo.destroy
       redirect_to seichi_memos_path, notice: "聖地メモを削除しました！"
