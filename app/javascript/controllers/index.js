@@ -12,3 +12,6 @@ application.register("hello", HelloController)
 
 import SeichiSearchController from "./seichi_search_controller"
 application.register("seichi-search", SeichiSearchController)
+
+import StepFormController from "./step_form_controller"
+application.register("step-form", StepFormController)
