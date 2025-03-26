@@ -25,6 +25,7 @@ export default class extends Controller {
     if (this.currentStep > 0) {
       this.currentStep-- // 1つ前のステップへ戻る
       this.showStep() // ステップを更新して表示
+      this.clearErrors() // エラーメッセージを消す
     }
   }
 
@@ -42,6 +43,21 @@ export default class extends Controller {
       if (response.ok) {
         this.currentStep++ // 保存成功時に次のステップへ進む
         this.showStep() // ステップを更新して表示
+
+        // 成功時はエラーメッセージを非表示にして空にする
+        const errorContainer = document.getElementById("form-errors")
+        errorContainer.classList.add("hidden")
+        errorContainer.innerHTML = ""
+      } else {
+        return response.json().then(data => {
+          const errorContainer = document.getElementById("form-errors")
+          errorContainer.classList.remove("hidden")
+          errorContainer.innerHTML = `
+            <div class="space-y-1 text-red-500">
+              ${data.errors.map(error => `<p class="pl-2"> ${error}</p>`).join("")}
+            </div>
+          `
+        })
       }
     })
   }
@@ -60,6 +76,25 @@ export default class extends Controller {
       case 2: return "anime"
       case 3: return "confirm"
       default: return "memo"
+    }
+  }
+
+  showErrors(errors) {
+    const errorContainer = document.querySelector("#form-errors");
+    if (!errorContainer) return;
+    errorContainer.innerHTML = `
+      <div class="text-red-500 space-y-1">
+        ${errors.map(error => `<p>${error}</p>`).join("")}
+      </div>
+    `;
+    errorContainer.classList.remove("hidden");
+  }
+
+  clearErrors() {
+    const errorContainer = document.querySelector("#form-errors")
+    if (errorContainer) {
+      errorContainer.innerHTML = ""
+      errorContainer.classList.add("hidden")
     }
   }
 }
