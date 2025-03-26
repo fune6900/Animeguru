@@ -19,6 +19,9 @@ class SeichiMemosController < ApplicationController
 
   # 🔹 各ステップごとにセッションを更新
   def update_session
+    Rails.logger.debug "📦 seichi_memo_params: #{seichi_memo_params.inspect}"
+    Rails.logger.debug "📍 current_step: #{params[:step]}"
+
     @seichi_memo_form = SeichiMemoForm.new(seichi_memo_params.merge(current_step: params[:step]))
 
     if @seichi_memo_form.valid?

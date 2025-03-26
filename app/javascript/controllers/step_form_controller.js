@@ -8,6 +8,7 @@ export default class extends Controller {
   // 🔹 コントローラーが接続されたときに実行される
   connect() {
     console.log("🧙‍♀️ step_form コントローラーが接続されました！");
+    console.log("formTarget:", this.formTarget);
     this.currentStep = 0 // 初期ステップを 0（最初のステップ）に設定
     this.showStep() // 初回のステップを表示
   }
@@ -31,7 +32,7 @@ export default class extends Controller {
   saveData() {
     const formData = new FormData(this.formTarget) // フォームのデータを取得
 
-    fetch("/seichi_memos/update_session", {
+    fetch(`/seichi_memos/update_session?step=${this.currentStepName()}`, {
       method: "POST", // データを送信
       body: formData, // フォームのデータを送る
       headers: {
@@ -50,5 +51,15 @@ export default class extends Controller {
     this.stepTargets.forEach((step, index) => {
       step.style.display = index === this.currentStep ? "block" : "none" // 現在のステップのみ表示
     })
+  }
+
+  currentStepName() {
+    switch (this.currentStep) {
+      case 0: return "memo"
+      case 1: return "place"
+      case 2: return "anime"
+      case 3: return "confirm"
+      default: return "memo"
+    }
   }
 }

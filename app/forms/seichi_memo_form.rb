@@ -38,9 +38,10 @@ class SeichiMemoForm
 
   # 🔹 セッションにデータを保存
   def save_to_session(session)
+    Rails.logger.debug "🧠 保存前 attributes: #{attributes.inspect}"
     session[:seichi_memo] ||= {}
 
-    session[:seichi_memo].merge!(to_h)
+    session[:seichi_memo].merge!(attributes)
 
     session[:seichi_memo][:seichi_photo_url] = seichi_photo.url if seichi_photo.present?
     session[:seichi_memo][:scene_image_url] = scene_image.url if scene_image.present?
