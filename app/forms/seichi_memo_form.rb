@@ -15,11 +15,6 @@ class SeichiMemoForm
   attribute :scene_image
   attribute :image_url
 
-  # 🔹 CarrierWave のアップローダーを適用
-  mount_uploader :seichi_photo, SeichiPhotoUploader
-  mount_uploader :scene_image, SceneImageUploader
-  mount_uploader :image_url, ImageUrlUploader
-
   # 🔹 ステップ管理用
   attr_accessor :current_step, :seichi_memo
 
@@ -124,6 +119,11 @@ class SeichiMemoForm
     if scene_image.present? && !valid_extension?(scene_image, allowed_extensions)
       errors.add(:scene_image, "は jpg, jpeg, png, gif, webpのいずれかの形式でアップロードしてください")
     end
+  end
+
+  # 🔹 persisted? メソッド
+  def persisted?
+    seichi_memo.present? && seichi_memo.id.present?
   end
 
   private

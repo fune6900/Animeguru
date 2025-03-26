@@ -2,7 +2,7 @@
               url: @seichi_memo_form.persisted? ? seichi_memo_path(@seichi_memo) : seichi_memos_path, 
               method: @seichi_memo_form.persisted? ? :patch : :post, 
               local: true, class: "space-y-4",
-              data: { controller: "step_form anime-search seichi-search", step_form_target: "form" } do |f| %>
+              data: { controller: "step-form anime-search seichi-search", step_form_target: "form" } do |f| %>
 
   <!-- エラーメッセージを表示 -->
   <%= render "shared/error_messages", resource: @seichi_memo_form %>
@@ -10,27 +10,27 @@
   <!-- 🔹 ステップ 1: 巡礼記録 -->
   <div data-step-form-target="step">
     <%= render "seichi_memos/memo", f: f %>
-    <button type="button" data-action="click->step_form#next">次へ</button>
+    <button type="button" class="btn btn-primary mt-2" data-action="click->step-form#next">次へ</button>
   </div>
 
   <!-- 🔹 ステップ 2: 聖地の基本情報 -->
   <div data-step-form-target="step" style="display:none;">
     <%= render "seichi_memos/place", f: f %>
-    <button type="button" data-action="click->step_form#prev">戻る</button>
-    <button type="button" data-action="click->step_form#next">次へ</button>
+    <button type="button" class="btn btn-primary mt-2" data-action="click->step-form#prev">戻る</button>
+    <button type="button" class="btn btn-primary mt-2" data-action="click->step-form#next">次へ</button>
   </div>
 
   <!-- 🔹 ステップ 3: 作品の基本情報 -->
   <div data-step-form-target="step" style="display:none;">
     <%= render "seichi_memos/anime", f: f %>
-    <button type="button" data-action="click->step_form#prev">戻る</button>
-    <button type="button" data-action="click->step_form#next">次へ</button>
+    <button type="button" class="btn btn-primary mt-2" data-action="click->step-form#prev">戻る</button>
+    <button type="button" class="btn btn-primary mt-2" data-action="click->step-form#next">次へ</button>
   </div>
 
   <!-- 🔹 ステップ 4: 確認画面 -->
   <div data-step-form-target="step" style="display:none;">
     <%= render "seichi_memos/confirm", f: f %>
-    <button type="button" data-action="click->step_form#prev">戻る</button>
+    <button type="button" class="btn btn-primary mt-2" data-action="click->step-form#prev">戻る</button>
     <%= f.submit @seichi_memo_form.persisted? ? "更新する" : "投稿する", class: "btn btn-primary w-32" %>
   </div>
 <% end %>
