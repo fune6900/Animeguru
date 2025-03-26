@@ -23,9 +23,9 @@ class SeichiMemoForm
   validates :body, presence: true, length: { maximum: 1000 }, if: -> { current_step == "memo" }
   validates :anime_title, presence: true, length: { maximum: 100 }, if: -> { current_step == "anime" }
   validates :place_name, presence: true, length: { maximum: 100 }, if: -> { current_step == "place" }
-  validates :anime_official_site_url, format: { with: URI::DEFAULT_PARSER.make_regexp, message: "は正しいURL形式で入力してください" }, allow_blank: true
-  validates :place_address, length: { maximum: 200 }, allow_blank: true
-  validates :place_postal_code, format: { with: /\A\d{3}-\d{4}\z/, message: "はXXX-XXXXの形式で入力してください" }, allow_blank: true
+  validates :anime_official_site_url, format: { with: URI::DEFAULT_PARSER.make_regexp, message: "は正しいURL形式で入力してください" }, allow_blank: true, if: -> { current_step == "anime" }
+  validates :place_address, length: { maximum: 200 }, allow_blank: true, if: -> { current_step == "place" }
+  validates :place_postal_code, format: { with: /\A\d{3}-\d{4}\z/, message: "はXXX-XXXXの形式で入力してください" }, allow_blank: true, if: -> { current_step == "place" }
 
   validate :validate_image_extensions
 
@@ -112,13 +112,21 @@ class SeichiMemoForm
   # 🔹 画像の拡張子をチェックするカスタムバリデーション
   def validate_image_extensions
     allowed_extensions = %w[jpg jpeg png gif webp]
-
-    if seichi_photo.present? && !valid_extension?(seichi_photo, allowed_extensions)
-      errors.add(:seichi_photo, "は jpg, jpeg, png, gif, webpのいずれかの形式でアップロードしてください")
+  
+    if current_step == "memo"
+      if seichi_photo.present? && !valid_extension?(seichi_photo, allowed_extensions)
+        errors.add(:seichi_photo, "は jpg, jpeg, png, gif, webpのいずれかの形式でアップロードしてください")
+      end
+  
+      if scene_image.present? && !valid_extension?(scene_image, allowed_extensions)
+        errors.add(:scene_image, "は jpg, jpeg, png, gif, webpのいずれかの形式でアップロードしてください")
+      end
     end
-
-    if scene_image.present? && !valid_extension?(scene_image, allowed_extensions)
-      errors.add(:scene_image, "は jpg, jpeg, png, gif, webpのいずれかの形式でアップロードしてください")
+  
+    if current_step == "anime"
+      if image_url.present? && !valid_extension?(image_url, allowed_extensions)
+        errors.add(:image_url, "は jpg, jpeg, png, gif, webpのいずれかの形式でアップロードしてください")
+      end
     end
   end
 
