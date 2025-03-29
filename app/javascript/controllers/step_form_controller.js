@@ -41,8 +41,24 @@ export default class extends Controller {
       }
     }).then(response => {
       if (response.ok) {
-        this.currentStep++ // 保存成功時に次のステップへ進む
-        this.showStep() // ステップを更新して表示
+        if (this.currentStepName() === "confirm") {
+          // 🔥 assign_cache を動かしてUploaderを復元！
+          fetch(`/seichi_memos/prepare_confirm`, {
+            method: "GET",
+            headers: {
+              "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+            }
+          }).then(() => {
+            this.currentStep++
+            this.showStep()
+            this.clearErrors()
+          })
+          return
+        }
+
+        this.currentStep++
+        this.showStep()
+        this.clearErrors()
 
         // 成功時はエラーメッセージを非表示にして空にする
         const errorContainer = document.getElementById("form-errors")

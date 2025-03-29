@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :seichi_memos, only: [ :index, :new, :create, :show, :edit, :update, :destroy ] do
     collection do
       post :update_session  # ステップごとのデータをセッションに保存
+      get "/seichi_memos/prepare_confirm", to: "seichi_memos#prepare_confirm"
     end
   end
 

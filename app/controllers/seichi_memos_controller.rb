@@ -14,7 +14,7 @@ class SeichiMemosController < ApplicationController
 
   # 🔹 ステップ1 (巡礼記録の入力)
   def new
-    @seichi_memo_form = SeichiMemoForm.from_session(session[:seichi_memo], "memo")
+    @seichi_memo_form = SeichiMemoForm.from_session(session[:seichi_memo], "memo", session)
   end
 
   # 🔹 各ステップごとにセッションを更新
@@ -34,7 +34,7 @@ class SeichiMemosController < ApplicationController
 
   # 🔹 最終ステップでデータをデータベースに保存
   def create
-    @seichi_memo_form = SeichiMemoForm.new(session[:seichi_memo])
+    @seichi_memo_form = SeichiMemoForm.from_session(session[:seichi_memo], "confirm", session)
 
     if @seichi_memo_form.save
       session[:seichi_memo] = nil  # セッションをクリア
@@ -84,6 +84,11 @@ class SeichiMemosController < ApplicationController
       flash.now[:alert] = "削除に失敗しました"
       redirect_back fallback_location: seichi_memos_path
     end
+  end
+
+  def prepare_confirm
+    SeichiMemoForm.from_session(session[:seichi_memo], "confirm", session)
+    head :ok
   end
 
   private

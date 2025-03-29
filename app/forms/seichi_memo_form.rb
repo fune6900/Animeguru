@@ -16,7 +16,8 @@ class SeichiMemoForm
   attribute :image_url
 
   # 🔹 ステップ管理用
-  attr_accessor :current_step, :seichi_memo
+  attr_accessor :current_step, :seichi_memo,
+                :seichi_photo_cache, :scene_image_cache, :image_url_cache
 
   # 🔹 バリデーション（ステップごとに適用）
   validates :title, presence: true, length: { maximum: 30 }, if: -> { current_step == "memo" }
@@ -30,22 +31,58 @@ class SeichiMemoForm
   validate :validate_image_extensions
 
   # 🔹 セッションデータを元にフォームオブジェクトを作成
-  def self.from_session(session_data, step)
+  def self.from_session(session_data, step, session)
     new(session_data || {}).tap do |form|
       form.current_step = step
+      form.assign_cache(session) if session_data.present?
     end
   end
 
-  # 🔹 セッションにデータを保存
+  # 🔹 キャッシュ名から再セット
+  def assign_cache(session)
+    if session.dig(:seichi_memo, :seichi_photo_cache).present?
+      uploader = SeichiPhotoUploader.new
+      uploader.retrieve_from_cache!(session[:seichi_memo][:seichi_photo_cache])
+      self.seichi_photo = uploader
+    end
+  
+    if session.dig(:seichi_memo, :scene_image_cache).present?
+      uploader = SceneImageUploader.new
+      uploader.retrieve_from_cache!(session[:seichi_memo][:scene_image_cache])
+      self.scene_image = uploader
+    end
+  
+    if session.dig(:seichi_memo, :image_url_cache).present?
+      uploader = AnimeImageUploader.new
+      uploader.retrieve_from_cache!(session[:seichi_memo][:image_url_cache])
+      self.image_url = uploader
+    end
+  end
+
+  # 🔹 セッション保存
   def save_to_session(session)
     Rails.logger.debug "🧠 保存前 attributes: #{attributes.inspect}"
     session[:seichi_memo] ||= {}
-
-    session[:seichi_memo].merge!(attributes)
-
-    session[:seichi_memo][:seichi_photo_url] = seichi_photo.url if seichi_photo.present?
-    session[:seichi_memo][:scene_image_url] = scene_image.url if scene_image.present?
-    session[:seichi_memo][:image_url] = image_url.url if image_url.present?
+    session[:seichi_memo].merge!(attributes.except("seichi_photo", "scene_image", "image_url"))
+  
+    if seichi_photo.present?
+      uploader = SeichiPhotoUploader.new
+      uploader.cache!(seichi_photo)
+      session[:seichi_memo][:seichi_photo_cache] = uploader.cache_name
+    end
+  
+    if scene_image.present?
+      uploader = SceneImageUploader.new
+      uploader.cache!(scene_image)
+      session[:seichi_memo][:scene_image_cache] = uploader.cache_name
+    end
+  
+    if image_url.present?
+      uploader = AnimeImageUploader.new
+      uploader.cache!(image_url)
+      session[:seichi_memo][:image_url_cache] = uploader.cache_name
+    end
+    Rails.logger.debug "📦 session[:seichi_memo]: #{session[:seichi_memo].inspect}"
   end
 
   # 🔹 最終ステップでデータベースに保存
