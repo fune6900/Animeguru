@@ -40,21 +40,21 @@ class SeichiMemoForm
 
   # 🔹 キャッシュ名から再セット
   def assign_cache(session)
-    if session.dig(:seichi_memo, :seichi_photo_cache).present?
+    if session.dig(:seichi_memo, "seichi_photo_cache").present?
       uploader = SeichiPhotoUploader.new
-      uploader.retrieve_from_cache!(session[:seichi_memo][:seichi_photo_cache])
-      self.seichi_photo = uploader
+      uploader.retrieve_from_cache!(session[:seichi_memo]["seichi_photo_cache"])
+      self.seichi_photo = uploader  
     end
   
-    if session.dig(:seichi_memo, :scene_image_cache).present?
+    if session.dig(:seichi_memo, "scene_image_cache").present?
       uploader = SceneImageUploader.new
-      uploader.retrieve_from_cache!(session[:seichi_memo][:scene_image_cache])
+      uploader.retrieve_from_cache!(session[:seichi_memo]["scene_image_cache"])
       self.scene_image = uploader
     end
   
-    if session.dig(:seichi_memo, :image_url_cache).present?
+    if session.dig(:seichi_memo, "image_url_cache").present?
       uploader = AnimeImageUploader.new
-      uploader.retrieve_from_cache!(session[:seichi_memo][:image_url_cache])
+      uploader.retrieve_from_cache!(session[:seichi_memo]["image_url_cache"])
       self.image_url = uploader
     end
   end
@@ -68,19 +68,19 @@ class SeichiMemoForm
     if seichi_photo.present?
       uploader = SeichiPhotoUploader.new
       uploader.cache!(seichi_photo)
-      session[:seichi_memo][:seichi_photo_cache] = uploader.cache_name
+      session[:seichi_memo]["seichi_photo_cache"] = uploader.cache_name
     end
   
     if scene_image.present?
       uploader = SceneImageUploader.new
       uploader.cache!(scene_image)
-      session[:seichi_memo][:scene_image_cache] = uploader.cache_name
+      session[:seichi_memo]["scene_image_cache"] = uploader.cache_name
     end
   
     if image_url.present?
       uploader = AnimeImageUploader.new
       uploader.cache!(image_url)
-      session[:seichi_memo][:image_url_cache] = uploader.cache_name
+      session[:seichi_memo]["image_url_cache"] = uploader.cache_name
     end
     Rails.logger.debug "📦 session[:seichi_memo]: #{session[:seichi_memo].inspect}"
   end
