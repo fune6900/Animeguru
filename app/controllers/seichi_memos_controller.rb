@@ -35,7 +35,13 @@ class SeichiMemosController < ApplicationController
   # 🔹 最終ステップでデータをデータベースに保存
   def create
     @seichi_memo_form = SeichiMemoForm.from_session(session[:seichi_memo], "confirm", session)
-
+  
+    if session[:seichi_memo]["image_url_cache"].present?
+      uploader = AnimeImageUploader.new
+      uploader.retrieve_from_cache!(session[:seichi_memo]["image_url_cache"])
+      @seichi_memo_form.image_url = uploader
+    end
+  
     if @seichi_memo_form.save
       session[:seichi_memo] = nil  # セッションをクリア
       redirect_to seichi_memo_path(@seichi_memo_form.seichi_memo), notice: "聖地メモを投稿しました！"

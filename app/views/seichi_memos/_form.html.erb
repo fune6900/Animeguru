@@ -11,27 +11,20 @@
   <!-- 🔹 ステップ 1: 巡礼記録 -->
   <div data-step-form-target="step">
     <%= render "seichi_memos/memo", f: f %>
-    <button type="button" class="btn btn-primary mt-2" data-action="click->step-form#next">次へ</button>
   </div>
 
   <!-- 🔹 ステップ 2: 聖地の基本情報 -->
   <div data-step-form-target="step" style="display:none;">
     <%= render "seichi_memos/place", f: f %>
-    <button type="button" class="btn btn-primary mt-2" data-action="click->step-form#prev">戻る</button>
-    <button type="button" class="btn btn-primary mt-2" data-action="click->step-form#next">次へ</button>
   </div>
 
   <!-- 🔹 ステップ 3: 作品の基本情報 -->
   <div data-step-form-target="step" style="display:none;">
     <%= render "seichi_memos/anime", f: f %>
-    <button type="button" class="btn btn-primary mt-2" data-action="click->step-form#prev">戻る</button>
-    <button type="button" class="btn btn-primary mt-2" data-action="click->step-form#next">次へ</button>
   </div>
 
   <!-- 🔹 ステップ 4: 確認画面 -->
   <div data-step-form-target="step" style="display:none;">
     <%= render "seichi_memos/confirm", f: f %>
-    <button type="button" class="btn btn-primary mt-2" data-action="click->step-form#prev">戻る</button>
-    <%= f.submit @seichi_memo_form.persisted? ? "更新する" : "投稿する", class: "btn btn-primary w-32" %>
   </div>
 <% end %>

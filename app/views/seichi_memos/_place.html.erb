@@ -1,22 +1,38 @@
-<div class="border-b p-4">
-  <h2 class="text-xl font-bold">聖地の基本情報</h2>
+<div class="p-4">
+  <!-- 🔹 ステップのタイトルと進捗バー -->
+  <div class="mb-4">
+    <h2 class="text-xl font-bold">ステップ 2/4: 聖地の基本情報</h2>
+    <div class="w-full bg-gray-200 rounded-full h-2.5">
+      <div class="bg-primary h-2.5 rounded-full" style="width: 50%"></div>
+    </div>
+  </div>
 
+  <!-- 🔹 聖地名 -->
   <div class="mt-4">
     <label class="block text-gray-700">聖地名 <span class="text-red-500">（必須）</span></label>
     <%= f.text_field :place_name, class: "w-full p-2 border rounded-md", placeholder: "聖地の名前を入力してください", data: { seichi_search_target: "seichi" } %>
   </div>
 
+  <!-- 🔹 聖地名から住所と郵便番号を取得するボタン -->
   <button type="button" class="btn btn-primary mt-2" data-action="click->seichi-search#search">
     聖地名から住所と郵便番号を取得
   </button>
 
+  <!-- 🔹 住所 -->
   <div class="mt-2">
     <label class="block text-gray-700">住所 <span class="text-gray-500">（任意）</span></label>
     <%= f.text_field :place_address, class: "w-full p-2 border rounded-md", placeholder: "住所を入力してください", data: { seichi_search_target: "address" } %>
   </div>
 
+  <!-- 🔹 郵便番号 -->
   <div class="mt-2">
     <label class="block text-gray-700">郵便番号 <span class="text-gray-500">（任意）</span></label>
     <%= f.text_field :place_postal_code, class: "w-full p-2 border rounded-md", placeholder: "例: 101-0021", data: { seichi_search_target: "postalcode" } %>
+  </div>
+
+  <!-- 🔹 ステップボタン -->
+  <div class="flex justify-center mt-4 space-x-4">
+    <button type="button" class="btn btn-primary mt-2" data-action="click->step-form#prev">前のステップへ</button>
+    <button type="button" class="btn btn-primary mt-2 w-auto" data-action="click->step-form#next">次のステップへ</button>
   </div>
 </div>

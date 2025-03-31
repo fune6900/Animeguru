@@ -82,7 +82,6 @@ class SeichiMemoForm
       uploader.cache!(image_url)
       session[:seichi_memo]["image_url_cache"] = uploader.cache_name
     end
-    Rails.logger.debug "📦 session[:seichi_memo]: #{session[:seichi_memo].inspect}"
   end
 
   # 🔹 最終ステップでデータベースに保存
@@ -93,7 +92,7 @@ class SeichiMemoForm
     anime = Anime.find_or_create_by(title: anime_title)
     anime.update(
       official_site_url: anime_official_site_url.presence || anime.official_site_url,
-      image_url: session[:seichi_memo][:image_url]
+      image_url: image_url
     )
 
     # 🔹 既存の聖地情報を取得 or 作成
@@ -110,8 +109,8 @@ class SeichiMemoForm
       place_id: place.id,
       title: title,
       body: body,
-      seichi_photo: session[:seichi_memo][:seichi_photo_url],
-      scene_image: session[:seichi_memo][:scene_image_url]
+      seichi_photo: seichi_photo,
+      scene_image: scene_image
     )
 
     true
