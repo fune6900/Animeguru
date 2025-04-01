@@ -124,7 +124,7 @@ class SeichiMemoForm
     anime = Anime.find_or_create_by(title: anime_title)
     anime.update(
       official_site_url: anime_official_site_url.presence || anime.official_site_url,
-      image_url: session[:seichi_memo][:image_url]
+      image_url: image_url
     )
 
     # 🔹 既存の聖地情報を更新
@@ -140,8 +140,8 @@ class SeichiMemoForm
       body: body,
       anime_id: anime.id,
       place_id: place.id,
-      seichi_photo: session[:seichi_memo][:seichi_photo_url] || seichi_memo.seichi_photo,
-      scene_image: session[:seichi_memo][:scene_image_url] || seichi_memo.scene_image
+      seichi_photo: seichi_photo,
+      scene_image: scene_image
     )
   end
 

@@ -12,7 +12,6 @@ class SeichiMemosController < ApplicationController
   def show
   end
 
-  # 🔹 ステップ1 (巡礼記録の入力)
   def new
     @seichi_memo_form = SeichiMemoForm.from_session(session[:seichi_memo], "memo", session)
   end
@@ -35,7 +34,7 @@ class SeichiMemosController < ApplicationController
   # 🔹 最終ステップでデータをデータベースに保存
   def create
     @seichi_memo_form = SeichiMemoForm.from_session(session[:seichi_memo], "confirm", session)
-
+    
     if @seichi_memo_form.save
       session.delete(:seichi_memo)
       redirect_to seichi_memo_path(@seichi_memo_form.seichi_memo), notice: "聖地メモを投稿しました！"
@@ -45,7 +44,7 @@ class SeichiMemosController < ApplicationController
     end
   end
 
-  # 🔹 編集画面を表示 (セッションなしで `SeichiMemo` を読み込む)
+  # 🔹 編集画面を表示
   def edit
     @seichi_memo_form = SeichiMemoForm.new(
       user_id: @seichi_memo.user_id,
@@ -65,11 +64,12 @@ class SeichiMemosController < ApplicationController
 
   # 🔹 編集したデータをデータベースに保存
   def update
-    @seichi_memo_form = SeichiMemoForm.new(seichi_memo_params)
+    @seichi_memo_form = SeichiMemoForm.from_session(session[:seichi_memo], "confirm", session)
     @seichi_memo_form.seichi_memo = @seichi_memo
 
     if @seichi_memo_form.update(@seichi_memo)
-      redirect_to seichi_memo_path(@seichi_memo), notice: "聖地メモを更新しました！"
+      session.delete(:seichi_memo)
+      redirect_to seichi_memo_path(@seichi_memo_form.seichi_memo), notice: "聖地メモを更新しました！"
     else
       flash.now[:alert] = "聖地メモを更新できませんでした"
       render :edit, status: :unprocessable_entity
