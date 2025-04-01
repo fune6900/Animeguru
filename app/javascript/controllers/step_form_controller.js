@@ -42,17 +42,7 @@ export default class extends Controller {
     }).then(response => {
       if (response.ok) {
         if (this.currentStepName() === "confirm") {
-          // 🔥 assign_cache を動かしてUploaderを復元！
-          fetch(`/seichi_memos/prepare_confirm`, {
-            method: "GET",
-            headers: {
-              "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
-            }
-          }).then(() => {
-            this.currentStep++
-            this.showStep()
-            this.clearErrors()
-          })
+          window.location.href = "/seichi_memos/confirm"
           return
         }
 
