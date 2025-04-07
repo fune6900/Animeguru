@@ -40,22 +40,39 @@ class SeichiMemoForm
 
   # 🔹 キャッシュ名から再セット
   def assign_cache(session)
-    if session.dig(:seichi_memo, "seichi_photo_cache").present?
-      uploader = SeichiPhotoUploader.new
-      uploader.retrieve_from_cache!(session[:seichi_memo]["seichi_photo_cache"])
-      self.seichi_photo = uploader  
+    return unless session[:seichi_memo]
+
+    # 🔹 seichi_photo の復元
+    if session[:seichi_memo]["seichi_photo_cache"].present?
+      if editing?
+        self.seichi_photo = @seichi_memo.seichi_photo
+      else
+        uploader = SeichiPhotoUploader.new
+        uploader.retrieve_from_cache!(session[:seichi_memo]["seichi_photo_cache"])
+        self.seichi_photo = uploader
+      end
     end
-  
-    if session.dig(:seichi_memo, "scene_image_cache").present?
-      uploader = SceneImageUploader.new
-      uploader.retrieve_from_cache!(session[:seichi_memo]["scene_image_cache"])
-      self.scene_image = uploader
+
+    # 🔹 scene_image の復元
+    if session[:seichi_memo]["scene_image_cache"].present?
+      if editing?
+        self.scene_image = @seichi_memo.scene_image
+      else
+        uploader = SceneImageUploader.new
+        uploader.retrieve_from_cache!(session[:seichi_memo]["scene_image_cache"])
+        self.scene_image = uploader
+      end
     end
-  
-    if session.dig(:seichi_memo, "image_url_cache").present?
-      uploader = AnimeImageUploader.new
-      uploader.retrieve_from_cache!(session[:seichi_memo]["image_url_cache"])
-      self.image_url = uploader
+
+    # 🔹 image_url の復元
+    if session[:seichi_memo]["image_url_cache"].present?
+      if editing?
+        self.image_url = @seichi_memo.anime.image_url
+      else
+        uploader = AnimeImageUploader.new
+        uploader.retrieve_from_cache!(session[:seichi_memo]["image_url_cache"])
+        self.image_url = uploader
+      end
     end
   end
 

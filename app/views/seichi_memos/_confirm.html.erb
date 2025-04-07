@@ -25,12 +25,12 @@
       <% end %>
 
       <% if @seichi_memo_form.seichi_photo.present? %>
-        <div class="w-1/2 h-60">
+        <div class="w-1/2">
           <h4 class="font-semibold mb-1">聖地の写真</h4>
           <%= image_tag @seichi_memo_form.seichi_photo.url, class: "rounded-lg shadow-md w-full h-full object-cover" %>
         </div>
       <% else %>
-        <div class="w-1/2 h-60">
+        <div class="w-1/2">
           <h4 class="font-semibold mb-1">聖地の写真</h4>
           <%= image_tag SeichiPhotoUploader.new.default_url, alt: "デフォルト画像", class: "rounded-lg shadow-md w-full h-full object-cover" %>
         </div>
