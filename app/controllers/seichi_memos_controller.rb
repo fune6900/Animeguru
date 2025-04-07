@@ -1,7 +1,7 @@
 class SeichiMemosController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
-  before_action :set_seichi_memo, only: [:show, :edit, :update, :destroy]
-  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy ]
+  before_action :set_seichi_memo, only: [ :show, :edit, :update, :destroy ]
+  before_action :correct_user, only: [ :edit, :update, :destroy ]
 
   require_dependency "seichi_memo_form"
 
@@ -34,7 +34,7 @@ class SeichiMemosController < ApplicationController
   # 🔹 最終ステップでデータをデータベースに保存
   def create
     @seichi_memo_form = SeichiMemoForm.from_session(session[:seichi_memo], "confirm", session)
-    
+
     if @seichi_memo_form.save
       session.delete(:seichi_memo)
       redirect_to seichi_memo_path(@seichi_memo_form.seichi_memo), notice: "聖地メモを投稿しました！"

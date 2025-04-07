@@ -81,19 +81,19 @@ class SeichiMemoForm
     Rails.logger.debug "🧠 保存前 attributes: #{attributes.inspect}"
     session[:seichi_memo] ||= {}
     session[:seichi_memo].merge!(attributes.except("seichi_photo", "scene_image", "image_url"))
-  
+
     if seichi_photo.present?
       uploader = SeichiPhotoUploader.new
       uploader.cache!(seichi_photo)
       session[:seichi_memo]["seichi_photo_cache"] = uploader.cache_name
     end
-  
+
     if scene_image.present?
       uploader = SceneImageUploader.new
       uploader.cache!(scene_image)
       session[:seichi_memo]["scene_image_cache"] = uploader.cache_name
     end
-  
+
     if image_url.present?
       uploader = AnimeImageUploader.new
       uploader.cache!(image_url)
@@ -165,17 +165,17 @@ class SeichiMemoForm
   # 🔹 画像の拡張子をチェックするカスタムバリデーション
   def validate_image_extensions
     allowed_extensions = %w[jpg jpeg png gif webp]
-  
+
     if current_step == "memo"
       if seichi_photo.present? && !valid_extension?(seichi_photo, allowed_extensions)
         errors.add(:seichi_photo, "は jpg, jpeg, png, gif, webpのいずれかの形式でアップロードしてください")
       end
-  
+
       if scene_image.present? && !valid_extension?(scene_image, allowed_extensions)
         errors.add(:scene_image, "は jpg, jpeg, png, gif, webpのいずれかの形式でアップロードしてください")
       end
     end
-  
+
     if current_step == "anime"
       if image_url.present? && !valid_extension?(image_url, allowed_extensions)
         errors.add(:image_url, "は jpg, jpeg, png, gif, webpのいずれかの形式でアップロードしてください")
