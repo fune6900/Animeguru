@@ -73,6 +73,9 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  # 定期実行タスク管理
+  gem 'whenever', require: false
 end
 
 group :test do
