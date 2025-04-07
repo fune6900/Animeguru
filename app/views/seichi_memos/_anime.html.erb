@@ -1,0 +1,38 @@
+<div class="p-4">
+  <!-- 🔹 ステップのタイトルと進捗バー -->
+  <div class="mb-4">
+    <h2 class="text-xl font-bold">ステップ 3/4: 作品の基本情報</h2>
+    <div class="w-full bg-gray-200 rounded-full h-2.5">
+      <div class="bg-primary h-2.5 rounded-full" style="width: 75%"></div>
+    </div>
+  </div>
+
+  <!-- 🔹 作品タイトル -->
+  <div class="mt-4">
+    <label class="block text-gray-700">作品タイトル <span class="text-red-500">（必須）</span></label>
+    <%= f.text_field :anime_title, class: "w-full p-2 border rounded-md", placeholder: "作品のタイトルを入力してください", data: { anime_search_target: "title" } %>
+  </div>
+
+  <!-- 🔹 作品タイトルから公式サイトを取得するボタン -->
+  <button type="button" class="btn btn-primary mt-2" data-action="click->anime-search#search">
+    作品タイトルから公式サイトを取得
+  </button>
+
+  <!-- 🔹 公式サイト -->
+  <div class="mt-2">
+    <label class="block text-gray-700">公式サイト <span class="text-gray-500">（任意）</span></label>
+    <%= f.text_field :anime_official_site_url, class: "w-full p-2 border rounded-md", placeholder: "例: https://www.example-anime.jp/", data: { anime_search_target: "site" } %>
+  </div>
+
+  <!-- 🔹 作品イメージ -->
+  <div class="mt-4">
+    <label class="block text-gray-700">作品イメージ <span class="text-gray-500">（任意）</span></label>
+    <%= f.file_field :image_url, class: "w-full p-2 border rounded-md" %>
+  </div>
+
+  <!-- 🔹 ステップボタン -->
+  <div class="flex justify-center mt-4 space-x-4">
+    <button type="button" class="btn btn-primary mt-2" data-action="click->step-form#prev">前のステップへ</button>
+    <button type="button" class="btn btn-primary mt-2 w-auto" data-action="click->step-form#next">確認画面へ</button>
+  </div>
+</div>

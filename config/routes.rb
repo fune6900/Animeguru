@@ -9,7 +9,12 @@ Rails.application.routes.draw do
   }
 
   # 聖地メモの CRUD ルーティング
-  resources :seichi_memos, only: [ :index, :new, :create, :show, :edit, :update, :destroy ]
+  resources :seichi_memos, only: [ :index, :new, :create, :show, :edit, :update, :destroy ] do
+    collection do
+      match :update_session, via: [ :post, :patch ] # ステップごとのデータをセッションに保存
+      get :prepare_confirm # 確認画面でセッション情報を反映する
+    end
+  end
 
   # Health check ルート（アップタイムモニタリング用）
   get "up" => "rails/health#show", as: :rails_health_check

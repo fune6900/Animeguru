@@ -13,13 +13,30 @@ class SeichiMemosController < ApplicationController
   end
 
   def new
-    @seichi_memo_form = SeichiMemoForm.new
+    @seichi_memo_form = SeichiMemoForm.from_session(session[:seichi_memo], "memo", session)
   end
 
+  # 🔹 各ステップごとにセッションを更新
+  def update_session
+    Rails.logger.debug "📦 seichi_memo_params: #{seichi_memo_params.inspect}"
+    Rails.logger.debug "📍 current_step: #{params[:step]}"
+
+    @seichi_memo_form = SeichiMemoForm.new(seichi_memo_params.merge(current_step: params[:step]))
+
+    if @seichi_memo_form.valid?
+      @seichi_memo_form.save_to_session(session)
+      head :ok  # 成功時は 200 OK を返す
+    else
+      render json: { errors: @seichi_memo_form.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  # 🔹 最終ステップでデータをデータベースに保存
   def create
-    @seichi_memo_form = SeichiMemoForm.new(seichi_memo_params)
+    @seichi_memo_form = SeichiMemoForm.from_session(session[:seichi_memo], "confirm", session)
 
     if @seichi_memo_form.save
+      session.delete(:seichi_memo)
       redirect_to seichi_memo_path(@seichi_memo_form.seichi_memo), notice: "聖地メモを投稿しました！"
     else
       flash.now[:alert] = "聖地メモを投稿出来ませんでした"
@@ -27,6 +44,7 @@ class SeichiMemosController < ApplicationController
     end
   end
 
+  # 🔹 編集画面を表示
   def edit
     @seichi_memo_form = SeichiMemoForm.new(
       user_id: @seichi_memo.user_id,
@@ -44,18 +62,21 @@ class SeichiMemosController < ApplicationController
     @seichi_memo_form.seichi_memo = @seichi_memo
   end
 
+  # 🔹 編集したデータをデータベースに保存
   def update
-    @seichi_memo_form = SeichiMemoForm.new(seichi_memo_params)
+    @seichi_memo_form = SeichiMemoForm.from_session(session[:seichi_memo], "confirm", session)
     @seichi_memo_form.seichi_memo = @seichi_memo
 
     if @seichi_memo_form.update(@seichi_memo)
-      redirect_to seichi_memo_path(@seichi_memo), notice: "聖地メモを更新しました！"
+      session.delete(:seichi_memo)
+      redirect_to seichi_memo_path(@seichi_memo_form.seichi_memo), notice: "聖地メモを更新しました！"
     else
       flash.now[:alert] = "聖地メモを更新できませんでした"
       render :edit, status: :unprocessable_entity
     end
   end
 
+  # 🔹 削除
   def destroy
     if @seichi_memo.destroy
       redirect_to seichi_memos_path, notice: "聖地メモを削除しました！"
@@ -63,6 +84,11 @@ class SeichiMemosController < ApplicationController
       flash.now[:alert] = "削除に失敗しました"
       redirect_back fallback_location: seichi_memos_path
     end
+  end
+
+  def prepare_confirm
+    SeichiMemoForm.from_session(session[:seichi_memo], "confirm", session)
+    head :ok
   end
 
   private
