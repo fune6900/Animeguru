@@ -196,4 +196,8 @@ class SeichiMemoForm
     extension = file.original_filename.split(".").last&.downcase
     allowed_extensions.include?(extension)
   end
+
+  def editing?
+    seichi_memo.present? && seichi_memo.persisted?
+  end
 end
