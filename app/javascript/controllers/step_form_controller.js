@@ -7,8 +7,6 @@ export default class extends Controller {
 
   // 🔹 コントローラーが接続されたときに実行される
   connect() {
-    console.log("🧙‍♀️ step_form コントローラーが接続されました！");
-    console.log("formTarget:", this.formTarget);
     this.currentStep = 0 // 初期ステップを 0（最初のステップ）に設定
     this.showStep() // 初回のステップを表示
   }
