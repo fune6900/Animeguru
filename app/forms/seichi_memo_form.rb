@@ -78,7 +78,6 @@ class SeichiMemoForm
 
   # 🔹 セッション保存
   def save_to_session(session)
-    Rails.logger.debug "🧠 保存前 attributes: #{attributes.inspect}"
     session[:seichi_memo] ||= {}
     session[:seichi_memo].merge!(attributes.except("seichi_photo", "scene_image", "image_url"))
 
