@@ -10,6 +10,8 @@ class SeichiMemosController < ApplicationController
   end
 
   def show
+    @comment = Comment.new
+    @comments = @seichi_memo.comments.includes(:user).order(created_at: :desc)
   end
 
   def new
