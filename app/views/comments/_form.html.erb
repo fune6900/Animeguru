@@ -1,7 +1,6 @@
-<!-- コメントフォーム -->
 <% if user_signed_in? %>
   <div class="flex items-center bg-gray-100 rounted-full shadow-sm">
-    <%= form_with model: [@seichi_memo, @comment], local: true, class: "flex-grow" do |f| %>
+    <%= form_with model: [seichi_memo, comment], local: true, class: "flex-grow" do |f| %>
       <div class="flex items-center w-full">
         <%= f.text_area :content, placeholder: "コメントする", class: "w-full bg-transparent text-sm border-none focus:outline-none px-3 py-1" %>
         <%= f.submit "コメント", class: "btn btn-primary mt-2" %>
@@ -9,7 +8,6 @@
     <% end %>
   </div>
 <% else %> 
-  <!-- ログインを促すリンク -->
   <p class="text-sm text-center mt-4">
     <%= link_to "ログインしてコメントする", new_user_session_path, class: "text-white underline hover:text-primary" %>
   </p>
