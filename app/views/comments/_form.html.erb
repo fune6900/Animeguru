@@ -9,7 +9,9 @@
     </div>
   <% end %>
 <% else %> 
-  <p class="text-sm text-center mt-4">
-    <%= link_to "ログインしてコメントする", new_user_session_path, class: "text-white underline hover:text-primary" %>
-  </p>
+  <div class="text-center mb-4 p-4 border rounded-md text-gray-700">
+    コメントを投稿するには
+    <%= link_to "ログイン", new_user_session_path, class: "underline hover:text-primary" %>
+    が必要です。
+  </div>
 <% end %>
