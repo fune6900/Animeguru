@@ -75,6 +75,18 @@
     </div>
   </div>
 
+  <!-- コメントセクション -->
+  <div class="border-t border-gray-300 p-4">
+    <!-- コメント件数表示 -->
+    <h2 class="text-base text-black font-semibold mb-3"><%= @comments.count %>件のコメント</h2>
+
+    <!-- コメントフォーム -->
+    <%= render partial: "comments/form", locals: { seichi_memo: @seichi_memo, comment: @comment } %>
+
+    <!-- コメント一覧 -->
+    <%= render partial: "comments/comment", locals: { comments: @comments } %>
+  </div>
+
   <!-- 戻るボタン -->
   <div class="mt-6 text-center">
     <%= link_to "みんなの投稿に戻る", seichi_memos_path, class: "btn btn-primary w-50" %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_14_082012) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_10_092848) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_14_082012) do
     t.datetime "updated_at", null: false
     t.string "image_url"
     t.index ["title"], name: "index_animes_on_title", unique: true
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string "content"
+    t.bigint "seichi_memo_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["seichi_memo_id"], name: "index_comments_on_seichi_memo_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "places", force: :cascade do |t|
@@ -61,6 +71,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_14_082012) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "comments", "seichi_memos"
+  add_foreign_key "comments", "users"
   add_foreign_key "seichi_memos", "animes"
   add_foreign_key "seichi_memos", "places"
   add_foreign_key "seichi_memos", "users"
