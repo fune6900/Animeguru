@@ -4,7 +4,7 @@ source "https://rubygems.org"
 gem "devise"
 
 # 画像アップロード用
-gem "carrierwave", "~> 3.0"
+gem "carrierwave", "~> 3.1"
 
 # Amazon S3
 gem "fog-aws"
