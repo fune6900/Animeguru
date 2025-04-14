@@ -77,17 +77,14 @@
 
   <!-- コメントセクション -->
   <div class="border-t border-gray-300 p-4">
-    <!-- エラーメッセージを表示 -->
-    <%= render "shared/error_messages", resource: @comment %>
+    <!-- コメント件数表示 -->
+    <h2 class="text-base text-black font-semibold mb-3"><%= @comments.count %>件のコメント</h2>
 
     <!-- コメントフォーム -->
     <%= render partial: "comments/form", locals: { seichi_memo: @seichi_memo, comment: @comment } %>
 
-    <!-- コメント件数表示 -->
-    <h2 class="text-sm text-gray-600 mb-2"><%= @comments.count %>件のコメント</h2>
-
     <!-- コメント一覧 -->
-    <%= render partial: "comments/comments", locals: { comments: @comments } %>
+    <%= render partial: "comments/comment", locals: { comments: @comments } %>
   </div>
 
   <!-- 戻るボタン -->
