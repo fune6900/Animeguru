@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  # 関連付け
   has_many :seichi_memos, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
@@ -12,4 +13,17 @@ class User < ApplicationRecord
   validates :username, presence: true,
                        uniqueness: { case_sensitive: false },
                        length: { minimum: 3, maximum: 25 }
+
+  # ブックマーク機能
+  def bookmark(seichi_memo)
+    bookmark_seichi_memos << seichi_memo
+  end
+
+  def unbookmark(seichi_memo)
+    bookmark_seichi_memos.destroy(seichi_memo)
+  end
+
+  def bookmark?(seichi_memo)
+    bookmark_seichi_memos.include?(seichi_memo)
+  end
 end
