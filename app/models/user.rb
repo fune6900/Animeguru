@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_many :seichi_memos, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
+  has_many :bookmark_seichi_memos, through: :bookmarks, source: :seichi_memo
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
