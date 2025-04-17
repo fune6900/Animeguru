@@ -6,8 +6,9 @@ class BookmarksController < ApplicationController
   end
 
   def destroy
-    @seichi_memo = SeichiMemo.find(params[:id])
-    current_user.unbookmark(@seichi_memo)
-    redirect_to seichi_memo_path(@seichi_memo), notice: "ブックマークを解除しました！", status: :see_other
+    @bookmark = current_user.bookmarks.find(params[:id])
+    seichi_memo = @bookmark.seichi_memo
+    current_user.unbookmark(seichi_memo)
+    redirect_to seichi_memo_path(seichi_memo), notice: "ブックマークを解除しました！", status: :see_other
   end
 end
