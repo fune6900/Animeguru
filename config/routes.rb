@@ -14,8 +14,11 @@ Rails.application.routes.draw do
     collection do
       match :update_session, via: [ :post, :patch ] # ステップごとのデータをセッションに保存
       get :prepare_confirm # 確認画面でセッション情報を反映する
+      get :bookmarks # ブックマークした聖地メモを表示する
     end
   end
+
+  resources :bookmarks, only: %i[create destroy]
 
   # Health check ルート（アップタイムモニタリング用）
   get "up" => "rails/health#show", as: :rails_health_check

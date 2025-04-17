@@ -1,0 +1,9 @@
+<% if current_user %>
+  <div class="flex items-center space-x-2">
+    <% if current_user && current_user.bookmark?(seichi_memo) %>
+      <%= render 'bookmarks/unbookmark', seichi_memo: seichi_memo, bookmark: current_user.bookmarks.find_by(seichi_memo: seichi_memo) %>
+    <% else %>
+      <%= render 'bookmarks/bookmark', seichi_memo: seichi_memo %>
+    <% end %>
+  </div>
+<% end %>

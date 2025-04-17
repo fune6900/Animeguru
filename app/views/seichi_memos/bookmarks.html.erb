@@ -1,0 +1,11 @@
+<h2 class="text-2xl font-bold text-center mb-6">ブックマークした投稿</h2>
+<div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+  <% if @bookmark_seichi_memos.any? %>
+    <% @bookmark_seichi_memos.each do |seichi_memo| %>
+      <%= render "seichi_memos/seichi_memo", seichi_memo: seichi_memo %>
+    <% end %>
+  <% else %>
+    <p class="text-center text-gray-600">ブックマークした投稿はありません。</p>
+  <% end %>
+</div>
+<%= paginate @bookmark_seichi_memos %>

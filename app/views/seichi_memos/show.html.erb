@@ -5,8 +5,17 @@
 
     <% if current_user == @seichi_memo.user %>
       <div class="flex space-x-2">
-        <%= link_to "編集", edit_seichi_memo_path(@seichi_memo), class: "btn btn-primary w-50" %>
-        <%= link_to "削除", seichi_memo_path(@seichi_memo), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' }, class: "btn btn-primary w-50" %>
+        <%= link_to edit_seichi_memo_path(@seichi_memo), class: "btn btn-primary flex items-center space-x-1" do %>
+          <i class="fas fa-pen"></i>
+          <span>編集</span>
+        <% end %>
+
+        <%= link_to seichi_memo_path(@seichi_memo),
+                    data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' },
+                    class: "btn btn-primary flex items-center space-x-1" do %>
+          <i class="fas fa-trash-alt"></i>
+          <span>削除</span>
+        <% end %>
       </div>
     <% end %>
   </div>
@@ -38,6 +47,11 @@
     </div>
   </div>
 
+  <!-- アクションボタン -->
+  <div class="flex items-center justify-end mb-2">
+    <%= render 'bookmarks/bookmark_buttons', seichi_memo: @seichi_memo %>
+  </div>
+
   <!-- 聖地メモの本文 -->
 	<div class="p-4">
 	  <h2 class="text-lg font-bold">メモ</h2>
@@ -45,11 +59,23 @@
 	</div>
 
   <!-- 聖地の情報 -->
-  <div class="border-t border-gray-300 p-4">
-    <h2 class="text-lg font-bold">聖地情報</h2>
-    <p class="text-gray-700"><strong>聖地名:</strong> <%= @seichi_memo.place.name %></p>
-    <p class="text-gray-700"><strong>住所:</strong> <%= @seichi_memo.place.address.presence || "情報なし" %></p>
-    <p class="text-gray-700"><strong>郵便番号:</strong> <%= @seichi_memo.place.postal_code.presence || "情報なし" %></p>
+  <div class="border-t border-gray-300 p-4 space-y-2">
+    <h2 class="text-lg font-bold mb-2">聖地情報</h2>
+
+    <div class="flex items-start space-x-3">
+      <i class="fas fa-map text-primary text-lg w-6 text-center"></i>
+      <span class="text-gray-700"><%= @seichi_memo.place.name %></span>
+    </div>
+
+    <div class="flex items-start space-x-3">
+      <i class="fas fa-map-marker-alt text-primary text-lg w-6 text-center"></i>
+      <span class="text-gray-700"><%= @seichi_memo.place.address.presence || "情報なし" %></span>
+    </div>
+
+    <div class="flex items-start space-x-3">
+      <i class="fas fa-envelope text-primary text-lg w-6 text-center"></i>
+      <span class="text-gray-700"><%= @seichi_memo.place.postal_code.presence || "情報なし" %></span>
+    </div>
   </div>
 
   <!-- 作品情報 -->
@@ -58,11 +84,9 @@
     <p class="text-gray-700"><strong>作品名:</strong> <%= @seichi_memo.anime.title %></p>
     <% if @seichi_memo.anime.official_site_url.present? %>
       <p class="text-blue-500 flex items-center space-x-1">
-        <a href="<%= @seichi_memo.anime.official_site_url %>" target="_blank" class="hover:underline flex items-center">
-          公式サイト
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M12.293 3.293a1 1 0 011.414 0L18 7.586a1 1 0 010 1.414l-5.293 5.293a1 1 0 01-1.414-1.414L15.586 9H7a1 1 0 110-2h8.586L12.293 4.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
-          </svg>
+        <a href="<%= @seichi_memo.anime.official_site_url %>" target="_blank" class="hover:underline flex items-center space-x-1">
+          <span>公式サイト</span>
+          <i class="fas fa-up-right-from-square text-sm"></i>
         </a>
       </p>
     <% else %>
