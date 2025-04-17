@@ -90,6 +90,10 @@ class SeichiMemosController < ApplicationController
     head :ok
   end
 
+  def bookmarks
+    @bookmark_seichi_memos = current_user.bookmark_seichi_memos.includes(:anime, :place).order(created_at: :desc).page(params[:page]).per(18)
+  end
+
   private
 
   # 🔹 Strong Parameters
