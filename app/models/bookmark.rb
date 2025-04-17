@@ -3,5 +3,5 @@ class Bookmark < ApplicationRecord
 	belongs_to :user
 
 	# 同じ投稿を複数回ブックマークできないようにする
-	validates :user_id, uniqueness: { scope: :post_id, , message: "すでにブックマークしています" }
+	validates :user_id, uniqueness: { scope: :seichi_memo_id, message: "すでにブックマークしています" }
 end
