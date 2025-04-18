@@ -4,6 +4,8 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
   has_many :bookmark_seichi_memos, through: :bookmarks, source: :seichi_memo
+  has_many :likes, dependent: :destroy
+  has_many :like_seichi_memos, through: :likes, source: :seichi_memo
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -25,5 +27,18 @@ class User < ApplicationRecord
 
   def bookmark?(seichi_memo)
     bookmark_seichi_memos.include?(seichi_memo)
+  end
+
+  # いいね機能
+  def like(seichi_memo)
+    like_seichi_memos << seichi_memo
+  end
+
+  def unlike(seichi_memo)
+    like_seichi_memos.destroy(seichi_memo)
+  end
+
+  def like?(seichi_memo)  
+    like_seichi_memos.include?(seichi_memo)
   end
 end
