@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_04_16_205445) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_18_223139) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,6 +41,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_16_205445) do
     t.datetime "updated_at", null: false
     t.index ["seichi_memo_id"], name: "index_comments_on_seichi_memo_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "seichi_memo_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["seichi_memo_id"], name: "index_likes_on_seichi_memo_id"
+    t.index ["user_id", "seichi_memo_id"], name: "index_likes_on_user_id_and_seichi_memo_id", unique: true
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "places", force: :cascade do |t|
@@ -85,6 +95,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_16_205445) do
   add_foreign_key "bookmarks", "users"
   add_foreign_key "comments", "seichi_memos"
   add_foreign_key "comments", "users"
+  add_foreign_key "likes", "seichi_memos"
+  add_foreign_key "likes", "users"
   add_foreign_key "seichi_memos", "animes"
   add_foreign_key "seichi_memos", "places"
   add_foreign_key "seichi_memos", "users"
