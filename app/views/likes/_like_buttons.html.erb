@@ -1,0 +1,11 @@
+<% if current_user %>
+  <div class="flex items-center space-x-2">
+    <% if current_user && current_user.like?(seichi_memo) %>
+      <%= render 'likes/unlike', seichi_memo: seichi_memo, like: current_user.likes.find_by(seichi_memo: seichi_memo) %>
+    <% else %>
+      <%= render 'likes/like', seichi_memo: seichi_memo %>
+    <% end %>
+    <!-- いいね数の表示 -->
+    <span class="text-sm text-gray-700"><%= seichi_memo.likes.count %></span>
+  </div>
+<% end %>
