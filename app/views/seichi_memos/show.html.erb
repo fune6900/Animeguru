@@ -47,8 +47,9 @@
     </div>
   </div>
 
-  <!-- アクションボタン -->
-  <div class="flex items-center justify-end mb-2">
+  <!-- アクションボタン(ブックマーク、いいね) -->
+  <div class="flex items-center justify-between mb-2 px-4">
+    <%= render 'likes/like_buttons', seichi_memo: @seichi_memo %>
     <%= render 'bookmarks/bookmark_buttons', seichi_memo: @seichi_memo %>
   </div>
 

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   # 聖地メモの CRUD ルーティング
   resources :seichi_memos, only: [ :index, :new, :create, :show, :edit, :update, :destroy ] do
     resources :comments, only: %i[create], shallow: true
+    resources :likes, only: %i[create destroy], shallow: true
     collection do
       match :update_session, via: [ :post, :patch ] # ステップごとのデータをセッションに保存
       get :prepare_confirm # 確認画面でセッション情報を反映する
