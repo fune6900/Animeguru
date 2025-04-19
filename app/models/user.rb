@@ -38,7 +38,7 @@ class User < ApplicationRecord
     like_seichi_memos.destroy(seichi_memo)
   end
 
-  def like?(seichi_memo)  
+  def like?(seichi_memo)
     like_seichi_memos.include?(seichi_memo)
   end
 end
