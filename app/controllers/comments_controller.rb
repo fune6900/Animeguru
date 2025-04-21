@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
 
     if @comment.save
       respond_to do |format|
-        format.turbo_stream do 
+        format.turbo_stream do
           flash.now[:comment_notice] = "コメントを投稿しました。"
           render :create
         end
