@@ -1,3 +1,7 @@
-<%= button_to bookmarks_path(seichi_memo_id: seichi_memo.id), method: :post, class: "text-primary hover:text-primary text-2xl" do %>
+<%= button_to bookmarks_path(seichi_memo_id: seichi_memo.id),
+    method: :post,
+    data: { turbo_method: :post },
+    class: "text-primary hover:text-primary text-2xl",
+    onclick: "event.stopPropagation();" do %>
   <i class="far fa-bookmark"></i>
 <% end %>
