@@ -103,7 +103,12 @@
   <!-- コメントセクション -->
   <div class="border-t border-gray-300 p-4">
     <!-- コメント件数表示 -->
-    <h2 class="text-base text-black font-semibold mb-3"><%= @comments.count %>件のコメント</h2>
+    <h2 id="comments_count" class="text-base text-black font-semibold mb-3"><%= @comments.count %>件のコメント</h2>
+
+    <!-- フラッシュメッセージ -->
+    <div id="flash" class="mb-5">
+      <%= render "shared/flash_message_turbo" %>
+    </div>
 
     <!-- コメントフォーム -->
     <%= render partial: "comments/form", locals: { seichi_memo: @seichi_memo, comment: @comment } %>

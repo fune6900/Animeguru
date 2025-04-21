@@ -1,0 +1,22 @@
+<div id="flash_message" class="<%= flash[:comment_notice] || flash[:comment_alert] ? '' : 'hidden' %> fixed top-5 right-5 w-96 z-50 space-y-3">
+  <% if flash[:comment_notice] || flash[:comment_alert] %>
+    <% { comment_notice: "blue", comment_alert: "red" }.each do |key, color| %>
+      <% if flash[key] %>
+        <div class="<%= flash_background_color(key) %> px-4 py-3 rounded-md text-white flex items-center shadow-lg animate-slide-in fade-out" id="flash-message-<%= key %>">
+          <span class="ml-3"><%= flash[key] %></span>
+        <button onclick="this.parentElement.remove();" class="ml-auto text-xl leading-none">&times;</button>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <script>
+    // 5秒後にフェードアウトさせて削除
+    setTimeout(() => {
+      document.querySelectorAll('.fade-out').forEach(el => {
+        el.classList.add('animate-fade-out');
+        setTimeout(() => el.remove(), 500);
+      });
+    }, 5000);
+  </script>
+</div>
