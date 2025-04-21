@@ -1,0 +1,7 @@
+<%= turbo_stream.replace "like_buttons_#{@seichi_memo.id}" do %>
+  <%= render "likes/like_buttons", seichi_memo: @seichi_memo %>
+<% end %>
+
+<%= turbo_stream.update "likes_count_#{@seichi_memo.id}" do %>
+  <%= @seichi_memo.likes.count %>
+<% end %>
