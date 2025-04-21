@@ -1,3 +1,7 @@
-<%= button_to like_path(like), method: :delete, class: "text-red-500 text-2xl", data: { turbo_method: :delete } do %>
+<%= button_to like_path(like),
+    method: :delete,
+    data: { turbo_method: :delete },
+    class: "text-red-500 text-2xl",
+    onclick: "event.stopPropagation();" do %>
   <i class="fas fa-heart"></i>
 <% end %>
