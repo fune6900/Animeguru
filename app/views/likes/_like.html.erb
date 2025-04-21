@@ -1,3 +1,7 @@
-<%= button_to seichi_memo_likes_path(seichi_memo), method: :post, class: "text-red-500 text-2xl" do %>
+<%= button_to seichi_memo_likes_path(seichi_memo),
+    method: :post,
+    data: { turbo_method: :post },
+    class: "text-red-500 text-2xl",
+    onclick: "event.stopPropagation();" do %>
   <i class="far fa-heart"></i>
 <% end %>
