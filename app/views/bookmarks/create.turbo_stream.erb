@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "bookmark_buttons_#{@seichi_memo.id}" do %>
+  <%= render "bookmarks/bookmark_buttons", seichi_memo: @seichi_memo %>
+<% end %>
