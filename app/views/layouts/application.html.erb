@@ -23,7 +23,9 @@
 
   <body class="bg-gray-100 min-h-screen flex flex-col">
   <%= render 'shared/header' %>
-  <%= render 'layouts/flash_messages' %>
+  <div id="flash">
+    <%= render 'layouts/flash_messages' %>
+  </div>
   <!-- Main Content -->
   <main class="flex-grow container mx-auto px-4 py-8">
     <%= yield %>
