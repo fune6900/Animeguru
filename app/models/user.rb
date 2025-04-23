@@ -15,6 +15,20 @@ class User < ApplicationRecord
   validates :username, presence: true,
                        uniqueness: { case_sensitive: false },
                        length: { minimum: 3, maximum: 25 }
+  
+  #自己紹介紹介の長さは500文字まで
+  validates :introduction, length: { maximum: 500 }, allow_blank: true
+  validate :profile_image_content_type
+
+  # プロフィール画像の拡張子バリデーション
+  def profile_image_content_type
+    if profile_image.present? && profile_image.file.present?
+      content_type = profile_image.file.content_type
+      unless allowed_image_types.include?(content_type)
+        errors.add(:profile_image, "はjpg, jpeg, png, gifのいずれかの形式でアップロードしてください")
+      end
+    end
+  end
 
   # ブックマーク機能
   def bookmark(seichi_memo)
@@ -40,5 +54,11 @@ class User < ApplicationRecord
 
   def like?(seichi_memo)
     like_seichi_memos.include?(seichi_memo)
+  end
+
+  private
+
+  def allowed_image_types
+    %w[image/jpeg image/jpg image/png image/gif]
   end
 end
