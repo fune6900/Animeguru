@@ -15,10 +15,13 @@ class User < ApplicationRecord
   validates :username, presence: true,
                        uniqueness: { case_sensitive: false },
                        length: { minimum: 3, maximum: 25 }
-  
-  #自己紹介紹介の長さは500文字まで
+
+  #その他のカスタムバリデーション
   validates :introduction, length: { maximum: 500 }, allow_blank: true
   validate :profile_image_content_type
+
+  # プロフィール画像のアップローダー
+  mount_uploader :profile_image, ProfileImageUploader
 
   # プロフィール画像の拡張子バリデーション
   def profile_image_content_type
