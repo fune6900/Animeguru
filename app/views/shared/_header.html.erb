@@ -22,15 +22,50 @@
       </label>
       <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 p-4 shadow bg-primary rounded-box w-60">
         <% if user_signed_in? %>
-          <li><%= link_to "みんなの投稿", seichi_memos_path, class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
-          <li><%= link_to "新規投稿", new_seichi_memo_path, class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
-          <li><%= link_to "ブックマークした投稿", bookmarks_seichi_memos_path, class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li> 
-          <li><%= link_to "聖地巡礼の際のマナー", "#", class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
-          <li><%= link_to "マイページ", "#", class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
-          <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
-        <% else %>
-          <li><%= link_to "みんなの投稿", seichi_memos_path, class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
-        <% end %>
+        <li>
+          <%= link_to seichi_memos_path, class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
+            <i class="fa-solid fa-users"></i>
+            みんなの聖地メモ
+          <% end %>
+        </li>
+        <li>
+          <%= link_to new_seichi_memo_path, class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
+            <i class="fa-solid fa-pen-to-square"></i>
+            聖地メモを投稿
+          <% end %>
+        </li>
+        <li>
+          <%= link_to bookmarks_seichi_memos_path, class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
+            <i class="fa-solid fa-bookmark"></i>
+            ブックマークした聖地メモ
+          <% end %>
+        </li>
+        <li>
+          <%= link_to "#", class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
+            <i class="fa-solid fa-hands-praying"></i>
+            聖地巡礼の際のマナー
+          <% end %>
+        </li>
+        <li>
+          <%= link_to profile_path, class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
+            <i class="fa-solid fa-user"></i>
+            マイページ
+          <% end %>
+        </li>
+        <li>
+          <%= link_to destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
+            <i class="fa-solid fa-right-from-bracket"></i>
+            ログアウト
+          <% end %>
+        </li>
+      <% else %>
+        <li>
+          <%= link_to seichi_memos_path, class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
+            <i class="fa-solid fa-users"></i>
+            みんなの聖地メモ
+          <% end %>
+        </li>
+      <% end %>
 
         <!-- 利用規約・プライバシーポリシー・お問い合わせ -->
         <hr class="border-gray-200">
