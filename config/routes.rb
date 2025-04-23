@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   sessions: "users/sessions"
   }
 
+  # ユーザープロフィールの CRUD ルーティング
+  get "profile", to: "users#show"
+
   # 聖地メモの CRUD ルーティング
   resources :seichi_memos, only: [ :index, :new, :create, :show, :edit, :update, :destroy ] do
     resources :comments, only: %i[create], shallow: true
