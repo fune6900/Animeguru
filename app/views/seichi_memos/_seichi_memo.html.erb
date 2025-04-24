@@ -21,7 +21,12 @@
 
   <!-- ユーザー情報 -->
   <div class="flex items-center justify-between mt-4 px-2">
-    <span class="text-gray-700 text-base font-medium"><%= seichi_memo.user.username %></span>
+    <div class="flex items-center space-x-2">
+      <%= link_to (seichi_memo.user == current_user ? profile_path : user_path(seichi_memo.user)) do %>
+        <%= image_tag seichi_memo.user.profile_image.url, alt: seichi_memo.user.username, class: "w-8 h-8 rounded-full" %>
+      <% end %>
+      <span class="text-gray-700 text-base font-medium"><%= seichi_memo.user.username %></span>
+    </div>
     <!-- いいねボタン -->
     <%= render 'likes/like_buttons', seichi_memo: seichi_memo %>
   </div>

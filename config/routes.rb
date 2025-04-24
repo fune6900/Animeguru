@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   }
 
   # ユーザープロフィールのルーティング
-  get "profile", to: "users#show", as: :profile
+  get "profile", to: "users#profile", as: :profile
+  # 他人用プロフィール
+  resources :users, only: [:show]
 
   # 聖地メモの CRUD ルーティング
   resources :seichi_memos, only: [ :index, :new, :create, :show, :edit, :update, :destroy ] do
