@@ -11,4 +11,11 @@
       <%= safe_join(@user.introduction.to_s.split("\n"), tag(:br)).presence || "よろしくお願いします！" %>
     </p>
   </div>
+
+  <!-- プロフィール編集ボタン -->
+  <% if @user == current_user %>
+    <div class="flex justify-center my-4">
+      <%= link_to "プロフィール編集", edit_user_registration_path, class: "btn btn-primary" %>
+    </div>
+  <% end %>
 </div>
