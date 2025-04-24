@@ -20,8 +20,8 @@ ja:
       signed_in: "ログインしました"
       signed_out: "ログアウトしました"
     registrations:
-      signed_up: "アカウントを作成しました"
-      updated: "アカウントを更新しました"
+      signed_up: "アカウント登録が完了しました。ようこそ！"
+      updated: "プロフィールを更新しました"
       failed: "アカウントを作成できませんでした。すべての項目を入力してください"
     passwords:
       send_instructions: "パスワードリセット手順を送信しました"

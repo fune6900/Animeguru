@@ -5,6 +5,7 @@ ja:
       blank: "を入力してください"
       invalid: "は有効な値ではありません"
       too_short: "は%{count}文字以上で入力してください"
+      extension_allowlist_error: "は jpg, jpeg, png, gif のいずれかの形式でアップロードしてください"
 
   activerecord:
     models:
@@ -16,6 +17,8 @@ ja:
         username: ユーザー名
         password: パスワード
         password_confirmation: パスワード確認
+        profile_image: プロフィール画像
+        introduction: ひとこと
       seichi_memo:
         title: タイトル
         body: メモ
@@ -55,6 +58,10 @@ ja:
             place_postal_code:
               invalid: "はXXX-XXXXの形式で入力してください"
             seichi_photo:
+              invalid_extension: "は jpg, jpeg, png, gif, webp のいずれかの形式でアップロードしてください"
+            scene_image:
+              invalid_extension: "は jpg, jpeg, png, gif, webp のいずれかの形式でアップロードしてください"
+            image_url: 
               invalid_extension: "は jpg, jpeg, png, gif, webp のいずれかの形式でアップロードしてください"
 
   views:  # 🔹 ページネーションの翻訳を追加

@@ -25,4 +25,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def configure_account_update_params
     devise_parameter_sanitizer.permit(:account_update, keys: [ :username, :profile_image, :introduction, :email, :password, :password_confirmation, :current_password ])
   end
+
+  # パスワードなしでユーザー情報を編集
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
 end
