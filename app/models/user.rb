@@ -16,7 +16,7 @@ class User < ApplicationRecord
                        uniqueness: { case_sensitive: false },
                        length: { minimum: 3, maximum: 25 }
 
-  #その他のカスタムバリデーション
+  # その他のカスタムバリデーション
   validates :introduction, length: { maximum: 500 }, allow_blank: true
   validate :profile_image_content_type
 
