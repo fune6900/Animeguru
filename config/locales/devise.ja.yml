@@ -17,10 +17,10 @@ ja:
 
   devise:
     sessions:
-      signed_in: "ログインしました"
+      signed_in: "ログインしました。さっそく聖地メモを投稿してみませんか？"
       signed_out: "ログアウトしました"
     registrations:
-      signed_up: "アカウント登録が完了しました。ようこそ！"
+      signed_up: "アカウント登録が完了しました。さっそく聖地メモを投稿してみませんか？"
       updated: "プロフィールを更新しました"
       failed: "アカウントを作成できませんでした。すべての項目を入力してください"
     passwords:
@@ -28,7 +28,7 @@ ja:
       updated: "パスワードを変更しました"
     failure:
       already_authenticated: "すでにログインしています"
-      unauthenticated: "ログインしてください"
+      unauthenticated: "ログインが必要です"
       invalid: "メールアドレスまたはパスワードが間違っています" 
       not_saved: "アカウントを作成できませんでした" 
       not_found_in_database: "無効な%{authentication_keys}またはパスワードです"

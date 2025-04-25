@@ -1,13 +1,12 @@
-<div id="flash_message" class="<%= flash[:comment_notice] || flash[:comment_alert] ? '' : 'hidden' %> fixed top-5 right-5 w-96 z-50 space-y-3">
-  <% if flash[:comment_notice] || flash[:comment_alert] %>
-    <% { comment_notice: "blue", comment_alert: "red" }.each do |key, color| %>
-      <% if flash[key] %>
-        <div class="<%= flash_background_color(key) %> px-4 py-3 rounded-md text-white flex items-center shadow-lg animate-slide-in fade-out" id="flash-message-<%= key %>">
-          <span class="ml-3"><%= flash[key] %></span>
-        <button onclick="this.parentElement.remove();" class="ml-auto text-xl leading-none">&times;</button>
-        </div>
-      <% end %>
-    <% end %>
+<% comment_flashes = flash.select { |k, _| k.to_sym.in?([:comment_notice, :comment_alert]) } %>
+
+<div id="flash_message" class="<%= comment_flashes.any? ? '' : 'hidden' %> fixed top-5 right-5 w-96 z-50 space-y-3">
+  <% comment_flashes.each do |key, message| %>
+    <div class="<%= flash_background_color(key) %> px-4 py-3 rounded-md text-white flex items-center shadow-lg animate-slide-in fade-out" id="flash-message-<%= key %>">
+      <i class="<%= flash_icon_class(key) %> text-xl mr-3"></i>
+      <span class="ml-1"><%= message %></span>
+      <button onclick="this.parentElement.remove();" class="ml-auto text-2xl leading-none hover:text-gray-200">&times;</button>
+    </div>
   <% end %>
 
   <script>
