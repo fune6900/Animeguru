@@ -1,82 +1,98 @@
-<div class="navbar bg-primary text-white rounded-lg shadow-md">
-  <!-- ロゴ -->
-  <div class="flex-1 px-2 flex-none">
-    <%= link_to "アニめぐる", root_path, class:"btn btn-ghost text-xl transition duration-300 font-rampart" %>
-  </div>
+<!-- ヘッダー -->
+<div class="navbar bg-primary text-white shadow-md">
+  <div class="w-full mx-auto flex justify-between items-center px-2">
 
-  <div class="flex flex-1 justify-end px-2">
-    <!-- ログインしていない場合のみ、ログイン＆新規登録ボタンを表示 -->
-    <% unless user_signed_in? %>
-      <div class="flex-none flex gap-2">
-        <%= link_to "ログイン", new_user_session_path, class:"btn btn-outline text-white hover:bg-base-200 hover:shadow-md transition duration-300" %>
-        <%= link_to "新規登録", new_user_registration_path, class:"btn btn-outline text-white hover:bg-base-200 hover:shadow-md transition duration-300" %>
-      </div>
-    <% end %>
+    <!-- 左エリア（ロゴ） -->
+    <div class="flex items-center">
+      <%= link_to "アニめぐる", root_path, class:"text-2xl font-rampart" %>
+    </div>
 
-    <!-- ドロップダウンメニュー -->
-    <div class="dropdown dropdown-end">
-      <label tabindex="0" class="btn btn-ghost btn-square hover:shadow-md transition duration-300">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-6 w-6 stroke-current text-white-700">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </label>
-      <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 p-4 shadow bg-primary rounded-box w-60">
-        <% if user_signed_in? %>
-        <li>
-          <%= link_to seichi_memos_path, class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
-            <i class="fa-solid fa-users"></i>
-            みんなの聖地メモ
+    <!-- 右エリア（ログイン/ドロップダウン） -->
+    <div class="flex items-center gap-4">
+      <% unless user_signed_in? %>
+        <!-- 未ログイン：ログイン・新規登録ボタン -->
+        <div class="flex items-center gap-2">
+          <%= link_to new_user_session_path, class: "btn btn-outline text-white border-white hover:bg-white hover:text-primary hover:shadow-md transition duration-300 flex items-center gap-2 px-4 py-2 rounded-lg" do %>
+            <i class="fa-solid fa-right-to-bracket"></i>
+            <span>ログイン</span>
           <% end %>
-        </li>
-        <li>
-          <%= link_to new_seichi_memo_path, class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
-            <i class="fa-solid fa-pen-to-square"></i>
-            聖地メモを投稿
+
+          <%= link_to new_user_registration_path, class: "btn btn-outline text-white border-white hover:bg-white hover:text-primary hover:shadow-md transition duration-300 flex items-center gap-2 px-4 py-2 rounded-lg" do %>
+            <i class="fa-solid fa-user-plus"></i>
+            <span>新規登録</span>
           <% end %>
-        </li>
-        <li>
-          <%= link_to bookmarks_seichi_memos_path, class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
-            <i class="fa-solid fa-bookmark"></i>
-            ブックマークした聖地メモ
-          <% end %>
-        </li>
-        <li>
-          <%= link_to "#", class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
-            <i class="fa-solid fa-hands-praying"></i>
-            聖地巡礼の際のマナー
-          <% end %>
-        </li>
-        <li>
-          <%= link_to profile_path, class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
-            <i class="fa-solid fa-user"></i>
-            マイページ
-          <% end %>
-        </li>
-        <li>
-          <%= link_to destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
-            <i class="fa-solid fa-right-from-bracket"></i>
-            ログアウト
-          <% end %>
-        </li>
-      <% else %>
-        <li>
-          <%= link_to seichi_memos_path, class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
-            <i class="fa-solid fa-users"></i>
-            みんなの聖地メモ
-          <% end %>
-        </li>
+        </div>
       <% end %>
 
-        <!-- 利用規約・プライバシーポリシー・お問い合わせ -->
-        <hr class="border-gray-200">
-        <li><%= link_to '利用規約', "#", class:"btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
-        <li><%= link_to 'プライバシーポリシー', "#", class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
-        <li><%= link_to 'お問い合わせ', "#", class: "btn btn-ghost w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
+      <!-- ドロップダウンメニュー -->
+      <div class="dropdown dropdown-end">
+        <label tabindex="0" class="btn btn-ghost btn-square hover:shadow-md transition duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-6 w-6 stroke-current text-white-700">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </label>
 
-        <!-- Copyright -->
-        <hr class="border-gray-200">
-        <li class="text-center text-xs mt-2 text-white-500">&copy; 2025 Animeguru</li>
-      </ul>
+        <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 p-4 shadow bg-primary rounded-box w-60">
+          <% if user_signed_in? %>
+            <!-- ユーザー情報 -->
+            <li class="mb-2">
+              <%= link_to profile_path, class: "flex items-center gap-3 px-2 py-2 hover:bg-gray-300 rounded-md transition-all justify-start" do %>
+                <%= image_tag current_user.profile_image.url || "default_profile_image.png", alt: "プロフィール画像", class: "w-10 h-10 rounded-full border border-white shadow" %>
+                <span class="text-white font-semibold"><%= current_user.username %></span>
+              <% end %>
+            </li>
+            <hr class="border-gray-200 my-1">
+
+            <li>
+              <%= link_to profile_path, class: "btn btn-ghost justify-start w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
+                <i class="fa-solid fa-user"></i> マイページ
+              <% end %>
+            </li>
+            <li>
+              <%= link_to destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "btn btn-ghost justify-start w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
+                <i class="fa-solid fa-right-from-bracket"></i> ログアウト
+              <% end %>
+            </li>
+
+            <hr class="border-gray-200 my-1">
+
+            <li>
+              <%= link_to seichi_memos_path, class: "btn btn-ghost justify-start w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
+                <i class="fa-solid fa-users"></i> みんなの聖地メモ
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_seichi_memo_path, class: "btn btn-ghost justify-start w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
+                <i class="fa-solid fa-pen-to-square"></i> 聖地メモを投稿
+              <% end %>
+            </li>
+            <li>
+              <%= link_to bookmarks_seichi_memos_path, class: "btn btn-ghost justify-start w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
+                <i class="fa-solid fa-bookmark"></i> ブックマーク
+              <% end %>
+            </li>
+            <li>
+              <%= link_to "#", class: "btn btn-ghost justify-start w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
+                <i class="fa-solid fa-hands-praying"></i> 聖地巡礼の際のマナー
+              <% end %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to seichi_memos_path, class: "btn btn-ghost justify-start w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
+                <i class="fa-solid fa-users"></i> みんなの聖地メモ
+              <% end %>
+            </li>
+          <% end %>
+
+          <hr class="border-gray-200">
+          <li><%= link_to 'プライバシーポリシー', "#", class:"btn btn-ghost justify-start w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
+          <li><%= link_to '利用規約', "#", class: "btn btn-ghost justify-start w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
+          <li><%= link_to 'お問い合わせ', "#", class: "btn btn-ghost justify-start w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
+
+          <hr class="border-gray-200">
+          <li class="text-center text-xs mt-2 text-white-500">&copy; 2025 Animeguru</li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
