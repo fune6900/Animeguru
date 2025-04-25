@@ -20,13 +20,19 @@
     <% end %>
   </div>
 
-	<!-- ユーザー名 & 投稿日時 -->
-  <div class="p-4">
-    <div class="text-black-500 text-sm">
-      <strong>投稿者:</strong> <%= @seichi_memo.user.username %>
+	<!-- ユーザー情報エリア -->
+  <div class="flex items-center justify-between px-2 py-2 mt-4">
+    <!-- 左：画像＋ユーザー名 -->
+    <div class="flex items-center space-x-2">
+      <%= link_to (@seichi_memo.user == current_user ? profile_path : user_path(@seichi_memo.user)) do %>
+        <%= image_tag @seichi_memo.user.profile_image.url, alt: @seichi_memo.user.username, class: "w-10 h-10 rounded-full" %>
+      <% end %>
+      <span class="text-sm text-gray-800 font-semibold"><%= @seichi_memo.user.username %></span>
     </div>
-    <div class="text-black-500 text-sm">
-      <strong>投稿日:</strong> <%= @seichi_memo.created_at.strftime("%Y年%m月%d日") %>
+
+    <!-- 投稿日 -->
+    <div class="text-sm text-gray-500">
+      <%= @seichi_memo.created_at.strftime("%Y年%m月%d日") %>
     </div>
   </div>
 

@@ -9,4 +9,18 @@ module ApplicationHelper
     else "bg-gray-500"
     end
   end
+
+  # フラッシュメッセージのアイコンを変更
+  def flash_icon_class(type)
+    case type.to_sym
+    when :notice, :comment_notice
+      "fas fa-check-circle"  # 成功
+    when :alert, :comment_alert
+      "fas fa-exclamation-triangle"  # 警告
+    when :error
+      "fas fa-times-circle"  # エラー
+    else
+      "fas fa-info-circle"  # その他
+    end
+  end
 end
