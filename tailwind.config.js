@@ -21,6 +21,11 @@ module.exports = {
         'slide-in': 'slideIn 0.3s ease-out',
         'fade-out': 'fadeOut 0.5s ease-in-out',
       },
+      colors: {
+        primary: '#6AB9DF',
+        secondary: '#5B9CBD',
+        'base-100': '#FFFFFF',
+      },
     },
   },
   plugins: [require("daisyui")]
