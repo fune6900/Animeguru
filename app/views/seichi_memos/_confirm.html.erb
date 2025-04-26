@@ -82,6 +82,6 @@
 
 <!-- 🔹 ステップボタン -->
 <div class="flex justify-center mt-4 space-x-4">
-  <button type="button" class="btn btn-primary mt-2" data-action="click->step-form#prev">戻る</button>
-  <%= f.submit @seichi_memo_form.persisted? ? "更新する" : "投稿する", class: "btn btn-primary mt-2" %>
+  <button type="button" class="btn bg-primary text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 w-auto mt-2" data-action="click->step-form#prev">戻る</button>
+  <%= f.submit @seichi_memo_form.persisted? ? "更新する" : "投稿する", class: "btn bg-primary text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 w-auto mt-2" %>
 </div>

@@ -7,4 +7,4 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<%= link_to page, url, class: "join-item btn #{'btn-active' if page.current?} btn-primary shadow-md", remote: true, rel: page.rel %>
+<%= link_to page, url, class: "join-item btn #{'btn-active' if page.current?} btn bg-primary text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 max-w-xs", remote: true, rel: page.rel %>

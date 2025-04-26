@@ -1,18 +1,16 @@
-<div class="btm-nav bg-primary shadow-md text-white">
-  <div class="btm-nav__container flex justify-around w-full">
-    <%= link_to seichi_memos_path, class: "flex flex-col items-center justify-center" do %>
-      <i class="fas fa-search text-xl"></i>
-      <span class="text-xs mt-1">聖地メモ検索</span>
-    <% end %>
+<div class="btm-nav bg-primary shadow-md text-white z-50">
+  <%= link_to seichi_memos_path, class: "w-full flex flex-col items-center justify-center hover:bg-secondary transition-colors duration-200" do %>
+    <i class="fas fa-search text-xl"></i>
+    <span class="btm-nav-label text-xs mt-1">聖地メモ検索</span>
+  <% end %>
 
-    <%= link_to new_seichi_memo_path, class: "flex flex-col items-center justify-center" do %>
-      <i class="fas fa-plus-circle text-xl">
-      <span class="text-xs mt-1">聖地メモ作成</span>
-    <% end %>
+  <%= link_to new_seichi_memo_path, class: "w-full flex flex-col items-center justify-center hover:bg-secondary transition-colors duration-200" do %>
+    <i class="fas fa-plus-circle text-xl"></i>
+    <span class="btm-nav-label text-xs mt-1">聖地メモ作成</span>
+  <% end %>
 
-    <%= link_to profile_path, class: "flex flex-col items-center justify-center" do %>
-      <i class="fas fa-user text-xl"></i>
-      <span class="text-xs mt-1">マイページ</span>
-    <% end %>
-  </div>
+  <%= link_to profile_path, class: "w-full flex flex-col items-center justify-center hover:bg-secondary transition-colors duration-200" do %>
+    <i class="fas fa-user text-xl"></i>
+    <span class="btm-nav-label text-xs mt-1">マイページ</span>
+  <% end %>
 </div>
