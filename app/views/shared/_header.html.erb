@@ -7,23 +7,6 @@
       <%= link_to "アニめぐる", root_path, class:"text-2xl font-rampart" %>
     </div>
 
-    <!-- 右エリア（ログイン/ドロップダウン） -->
-    <div class="flex items-center gap-4">
-      <% unless user_signed_in? %>
-        <!-- 未ログイン：ログイン・新規登録ボタン -->
-        <div class="flex items-center gap-2">
-          <%= link_to new_user_session_path, class: "btn btn-outline text-white border-white hover:bg-white hover:text-primary hover:shadow-md transition duration-300 flex items-center gap-2 px-4 py-2 rounded-lg" do %>
-            <i class="fa-solid fa-right-to-bracket"></i>
-            <span>ログイン</span>
-          <% end %>
-
-          <%= link_to new_user_registration_path, class: "btn btn-outline text-white border-white hover:bg-white hover:text-primary hover:shadow-md transition duration-300 flex items-center gap-2 px-4 py-2 rounded-lg" do %>
-            <i class="fa-solid fa-user-plus"></i>
-            <span>新規登録</span>
-          <% end %>
-        </div>
-      <% end %>
-
       <!-- ドロップダウンメニュー -->
       <div class="dropdown dropdown-end">
         <label tabindex="0" class="btn btn-ghost btn-square hover:shadow-md transition duration-300">
@@ -37,7 +20,7 @@
             <!-- ユーザー情報 -->
             <li class="mb-2">
               <%= link_to profile_path, class: "flex items-center gap-3 px-2 py-2 hover:bg-gray-300 rounded-md transition-all justify-start" do %>
-                <%= image_tag current_user.profile_image.url || "default_profile_image.png", alt: "プロフィール画像", class: "w-10 h-10 rounded-full border border-white shadow" %>
+                <%= image_tag current_user.profile_image.url || "default_profile_image.png", alt: "プロフィール画像", class: "w-10 h-10 rounded-full shadow" %>
                 <span class="text-white font-semibold"><%= current_user.username %></span>
               <% end %>
             </li>
@@ -46,6 +29,11 @@
             <li>
               <%= link_to profile_path, class: "btn btn-ghost justify-start w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
                 <i class="fa-solid fa-user"></i> マイページ
+              <% end %>
+            </li>
+            <li>
+              <%= link_to root_path, class: "btn btn-ghost justify-start w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
+                <i class="fa-regular fa-circle-question"></i> アプリの使い方
               <% end %>
             </li>
             <li>
@@ -58,12 +46,12 @@
 
             <li>
               <%= link_to seichi_memos_path, class: "btn btn-ghost justify-start w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
-                <i class="fa-solid fa-users"></i> みんなの聖地メモ
+                <i class="fas fa-search"></i> 聖地メモ検索
               <% end %>
             </li>
             <li>
               <%= link_to new_seichi_memo_path, class: "btn btn-ghost justify-start w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
-                <i class="fa-solid fa-pen-to-square"></i> 聖地メモを投稿
+                <i class="fas fa-plus-circle"></i> 聖地メモ作成
               <% end %>
             </li>
             <li>
@@ -78,8 +66,26 @@
             </li>
           <% else %>
             <li>
+              <%= link_to new_user_session_path, class: "btn btn-ghost justify-start w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
+                <i class="fa-solid fa-right-to-bracket"></i> ログイン
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_user_registration_path, class: "btn btn-ghost justify-start w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
+                <i class="fa-solid fa-user-plus"></i> 新規登録
+              <% end %>
+            </li>
+
+            <hr class="border-gray-200 my-1">
+
+            <li>
+              <%= link_to root_path, class: "btn btn-ghost justify-start w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
+                <i class="fa-regular fa-circle-question"></i> アプリの使い方
+              <% end %>
+            </li>
+            <li>
               <%= link_to seichi_memos_path, class: "btn btn-ghost justify-start w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
-                <i class="fa-solid fa-users"></i> みんなの聖地メモ
+                <i class="fas fa-search"></i> 聖地メモ検索
               <% end %>
             </li>
           <% end %>
