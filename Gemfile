@@ -18,6 +18,9 @@ gem "kaminari"
 # .envファイルで環境変数を管理
 gem "dotenv-rails"
 
+# Geocoding
+gem "geocoder"
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.2.1"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]

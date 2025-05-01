@@ -108,6 +108,7 @@ GEM
     crass (1.0.6)
     cssbundling-rails (1.4.1)
       railties (>= 6.0.0)
+    csv (3.3.4)
     date (3.4.1)
     debug (1.10.0)
       irb (~> 1.10)
@@ -152,6 +153,9 @@ GEM
       fog-core
       nokogiri (>= 1.5.11, < 2.0.0)
     formatador (1.1.0)
+    geocoder (1.8.5)
+      base64 (>= 0.1.0)
+      csv (>= 3.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.7)
@@ -405,6 +409,7 @@ DEPENDENCIES
   dotenv-rails
   faker
   fog-aws
+  geocoder
   jbuilder
   jsbundling-rails
   kaminari
