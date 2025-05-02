@@ -5,14 +5,14 @@
 
     <% if current_user == @seichi_memo.user %>
       <div class="flex space-x-2">
-        <%= link_to edit_seichi_memo_path(@seichi_memo), class: "btn btn-primary flex items-center space-x-1" do %>
+        <%= link_to edit_seichi_memo_path(@seichi_memo), class: "btn bg-primary text-white flex items-center space-x-1" do %>
           <i class="fas fa-pen"></i>
           <span>編集</span>
         <% end %>
 
         <%= link_to seichi_memo_path(@seichi_memo),
                     data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' },
-                    class: "btn btn-primary flex items-center space-x-1" do %>
+                    class: "btn bg-primary text-white flex items-center space-x-1" do %>
           <i class="fas fa-trash-alt"></i>
           <span>削除</span>
         <% end %>
@@ -123,8 +123,9 @@
     <%= render partial: "comments/comment", locals: { comments: @comments } %>
   </div>
 
-  <!-- 戻るボタン -->
-  <div class="mt-6 text-center">
-    <%= link_to "みんなの投稿に戻る", seichi_memos_path, class: "bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 text-center" %>
+  <!-- ボタンエリア -->
+  <div class="flex flex-col items-center space-y-4 mt-8">
+  <%= link_to "ここへ行く", "https://www.google.com/maps/search/?api=1&query=#{CGI.escape(@seichi_memo.place.name + ' ' + @seichi_memo.place.address)}", target: "_blank", class: "btn bg-primary hover:bg-primary-dark text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-200  w-full max-w-xs" %>
+    <%= link_to "みんなの投稿に戻る", seichi_memos_path, class: "bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 w-full max-w-xs text-center" %>
   </div>
 </div>

@@ -113,10 +113,9 @@ class SeichiMemoForm
 
     # 🔹 既存の聖地情報を取得 or 作成
     place = Place.find_or_create_by(name: place_name)
-    place.update(
-      address: place_address.presence || place.address,
-      postal_code: place_postal_code.presence || place.postal_code
-    )
+    place.address = place_address.presence || place.address
+    place.postal_code = place_postal_code.presence || place.postal_code
+    place.save!
 
     # 🔹 聖地メモを作成
     @seichi_memo = SeichiMemo.create!(
@@ -145,10 +144,9 @@ class SeichiMemoForm
 
     # 🔹 既存の聖地情報を更新
     place = Place.find_or_create_by(name: place_name)
-    place.update(
-      address: place_address.presence || place.address,
-      postal_code: place_postal_code.presence || place.postal_code
-    )
+    place.address = place_address.presence || place.address
+    place.postal_code = place_postal_code.presence || place.postal_code
+    place.save!
 
     # 🔹 聖地メモの情報を更新
     seichi_memo.update(
