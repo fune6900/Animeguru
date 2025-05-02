@@ -3,5 +3,5 @@ class Place < ApplicationRecord
 
   # geocodingについての設定
   geocoded_by :address
-  after_validation :geocode, if: :address_changed?
+  after_validation :geocode
 end
