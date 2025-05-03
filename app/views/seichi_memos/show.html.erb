@@ -5,14 +5,14 @@
 
     <% if current_user == @seichi_memo.user %>
       <div class="flex space-x-2">
-        <%= link_to edit_seichi_memo_path(@seichi_memo), class: "btn bg-primary text-white flex items-center space-x-1" do %>
+        <%= link_to edit_seichi_memo_path(@seichi_memo), class: "btn bg-primary text-white shadow-md flex items-center space-x-1" do %>
           <i class="fas fa-pen"></i>
           <span>編集</span>
         <% end %>
 
         <%= link_to seichi_memo_path(@seichi_memo),
                     data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' },
-                    class: "btn bg-primary text-white flex items-center space-x-1" do %>
+                    class: "btn bg-primary text-white shadow-md flex items-center space-x-1" do %>
           <i class="fas fa-trash-alt"></i>
           <span>削除</span>
         <% end %>
@@ -41,14 +41,12 @@
     <!-- アニメのシーン -->
     <div class="w-1/2 h-60">
       <%= image_tag (@seichi_memo.scene_image.present? ? @seichi_memo.scene_image.url : SceneImageUploader.new.default_url), 
-        alt: "アニメのシーン", 
         class: "rounded-lg shadow-md w-full h-full object-cover" %>
     </div>
 
     <!-- 聖地の実際の写真 -->
     <div class="w-1/2 h-60">
       <%= image_tag (@seichi_memo.seichi_photo.present? ? @seichi_memo.seichi_photo.url : SeichiPhotoUploader.new.default_url), 
-        alt: "聖地の写真", 
         class: "rounded-lg shadow-md w-full h-full object-cover" %>
     </div>
   </div>
@@ -58,6 +56,17 @@
     <%= render 'likes/like_buttons', seichi_memo: @seichi_memo %>
     <%= render 'bookmarks/bookmark_buttons', seichi_memo: @seichi_memo %>
   </div>
+
+  <!-- 作成ジャンル -->
+  <% if @seichi_memo.genre_tags.present? %>
+    <div class="flex flex-wrap gap-2 mt-2">
+      <% @seichi_memo.genre_tags.each do |genre_tag| %>
+        <span class="bg-primary text-gray-700 text-sm font-semibold px-3 py-1 rounded-full">
+          <%= genre_tag.name %>
+        </span>
+      <% end %>
+    </div>
+  <% end %>
 
   <!-- 聖地メモの本文 -->
 	<div class="p-4">
@@ -86,25 +95,34 @@
   </div>
 
   <!-- 作品情報 -->
-  <div class="border-t border-gray-300 p-4">
-    <h2 class="text-lg font-bold">作品情報</h2>
-    <p class="text-gray-700"><strong>作品名:</strong> <%= @seichi_memo.anime.title %></p>
-    <% if @seichi_memo.anime.official_site_url.present? %>
-      <p class="text-blue-500 flex items-center space-x-1">
-        <a href="<%= @seichi_memo.anime.official_site_url %>" target="_blank" class="hover:underline flex items-center space-x-1">
+  <div class="border-t border-gray-300 p-4 space-y-2">
+    <h2 class="text-lg font-bold mb-2">作品情報</h2>
+
+    <div class="flex items-start space-x-3">
+      <i class="fas fa-film text-primary text-lg w-6 text-center"></i>
+      <span class="text-gray-700"><%= @seichi_memo.anime.title %></span>
+    </div>
+
+    <div class="flex items-start space-x-3">
+      <i class="fas fa-link text-primary text-lg w-6 text-center"></i>
+      <% if @seichi_memo.anime.official_site_url.present? %>
+        <a href="<%= @seichi_memo.anime.official_site_url %>" target="_blank" class="text-blue-500 hover:underline flex items-center space-x-1">
           <span>公式サイト</span>
           <i class="fas fa-up-right-from-square text-sm"></i>
         </a>
-      </p>
-    <% else %>
-      <p class="text-gray-700">公式サイト情報なし</p>
-    <% end %>
+      <% else %>
+        <span class="text-gray-500">リンクなし</span>
+      <% end %>
+    </div>
+
     <div class="mt-4 flex justify-center">
-      <%= image_tag (@seichi_memo.anime.image_url.present? ? @seichi_memo.anime.image_url.url : AnimeImageUploader.new.default_url), 
-        alt: "作品イメージ", 
-        class: "rounded-lg shadow-md w-2/3 object-cover" %>
+      <%= image_tag(
+        @seichi_memo.anime.image_url.present? ? @seichi_memo.anime.image_url.url : AnimeImageUploader.new.default_url,
+        class: "rounded-lg shadow-md w-2/3 object-cover"
+      ) %>
     </div>
   </div>
+
 
   <!-- コメントセクション -->
   <div class="border-t border-gray-300 p-4">
@@ -125,7 +143,7 @@
 
   <!-- ボタンエリア -->
   <div class="flex flex-col items-center space-y-4 mt-8">
-  <%= link_to "ここへ行く", "https://www.google.com/maps/search/?api=1&query=#{CGI.escape(@seichi_memo.place.name.to_s + ' ' + @seichi_memo.place.address.to_s)}", target: "_blank", class: "btn bg-primary hover:bg-primary-dark text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-200  w-full max-w-xs" %>
-    <%= link_to "みんなの投稿に戻る", seichi_memos_path, class: "bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 w-full max-w-xs text-center" %>
+  <%= link_to "ここへ行く", "https://www.google.com/maps/search/?api=1&query=#{CGI.escape(@seichi_memo.place.name.to_s + ' ' + @seichi_memo.place.address.to_s)}", target: "_blank", class: "btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 w-full max-w-xs" %>
+    <%= link_to "みんなの投稿に戻る", seichi_memos_path, class: "btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 w-full max-w-xs" %>
   </div>
 </div>

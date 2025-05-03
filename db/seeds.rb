@@ -1,29 +1,18 @@
-user = User.first || User.create!(email: "test@example.com", password: "password", username: "TestUser")
+# db/seeds.rb
 
-animes = Anime.create!([
-  { title: "進撃の巨人", official_site_url: "https://shingeki.tv/" },
-  { title: "鬼滅の刃", official_site_url: "https://kimetsu.com/" },
-  { title: "涼宮ハルヒの憂鬱", official_site_url: "https://haruhi.tv/" },
-  { title: "ラブライブ！", official_site_url: "https://lovelive-anime.jp/" },
-  { title: "ゆるキャン△", official_site_url: "https://yurucamp.jp/" }
-])
+# 作品ジャンルタグの作成
 
-places = Place.create!([
-  { name: "長野県上田市", address: "長野県上田市", postal_code: "386-0012" },
-  { name: "富士山", address: "静岡県・山梨県", postal_code: "403-0000" },
-  { name: "京都府嵐山", address: "京都府京都市右京区", postal_code: "616-0000" },
-  { name: "秋葉原", address: "東京都千代田区外神田", postal_code: "101-0021" },
-  { name: "山梨県本栖湖", address: "山梨県南都留郡", postal_code: "401-0337" }
-])
-
-25.times do
-  SeichiMemo.create!(
-    user: user,
-    anime: animes.sample,
-    place: places.sample,
-    title: Faker::JapaneseMedia::OnePiece.quote.truncate(30),
-    body: Faker::Lorem.paragraph(sentence_count: 5, supplemental: true)
-  )
+# 作品ジャンル一覧
+genre_names = [
+  "アクション/バトル", "SF/ファンタジー", "恋愛/ラブコメ",
+  "コメディ/ギャグ", "日常/ほのぼの", "スポーツ/競技", "ホラー/サスペンス",
+  "ミステリー/推理", "歴史/時代劇", "ドラマ/青春", "音楽/アイドル",
+  "アドベンチャー/冒険", "ロボット/メカ", "バトルロイヤル/サバイバル",
+  "戦記/ミリタリー",  "キッズ/ファミリー", "異世界", "冒険", "異能", "学園"
+]
+# ジャンルタグを重複なく作成
+genre_names.each do |name|
+  GenreTag.find_or_create_by!(name: name)
 end
 
-puts "✅ SeichiMemosのシードデータ 25件 作成完了！"
+puts "✅ #{genre_names.size}件のジャンルタグを登録しました。"

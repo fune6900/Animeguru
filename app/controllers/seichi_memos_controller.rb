@@ -6,7 +6,7 @@ class SeichiMemosController < ApplicationController
   require_dependency "seichi_memo_form"
 
   def index
-    @seichi_memos = SeichiMemo.includes(:anime, :place, :user).order(created_at: :desc).page(params[:page]).per(18)
+    @seichi_memos = SeichiMemo.includes(:anime, :place, :user, :genre_tags).order(created_at: :desc).page(params[:page]).per(18)
   end
 
   def show
@@ -56,7 +56,8 @@ class SeichiMemosController < ApplicationController
       place_address: @seichi_memo.place.address,
       place_postal_code: @seichi_memo.place.postal_code,
       seichi_photo: @seichi_memo.seichi_photo,
-      scene_image: @seichi_memo.scene_image
+      scene_image: @seichi_memo.scene_image,
+      genre_tag_ids: @seichi_memo.genre_tags.pluck(:id)
     )
     @seichi_memo_form.seichi_memo = @seichi_memo
   end
@@ -91,7 +92,7 @@ class SeichiMemosController < ApplicationController
   end
 
   def bookmarks
-    @bookmark_seichi_memos = current_user.bookmark_seichi_memos.includes(:anime, :place).order(created_at: :desc).page(params[:page]).per(18)
+    @bookmark_seichi_memos = current_user.bookmark_seichi_memos.includes(:anime, :place, :genre_tags).order(created_at: :desc).page(params[:page]).per(18)
   end
 
   private
@@ -108,13 +109,14 @@ class SeichiMemosController < ApplicationController
       :place_address,
       :place_postal_code,
       :seichi_photo,
-      :scene_image
+      :scene_image,
+      genre_tag_ids: []
     ).merge(user_id: current_user.id)
   end
 
   # 🔹 指定したIDの聖地メモを取得
   def set_seichi_memo
-    @seichi_memo = SeichiMemo.includes(:anime, :place).find(params[:id])
+    @seichi_memo = SeichiMemo.includes(:anime, :place, :genre_tags).find(params[:id])
   end
 
   # 🔹 投稿者以外がアクセスしようとした場合、リダイレクト
