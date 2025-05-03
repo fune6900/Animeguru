@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_02_013322) do
+ActiveRecord::Schema[7.2].define(version: 2025_05_03_032055) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,6 +41,13 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_02_013322) do
     t.datetime "updated_at", null: false
     t.index ["seichi_memo_id"], name: "index_comments_on_seichi_memo_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "genre_tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_genre_tags_on_name", unique: true
   end
 
   create_table "likes", force: :cascade do |t|
@@ -79,6 +86,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_02_013322) do
     t.index ["user_id"], name: "index_seichi_memos_on_user_id"
   end
 
+  create_table "taggings", force: :cascade do |t|
+    t.bigint "seichi_memo_id", null: false
+    t.bigint "genre_tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["genre_tag_id"], name: "index_taggings_on_genre_tag_id"
+    t.index ["seichi_memo_id", "genre_tag_id"], name: "index_taggings_on_seichi_memo_id_and_genre_tag_id", unique: true
+    t.index ["seichi_memo_id"], name: "index_taggings_on_seichi_memo_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -104,4 +121,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_02_013322) do
   add_foreign_key "seichi_memos", "animes"
   add_foreign_key "seichi_memos", "places"
   add_foreign_key "seichi_memos", "users"
+  add_foreign_key "taggings", "genre_tags"
+  add_foreign_key "taggings", "seichi_memos"
 end
