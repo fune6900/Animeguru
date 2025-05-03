@@ -14,9 +14,10 @@ class SeichiMemoForm
   attribute :seichi_photo
   attribute :scene_image
   attribute :image_url
+  attribute :genre_tag_ids, default: []
 
   # 🔹 ステップ管理用
-  attr_accessor :current_step, :seichi_memo, :genre_tag_ids,
+  attr_accessor :current_step, :seichi_memo,
                 :seichi_photo_cache, :scene_image_cache, :image_url_cache
 
   # 🔹 バリデーション（ステップごとに適用）
@@ -105,6 +106,9 @@ class SeichiMemoForm
   def save
     return false unless valid?
 
+    # 🔹 デバッグログを追加してgenre_tag_idsの中身を確認
+    puts "💥 genre_tag_ids: #{genre_tag_ids.inspect}"
+
     # 🔹 既存の作品情報を再利用 or 作成
     anime = Anime.find_or_create_by(title: anime_title)
     anime.update(
@@ -140,6 +144,9 @@ class SeichiMemoForm
   # 🔹 既存の `SeichiMemo` を更新
   def update(seichi_memo)
     return false unless valid?
+
+    # 🔹 デバッグログを追加してgenre_tag_idsの中身を確認
+    puts "💥 genre_tag_ids: #{genre_tag_ids.inspect}"
 
     # 🔹 既存の作品情報を更新
     anime = Anime.find_or_create_by(title: anime_title)

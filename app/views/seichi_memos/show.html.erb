@@ -57,6 +57,17 @@
     <%= render 'bookmarks/bookmark_buttons', seichi_memo: @seichi_memo %>
   </div>
 
+  <!-- 作成ジャンル -->
+  <% if @seichi_memo.genre_tags.present? %>
+    <div class="flex flex-wrap gap-2 mt-2">
+      <% @seichi_memo.genre_tags.each do |genre_tag| %>
+        <span class="bg-primary text-gray-700 text-sm font-semibold px-3 py-1 rounded-full">
+          <%= genre_tag.name %>
+        </span>
+      <% end %>
+    </div>
+  <% end %>
+
   <!-- 聖地メモの本文 -->
 	<div class="p-4">
 	  <h2 class="text-lg font-bold">メモ</h2>
@@ -84,24 +95,34 @@
   </div>
 
   <!-- 作品情報 -->
-  <div class="border-t border-gray-300 p-4">
-    <h2 class="text-lg font-bold">作品情報</h2>
-    <p class="text-gray-700"><strong>作品名:</strong> <%= @seichi_memo.anime.title %></p>
-    <% if @seichi_memo.anime.official_site_url.present? %>
-      <p class="text-blue-500 flex items-center space-x-1">
-        <a href="<%= @seichi_memo.anime.official_site_url %>" target="_blank" class="hover:underline flex items-center space-x-1">
+  <div class="border-t border-gray-300 p-4 space-y-2">
+    <h2 class="text-lg font-bold mb-2">作品情報</h2>
+
+    <div class="flex items-start space-x-3">
+      <i class="fas fa-film text-primary text-lg w-6 text-center"></i>
+      <span class="text-gray-700"><%= @seichi_memo.anime.title %></span>
+    </div>
+
+    <div class="flex items-start space-x-3">
+      <i class="fas fa-link text-primary text-lg w-6 text-center"></i>
+      <% if @seichi_memo.anime.official_site_url.present? %>
+        <a href="<%= @seichi_memo.anime.official_site_url %>" target="_blank" class="text-blue-500 hover:underline flex items-center space-x-1">
           <span>公式サイト</span>
           <i class="fas fa-up-right-from-square text-sm"></i>
         </a>
-      </p>
-    <% else %>
-      <p class="text-gray-700">公式サイト情報なし</p>
-    <% end %>
+      <% else %>
+        <span class="text-gray-500">リンクなし</span>
+      <% end %>
+    </div>
+
     <div class="mt-4 flex justify-center">
-      <%= image_tag (@seichi_memo.anime.image_url.present? ? @seichi_memo.anime.image_url.url : AnimeImageUploader.new.default_url), 
-        class: "rounded-lg shadow-md w-2/3 object-cover" %>
+      <%= image_tag(
+        @seichi_memo.anime.image_url.present? ? @seichi_memo.anime.image_url.url : AnimeImageUploader.new.default_url,
+        class: "rounded-lg shadow-md w-2/3 object-cover"
+      ) %>
     </div>
   </div>
+
 
   <!-- コメントセクション -->
   <div class="border-t border-gray-300 p-4">
