@@ -9,29 +9,29 @@
 
   <!-- 🔹 聖地メモのタイトル -->
   <div class="mt-4">
-    <label class="block text-gray-700">タイトル <span class="text-red-500">（必須）</span></label>
-    <%= f.text_field :title, class: "w-full p-2 border rounded-md", placeholder: "巡礼記録のタイトルを入力してください" %>
+    <label class="block text-gray-700 font-semibold mb-1">タイトル <span class="text-red-500">*</span></label>
+    <%= f.text_field :title, class: "w-full p-3 border border-gray-300 rounded-md shadow-sm", placeholder: "巡礼記録のタイトルを入力してください" %>
   </div>
 
   <!-- 🔹メモ -->
   <div class="mt-2">
-    <label class="block text-gray-700">メモ <span class="text-red-500">（必須）</span></label>
-    <%= f.text_area :body, class: "w-full p-2 border rounded-md h-32", placeholder: "シーンの解説や撮影スポットの詳細、ベストな訪問時間など" %>
+    <label class="block text-gray-700 font-semibold mb-1">メモ <span class="text-red-500">*</span></label>
+    <%= f.text_area :body, class: "w-full p-3 border border-gray-300 rounded-md shadow-sm", placeholder: "シーンの解説や撮影スポットの詳細、ベストな訪問時間など" %>
   </div>
 
   <!-- 🔹 画像アップロード -->
   <div class="mt-4">
-    <label class="block text-gray-700">聖地の写真 <span class="text-gray-500">（任意）</span></label>
-    <%= f.file_field :seichi_photo, class: "w-full p-2 border rounded-md" %>
+    <label class="block text-gray-700 font-semibold mb-1">聖地の写真</label>
+    <%= f.file_field :seichi_photo, class: "btn w-full p-2 border cursor-pointer shadow-sm" %>
   </div>
 
   <div class="mt-4">
-    <label class="block text-gray-700">聖地が登場したシーン画像 <span class="text-gray-500">（任意）</span></label>
-    <%= f.file_field :scene_image, class: "w-full p-2 border rounded-md" %>
+    <label class="block text-gray-700 font-semibold mb-1">聖地が登場したシーン画像</label>
+    <%= f.file_field :scene_image, class: "btn w-full p-2 border cursor-pointer shadow-sm" %>
   </div>
 
   <!-- 🔹 ステップボタン -->
   <div class="flex justify-center mt-4">
-    <button type="button" class="btn bg-primary text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 w-auto mt-2" data-action="click->step-form#next">次のステップへ</button>
+    <button type="button" class="btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 w-auto mt-2" data-action="click->step-form#next">次のステップへ</button>
   </div>
 </div>

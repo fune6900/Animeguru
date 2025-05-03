@@ -48,6 +48,7 @@ ja:
         seichi_photo: 聖地の写真
         scene_image: 聖地が登場したシーン画像
         image_url: 作品イメージ
+        genre_tag_ids: 作品ジャンル
 
     errors:
       models:
