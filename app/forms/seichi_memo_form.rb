@@ -14,6 +14,7 @@ class SeichiMemoForm
   attribute :seichi_photo
   attribute :scene_image
   attribute :image_url
+  attribute :genre_tag_ids, :integer, array: true, default: []
 
   # 🔹 ステップ管理用
   attr_accessor :current_step, :seichi_memo,
@@ -27,6 +28,7 @@ class SeichiMemoForm
   validates :anime_official_site_url, format: { with: URI::DEFAULT_PARSER.make_regexp, message: "は正しいURL形式で入力してください" }, allow_blank: true, if: -> { current_step == "anime" }
   validates :place_address, length: { maximum: 200 }, allow_blank: true, if: -> { current_step == "place" }
   validates :place_postal_code, format: { with: /\A\d{3}-\d{4}\z/, message: "はXXX-XXXXの形式で入力してください" }, allow_blank: true, if: -> { current_step == "place" }
+  validates :genre_tag_ids, length: { maximum: 3, message: "は3つまでしか選択できません" }, if: -> { current_step == "anime" }
 
   validate :validate_image_extensions
 
@@ -128,6 +130,11 @@ class SeichiMemoForm
       scene_image: scene_image
     )
 
+    # 🔹 タグの関連付け
+    genre_tag_ids.reject(&:blank?).each do |genre_tag_id|
+      @seichi_memo.taggings.create!(genre_tag_id: genre_tag_id)
+    end
+
     true
   end
 
@@ -157,6 +164,14 @@ class SeichiMemoForm
       seichi_photo: seichi_photo,
       scene_image: scene_image
     )
+
+    # 🔹 タグの関連付けを更新
+    seichi_memo.taggings.destroy_all
+    genre_tag_ids.reject(&:blank?).each do |genre_tag_id|
+      seichi_memo.taggings.create!(genre_tag_id: genre_tag_id)
+    end
+
+    true
   end
 
   # 🔹 画像の拡張子をチェックするカスタムバリデーション
