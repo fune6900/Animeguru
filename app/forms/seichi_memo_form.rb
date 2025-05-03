@@ -14,10 +14,9 @@ class SeichiMemoForm
   attribute :seichi_photo
   attribute :scene_image
   attribute :image_url
-  attribute :genre_tag_ids, :integer, array: true, default: []
 
   # 🔹 ステップ管理用
-  attr_accessor :current_step, :seichi_memo,
+  attr_accessor :current_step, :seichi_memo, :genre_tag_ids,
                 :seichi_photo_cache, :scene_image_cache, :image_url_cache
 
   # 🔹 バリデーション（ステップごとに適用）

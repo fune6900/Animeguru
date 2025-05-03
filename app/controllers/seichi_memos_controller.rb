@@ -56,7 +56,7 @@ class SeichiMemosController < ApplicationController
       place_address: @seichi_memo.place.address,
       place_postal_code: @seichi_memo.place.postal_code,
       seichi_photo: @seichi_memo.seichi_photo,
-      scene_image: @seichi_memo.scene_image
+      scene_image: @seichi_memo.scene_image,
       genre_tag_ids: @seichi_memo.genre_tags.pluck(:id)
     )
     @seichi_memo_form.seichi_memo = @seichi_memo
@@ -109,7 +109,7 @@ class SeichiMemosController < ApplicationController
       :place_address,
       :place_postal_code,
       :seichi_photo,
-      :scene_image
+      :scene_image,
       genre_tag_ids: []
     ).merge(user_id: current_user.id)
   end
