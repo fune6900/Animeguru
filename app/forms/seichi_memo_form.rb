@@ -130,7 +130,7 @@ class SeichiMemoForm
     )
 
     # 🔹 タグの関連付け
-    genre_tag_ids.reject(&:blank?).each do |genre_tag_id|
+    Array(genre_tag_ids).reject(&:blank?).each do |genre_tag_id|
       @seichi_memo.taggings.create!(genre_tag_id: genre_tag_id)
     end
 
@@ -166,7 +166,7 @@ class SeichiMemoForm
 
     # 🔹 タグの関連付けを更新
     seichi_memo.taggings.destroy_all
-    genre_tag_ids.reject(&:blank?).each do |genre_tag_id|
+    Array(genre_tag_ids).reject(&:blank?).each do |genre_tag_id|
       seichi_memo.taggings.create!(genre_tag_id: genre_tag_id)
     end
 
