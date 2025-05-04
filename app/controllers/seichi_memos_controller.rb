@@ -6,7 +6,8 @@ class SeichiMemosController < ApplicationController
   require_dependency "seichi_memo_form"
 
   def index
-    @seichi_memos = SeichiMemo.includes(:anime, :place, :user, :genre_tags).order(created_at: :desc).page(params[:page]).per(18)
+    @q = SeichiMemo.ransack(params[:q])
+    @seichi_memos = @q.result(distinct: true).includes(:anime, :place, :user, :genre_tags).order(created_at: :desc).page(params[:page]).per(18)
   end
 
   def show
@@ -92,7 +93,8 @@ class SeichiMemosController < ApplicationController
   end
 
   def bookmarks
-    @bookmark_seichi_memos = current_user.bookmark_seichi_memos.includes(:anime, :place, :genre_tags).order(created_at: :desc).page(params[:page]).per(18)
+    @q = current_user.bookmark_seichi_memos.ransack(params[:q])
+    @bookmark_seichi_memos = @q.result(distinct: true).includes(:anime, :place, :genre_tags).order(created_at: :desc).page(params[:page]).per(18)
   end
 
   private
