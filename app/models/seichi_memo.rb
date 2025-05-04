@@ -12,6 +12,10 @@ class SeichiMemo < ApplicationRecord
   mount_uploader :scene_image, SceneImageUploader
 
   # ransackで許可するテーブル
+  def self.ransackable_attributes(auth_object = nil)
+    %w[title]
+  end
+
   def self.ransackable_associations(auth_object = nil)
     %w[anime place]
   end
