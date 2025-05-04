@@ -1,0 +1,8 @@
+<%= search_form_for @q, url: search_url, method: :get, class: "mb-4" do |f| %>
+  <%= f.search_field :place_name_or_anime_title_cont, placeholder: "検索ワードを入力（聖地名・作品名）", class: "w-full p-2 border border-gray-300 rounded-lg" %>
+  <div class="flex items-center space-x-2 mt-2">
+    <%= f.submit class: "bg-primary text-white px-3 py-2 rounded-lg flex items-center justify-center" do %>
+      <i class="fas fa-search"></i>
+    <% end %>
+  </div>
+<% end %>
