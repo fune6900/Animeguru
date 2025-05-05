@@ -16,16 +16,26 @@
       <%= render 'bookmarks/bookmark_buttons', seichi_memo: seichi_memo %>
     </div>
     <h3 class="font-bold"><%= seichi_memo.anime.title %></h3>
+
     <!-- 作品ジャンル -->
     <% if seichi_memo.genre_tags.present? %>
       <div class="flex flex-wrap gap-2 mt-2">
         <% seichi_memo.genre_tags.each do |genre_tag| %>
-          <span class="bg-primary text-gray-700 text-xs font-medium px-2 py-0.5 rounded-full">
-            <%= genre_tag.name %>
-          </span>
+          <% if current_user.bookmark?(seichi_memo) %>
+            <%= link_to bookmarks_seichi_memos_path(current_user, q: { genre_tags_name_eq: genre_tag.name }), 
+                        class: "bg-primary text-gray-700 text-xs font-medium px-2 py-0.5 rounded-full hover:bg-secondary" do %>
+              <%= genre_tag.name %>
+            <% end %>
+          <% else %>
+            <%= link_to seichi_memos_path(q: { genre_tags_name_eq: genre_tag.name }), 
+                        class: "bg-primary text-gray-700 text-xs font-medium px-2 py-0.5 rounded-full hover:bg-secondary" do %>
+              <%= genre_tag.name %>
+            <% end %>
+          <% end %>
         <% end %>
       </div>
     <% end %>
+
     <p class="text-gray-600 line-clamp-3 mt-2"><%= seichi_memo.body.truncate(100) %></p>
   </div>
 
