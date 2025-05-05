@@ -17,6 +17,6 @@ class SeichiMemo < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    %w[anime place]
+    %w[anime place genre_tags]
   end
 end
