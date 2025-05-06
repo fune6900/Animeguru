@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       match :update_session, via: [ :post, :patch ] # ステップごとのデータをセッションに保存
       get :prepare_confirm # 確認画面でセッション情報を反映する
       get :bookmarks # ブックマークした聖地メモを表示する
+      get :autocomplete # オートコンプリート機能
     end
   end
 

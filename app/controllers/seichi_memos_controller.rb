@@ -99,6 +99,22 @@ class SeichiMemosController < ApplicationController
     @jenre_tags = GenreTag.all
   end
 
+  def autocomplete
+    query = params[:term].to_s.strip
+
+    # 聖地名だけを検索
+    places = Place.where("name ILIKE ?", "%#{query}%")
+                  .distinct.limit(5)
+                  .map { |place| { id: "place_#{place.id}", type: "place", value: place.name } }
+
+    # 作品タイトルだけを検索
+    animes = Anime.where("title ILIKE ?", "%#{query}%")
+                  .distinct.limit(5)
+                  .map { |anime| { id: "anime_#{anime.id}", type: "anime", value: anime.title } }
+
+    render json: places + animes
+  end
+
   private
 
   # 🔹 Strong Parameters
