@@ -21,7 +21,7 @@
     <% if seichi_memo.genre_tags.present? %>
       <div class="flex flex-wrap gap-2 mt-2">
         <% seichi_memo.genre_tags.each do |genre_tag| %>
-          <% if current_user.bookmark?(seichi_memo) %>
+          <% if current_user && current_user.bookmark?(seichi_memo) %>
             <%= link_to bookmarks_seichi_memos_path(current_user, q: { genre_tags_name_eq: genre_tag.name }), 
                         class: "bg-primary text-gray-700 text-xs font-medium px-2 py-0.5 rounded-full hover:bg-secondary" do %>
               <%= genre_tag.name %>
