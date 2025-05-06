@@ -99,6 +99,12 @@ class SeichiMemosController < ApplicationController
     @jenre_tags = GenreTag.all
   end
 
+  def autocomplete
+    @seichi_memos = SeichiMemo.ransack(place_name_or_anime_title_cont: params[:term]).result(distinct: true).limit(10)
+    result = @seichi_memos.map { |memo| { id: memo.id, value: "#{memo.place_name}（#{memo.anime_title}）" } }
+    render json: result
+  end
+
   private
 
   # 🔹 Strong Parameters
