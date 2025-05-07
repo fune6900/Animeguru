@@ -40,13 +40,13 @@
   <div class="flex space-x-4 mb-4">
     <!-- アニメのシーン -->
     <div class="w-1/2 h-60">
-      <%= image_tag (@seichi_memo.scene_image.present? ? @seichi_memo.scene_image.url : SceneImageUploader.new.default_url), 
+      <%= image_tag (@seichi_memo.scene_image.present? ? @seichi_memo.scene_image.url : SceneImageUploader.new.default_url(:show)), 
         class: "rounded-lg shadow-md w-full h-full object-cover" %>
     </div>
 
     <!-- 聖地の実際の写真 -->
     <div class="w-1/2 h-60">
-      <%= image_tag (@seichi_memo.seichi_photo.present? ? @seichi_memo.seichi_photo.url : SeichiPhotoUploader.new.default_url), 
+      <%= image_tag (@seichi_memo.seichi_photo.present? ? @seichi_memo.seichi_photo.url : SeichiPhotoUploader.new.default_url(:show)), 
         class: "rounded-lg shadow-md w-full h-full object-cover" %>
     </div>
   </div>
