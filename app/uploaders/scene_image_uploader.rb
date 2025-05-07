@@ -35,9 +35,9 @@ class SceneImageUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  #version :show do
+  # version :show do
   process resize_to_fill: [ 800, 600, "Center" ]
-  #end
+  # end
 
   # Add an allowlist of extensions which are allowed to be uploaded.
   # For images you might use something like this:
