@@ -1,12 +1,18 @@
 class SeichiPhotoUploader < CarrierWave::Uploader::Base
   # Include RMagick, MiniMagick, or Vips support:
   # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+  include CarrierWave::MiniMagick
   # include CarrierWave::Vips
 
   # Choose what kind of storage to use for this uploader:
-  storage :file
+  # storage :file
   # storage :fog
+  # 本番環境と開発・テスト環境で保存先を分ける
+  if Rails.env.production?
+    storage :fog
+  else
+    storage :file
+  end
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
@@ -29,8 +35,8 @@ class SeichiPhotoUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  # version :thumb do
-  #   process resize_to_fit: [50, 50]
+  # version :show do
+  process resize_to_fill: [ 800, 600, "Center" ]
   # end
 
   # Add an allowlist of extensions which are allowed to be uploaded.
@@ -44,11 +50,4 @@ class SeichiPhotoUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg"
   # end
-
-  # 本番環境と開発・テスト環境で保存先を分ける
-  if Rails.env.production?
-    storage :fog
-  else
-    storage :file
-  end
 end

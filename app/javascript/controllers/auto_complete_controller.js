@@ -39,10 +39,9 @@ export default class extends Controller {
           const element = document.createElement("div")
           element.classList.add("p-2", "hover:bg-gray-100", "cursor-pointer")
 
-          // タイプに応じてラベル表示
+          // 検索候補のスタイル
           const label = item.type === "place" ? "聖地名" : "作品タイトル"
           element.innerHTML = `
-            <div class="font-semibold text-gray-900">${label}：</div>
             <div class="text-sm text-gray-700">${item.value}</div>
           `
 
