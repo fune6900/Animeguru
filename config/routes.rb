@@ -39,4 +39,8 @@ Rails.application.routes.draw do
     get "seichi_search", to: "seichi_search#index"
     get "anime_search", to: "anime_search#index"
   end
+
+  # 利用規約とプライバシーポリシー
+  get "privacy_policy" => "homes#privacy_policy", as: :privacy_policy
+  get "terms_of_service" => "homes#terms_of_service", as: :terms_of_service
 end
