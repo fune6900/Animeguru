@@ -1,0 +1,40 @@
+<!-- 聖地巡礼のマナー＆注意事項 -->
+<div class="relative w-1/2 md:w-full mx-auto mt-4 mb-4 transform transition duration-200 hover:scale-105 shadow-md" onclick="how_to_enjoy_pilgrimage.showModal()">
+  <%= image_tag "how_to_enjoy_pilgrimage.jpg", class: "w-full h-auto rounded-lg" %>
+  <span class="absolute bottom-0 left-0 w-full text-center text-2xl font-extrabold text-white py-10 text-lg bg-black bg-opacity-30 hover:text-primary hover:bg-opacity-50">聖地巡礼の楽しみ方</span>
+</div>
+<dialog id="how_to_enjoy_pilgrimage" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box w-full max-w-7xl h-auto">
+
+  <form method="dialog" class="modal-backdrop">
+    <button class="btn btn-sm btn-circle absolute right-4 top-4">✕</button>
+  </form>
+
+    <!-- モーダル本文 -->
+    <h3 class="text-2xl font-extrabold text-gray-900 text-center">聖地巡礼の楽しみ方</h3>
+    <div class="divider divide-gray-200"></div>
+    <div class="px-4 space-y-6 text-gray-800 text-sm leading-relaxed">
+      <p>
+        聖地巡礼は、作品の舞台を実際に訪れ、キャラクターたちの息づかいを感じる特別な体験です。ここでは、そんな巡礼旅をもっと楽しむためのヒントをご紹介します。
+      </p>
+
+      <h2 class="text-lg font-semibold mt-6 border-l-4 border-primary pl-2">アニメの名シーンを再現して写真を撮ろう</h2>
+      <%= image_tag "recreate_anime_scene.jpg", class: "w-48 h-auto rounded-lg mx-auto" %>
+      <p>
+        聖地巡礼では、作品に登場した風景と現地の風景を重ねて楽しむのが醍醐味。同じ構図で写真を撮ったり、記念撮影をすることで作品世界に浸れます。撮った写真はハッシュタグ付きでSNSに投稿すれば、ファン同士の交流にもつながります。
+      </p>
+
+      <h2 class="text-lg font-semibold mt-6 border-l-4 border-primary pl-2">イベント・交流スポットをチェックしてみよう</h2>
+      <%= image_tag "check_events_and_spots.jpg", class: "w-48 h-auto rounded-lg mx-auto" %>
+      <p>
+        現地ではスタンプラリーや展示、ファン向けカフェなどが開催されていることもあります。訪問前に公式サイトや観光情報を確認しておくと安心です。また、ファンが自由に書き込める「交流ノート」が設置されている場所もあり、旅の記念やファン同士のつながりに役立ちます。
+      </p>
+
+      <h2 class="text-lg font-semibold mt-6 border-l-4 border-primary pl-2">ご当地グルメ＆限定グッズも見逃せない！</h2>
+      <%= image_tag "gotochi_gourmet_goods.jpg", class: "w-48 h-auto rounded-lg mx-auto" %>
+      <p>
+      作品に登場した料理や店を実際に訪れるのも、聖地巡礼の楽しみのひとつ。同じメニューを味わえば、キャラクターと同じ体験ができる感動があります。地域限定のグッズやお土産も、旅の思い出やファン同士の話題になります。
+      </p>
+    </div>
+  </div>
+</dialog>
