@@ -1,0 +1,52 @@
+<!-- 聖地巡礼のマナー＆注意事項 -->
+<div class="relative w-1/2 md:w-full mx-auto mt-4 mb-4 transform transition duration-200 hover:scale-105 shadow-md" onclick="manners_guide.showModal()">
+  <%= image_tag "manners_guide.jpg", class: "w-full h-auto rounded-lg" %>
+  <span class="absolute bottom-0 left-0 w-full text-center text-2xl font-extrabold text-white py-10 text-lg bg-black bg-opacity-30 hover:text-primary hover:bg-opacity-50">聖地巡礼のマナー＆注意事項</span>
+</div>
+<dialog id="manners_guide" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box w-full max-w-7xl h-auto">
+
+  <form method="dialog" class="modal-backdrop">
+    <button class="btn btn-sm btn-circle absolute right-4 top-4">✕</button>
+  </form>
+
+    <!-- モーダル本文 -->
+    <h3 class="text-2xl font-extrabold text-gray-900 text-center">聖地巡礼のマナー＆注意事項</h3>
+    <div class="divider divide-gray-200"></div>
+    <div class="px-4 space-y-6 text-gray-800 text-sm leading-relaxed">
+      <p>
+        アニメ作品ゆかりの場所を訪れる「聖地巡礼」は、ファンにとって特別な旅です。しかし、現地では地元の方々への配慮や基本的なマナーを守ることが大切です。ここでは、聖地巡礼を安心して楽しむために心がけたい主なマナー・注意事項をまとめました。
+      </p>
+
+      <h2 class="text-lg font-semibold mt-6 border-l-4 border-primary pl-2">聖地の環境・景観を大切にしましょう</h2>
+      <%= image_tag "respect_environment.html.jpg", class: "w-48 h-auto rounded-lg mx-auto" %>
+      <p>
+        聖地では景観や環境を大切にし、落書き・ゴミ捨て・騒音など迷惑行為は絶対に避けましょう。作品への敬意を持ち、地域住民や観光客への配慮を忘れずに行動することが大切です。
+      </p>
+
+      <h2 class="text-lg font-semibold mt-6 border-l-4 border-primary pl-2">現地のルール（撮影禁止・立入禁止）を守りましょう</h2>
+      <%= image_tag "follow_rules.jpg", class: "w-48 h-auto rounded-lg mx-auto" %>
+      <p>
+        撮影禁止・立入禁止のルールには必ず従いましょう。私有地や学校への無断侵入・撮影はNGで、商業施設でも事前に許可を取ること。神社や公共施設でも迷惑行為を避け、周囲への配慮を忘れずに行動しましょう。
+      </p>
+
+      <h2 class="text-lg font-semibold mt-6 border-l-4 border-primary pl-2">住宅街では静かに。地域住民への配慮を忘れずに</h2>
+      <%= image_tag "consider_residents.jpg", class: "w-48 h-auto rounded-lg mx-auto" %>
+      <p>
+        聖地が住宅街にある場合は、静かに行動し早朝・深夜の訪問は控えましょう。巡礼者も観光客としてのマナーを守り、地域住民への配慮や挨拶を忘れずに。現地との良好な関係づくりが大切です。
+      </p>
+
+      <h2 class="text-lg font-semibold mt-6 border-l-4 border-primary pl-2">写真撮影ではプライバシーに十分配慮しましょう</h2>
+      <%= image_tag "privacy_in_photos.jpg", class: "w-48 h-auto rounded-lg mx-auto" %>
+      <p>
+        撮影時は周囲のプライバシーに配慮し、私有地や他人が写り込む写真は無断で公開しないようにしましょう。必要に応じて顔をぼかす・隠すなどの処理を行い、不快な思いをさせない心遣いを忘れずに。      
+      </p>
+
+      <h2 class="text-lg font-semibold mt-6 border-l-4 border-primary pl-2">SNS投稿では位置情報や個人情報に注意しましょう</h2>
+      <%= image_tag "sns_privacy.jpg", class: "w-48 h-auto rounded-lg mx-auto" %>
+      <p>
+        SNSに巡礼写真を投稿する際は、撮影禁止場所や個人宅の情報が写り込まないよう注意しましょう。場所の特定につながる情報やExifデータは削除し、公式に公開されていないスポットは慎重に扱うことが大切です。
+      </p>
+    </div>
+  </div>
+</dialog>

@@ -8,7 +8,7 @@
     </div>
 
       <!-- ドロップダウンメニュー -->
-      <div class="dropdown dropdown-end">
+      <div class="dropdown dropdown-end z-50">
         <label tabindex="0" class="btn btn-ghost btn-square hover:shadow-md transition duration-300">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-6 w-6 stroke-current text-white-700">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -60,8 +60,8 @@
               <% end %>
             </li>
             <li>
-              <%= link_to "#", class: "btn btn-ghost justify-start w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
-                <i class="fa-solid fa-hands-praying"></i> 聖地巡礼の際のマナー
+              <%= link_to columns_path, class: "btn btn-ghost justify-start w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md flex items-center gap-2" do %>
+                <i class="fa-solid fa-hands-praying"></i> 聖地巡礼コラム
               <% end %>
             </li>
           <% else %>
