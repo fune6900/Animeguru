@@ -44,4 +44,9 @@ Rails.application.routes.draw do
   # 利用規約とプライバシーポリシー
   get "privacy_policy" => "homes#privacy_policy", as: :privacy_policy
   get "terms_of_service" => "homes#terms_of_service", as: :terms_of_service
+
+  # ブラウザ上で送信メールの履歴一覧を確認できるようにするための設定
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 end
