@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # Devise のユーザー認証ルート
   devise_for :users, controllers: {
   registrations: "users/registrations",
-  sessions: "users/sessions"
+  sessions: "users/sessions",
   passwords: "users/passwords"
   }
 
