@@ -24,7 +24,7 @@ ja:
       updated: "プロフィールを更新しました"
       failed: "アカウントを作成できませんでした。すべての項目を入力してください"
     passwords:
-      send_instructions: "パスワードリセット手順を送信しました"
+      send_instructions: "パスワード再設定の手順を数分以内にメールで送信します"
       updated: "パスワードを変更しました"
     failure:
       already_authenticated: "すでにログインしています"
