@@ -26,6 +26,9 @@ ja:
     passwords:
       send_instructions: "パスワード再設定の手順を数分以内にメールで送信します"
       updated: "パスワードを再設定しました"
+    mailer:
+      reset_password_instructions:
+        subject: "パスワード再設定のご案内"
     failure:
       already_authenticated: "すでにログインしています"
       unauthenticated: "ログインが必要です"
