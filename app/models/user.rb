@@ -9,7 +9,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable,
+         :omniauthable, omniauth_providers: %i[google_oauth2]
 
   # Usernameに関するカスタムバリデーション
   validates :username, presence: true,
@@ -19,6 +20,7 @@ class User < ApplicationRecord
   # その他のカスタムバリデーション
   validates :introduction, length: { maximum: 500 }, allow_blank: true
   validate :profile_image_content_type
+  validates :uid, uniqueness: { scope: :provider }, allow_nil: true
 
   # プロフィール画像のアップローダー
   mount_uploader :profile_image, ProfileImageUploader
@@ -57,6 +59,15 @@ class User < ApplicationRecord
 
   def like?(seichi_memo)
     like_seichi_memos.include?(seichi_memo)
+  end
+
+  # Google認証用
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.name = auth.info.name
+      user.password = Devise.friendly_token[0, 20]
+    end
   end
 
   private
