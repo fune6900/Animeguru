@@ -42,12 +42,16 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
-
-  # :letter_opener_web を使って、メールを実際に送信せずブラウザで確認する
-  config.action_mailer.delivery_method = :letter_opener_web
-
-  # メール処理を実行する（false にするとメール生成自体をスキップする）
-  config.action_mailer.perform_deliveries = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: "smtp.gmail.com",
+    domain: "smtp.gmail.com",
+    port: 587,
+    user_name: ENV["MAILER_SENDER"],
+    password: ENV["MAILER_PASSWORD"],
+    authentication: :login,
+    enable_starttls_auto: true
+  }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
