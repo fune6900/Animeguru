@@ -3,6 +3,11 @@ source "https://rubygems.org"
 # ユーザー認証
 gem "devise"
 
+# google認証用
+gem "omniauth"
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"
+
 # 画像アップロード用
 gem "carrierwave", "~> 3.0"
 gem "mini_magick"
