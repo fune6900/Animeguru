@@ -4,6 +4,23 @@
   <%= render "shared/error_messages", resource: resource %>
 
 <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+  <!-- Google認証ボタン -->
+  <% if devise_mapping.omniauthable? %>
+    <div class="flex justify-center">
+      <%= button_to user_google_oauth2_omniauth_authorize_path , method: :post, data: { turbo: false }, class: "rounded-md overflow-hidden transition transform hover:scale-105" do %>
+        <%= image_tag("sign_up_with_google.png", alt: "Googleで登録",class: "w-[200px] h-[44px]") %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <!-- 区切り線 -->
+  <div class="flex items-center my-4">
+    <div class="flex-grow border-t border-gray-600"></div>
+    <span class="mx-4 text-gray-600">　OR　</span>
+    <div class="flex-grow border-t border-gray-600"></div>
+  </div>
+
+  <!-- メールアドレスとパスワードでの登録 -->
   <%= form_for(resource || User.new, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-4" }) do |f| %>
 
     <!-- 🔹 ユーザー名 -->

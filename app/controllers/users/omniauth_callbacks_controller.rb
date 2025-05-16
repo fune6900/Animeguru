@@ -11,7 +11,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = User.from_omniauth(auth)
 
     if @user.persisted?
-      flash[:notice] = "Google認証成功しました！さっそく聖地メモを投稿してみませんか？" unless @user.has_reviews?
+      flash[:notice] = "Google認証成功しました！さっそく聖地メモを投稿してみませんか？" unless @user.has_seichi_memos?
       sign_in_and_redirect @user, event: :authentication
     else
       if User.exists?(email: auth.info.email)

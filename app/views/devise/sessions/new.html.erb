@@ -1,6 +1,26 @@
 <h2 class="text-2xl font-bold text-center mb-6">ログイン</h2>
 
 <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+  <!-- Googleログインボタン -->
+  <% if devise_mapping.omniauthable? %>
+    <div class="flex flex-col items-center space-y-6">
+      
+      <!-- Googleログインボタン -->
+      <%= button_to user_google_oauth2_omniauth_authorize_path, method: :post, data: { turbo: false }, class: "rounded-md overflow-hidden transition transform hover:scale-105" do %>
+        <%= image_tag("sign_in_with_google.png", alt: "Googleでログイン", class: "w-[200px] h-[44px]") %>
+      <% end %>
+
+      <!-- 区切り線 -->
+      <div class="flex items-center w-full max-w-xs">
+        <div class="flex-grow border-t border-gray-600"></div>
+        <span class="mx-4 text-gray-600 text-sm">OR</span>
+        <div class="flex-grow border-t border-gray-600"></div>
+      </div>
+
+    </div>
+  <% end %>
+
+  <!-- メールアドレスとパスワードでのログイン -->
   <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-4" }) do |f| %>
 
     <!-- メールアドレス -->
