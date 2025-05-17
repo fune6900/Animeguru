@@ -31,7 +31,7 @@ gem "geocoder"
 gem "ransack"
 
 # OGP
-gem 'meta-tags', :require => 'meta_tags'
+gem "meta-tags", require: "meta_tags"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.2.1"

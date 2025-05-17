@@ -1,5 +1,4 @@
 module ApplicationHelper
-
   # デフォルトのメタタグを設定
   def default_meta_tags
     {

@@ -156,17 +156,17 @@ class SeichiMemosController < ApplicationController
   def prepare_meta_tags(seichi_memo)
     image_url = "#{request.base_url}/images/ogp.png?text=#{CGI.escape(seichi_memo.title)}"
     set_meta_tags og: {
-      site_name: 'アニめぐる',
+      site_name: "アニめぐる",
       title: seichi_memo.title,
-      description: '聖地メモの投稿です',
-      type: 'website',
+      description: "聖地メモの投稿です",
+      type: "website",
       url: request.original_url,
       image: image_url,
-      locale: 'ja-JP'
+      locale: "ja-JP"
     },
     twitter: {
-      card: 'summary_large_image',
-      site: '@https://x.com/fune_6900',
+      card: "summary_large_image",
+      site: "@https://x.com/fune_6900",
       image: image_url
     }
   end
