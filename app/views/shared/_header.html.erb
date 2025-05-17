@@ -96,6 +96,25 @@
           <li><%= link_to 'お問い合わせ', "https://docs.google.com/forms/d/e/1FAIpQLSekT6TW4qUS0U_2krQmXsxsHztTwAVqa-vr6avHHjgUeifblA/viewform", target: '_blank', rel: 'noopener noreferrer', class: "btn btn-ghost justify-start w-full text-left text-white-700 hover:bg-gray-300 hover:shadow-md rounded-md" %></li>
 
           <hr class="border-gray-200">
+          <div class="flex justify-center gap-4 py-2">
+            <!-- X -->
+            <%= link_to 'https://x.com/fune_6900',
+                        target: '_blank',
+                        rel: 'noopener noreferrer',
+                        class: "p-2 rounded-full hover:bg-gray-300 hover:text-white transition text-white flex items-center justify-center text-2xl" do %>
+              <i class="fa-brands fa-x-twitter"></i>
+            <% end %>
+
+            <!-- GitHub -->
+            <%= link_to 'https://github.com/fune6900/Animeguru',
+                        target: '_blank',
+                        rel: 'noopener noreferrer',
+                        class: "p-2 rounded-full hover:bg-gray-300 hover:text-white transition text-white flex items-center justify-center text-2xl" do %>
+              <i class="fa-brands fa-github"></i>
+            <% end %>
+          </div>
+
+          <hr class="border-gray-200">
           <li class="text-center text-xs mt-2 text-white-500">Copyright &copy; 2025 Animeguru</li>
         </ul>
       </div>
