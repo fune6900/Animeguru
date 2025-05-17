@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
   resources :bookmarks, only: %i[create destroy]
   resources :columns, only: %i[index]
+  get "images/ogp.png", to: "images#ogp", as: "images_ogp"
 
   # Health check ルート（アップタイムモニタリング用）
   get "up" => "rails/health#show", as: :rails_health_check

@@ -1,4 +1,31 @@
 module ApplicationHelper
+  # デフォルトのメタタグを設定
+  def default_meta_tags
+    {
+      site: "アニめぐる",
+      title: "アニめぐる",
+      reverse: true,
+      charset: "utf-8",
+      description: "アニめぐるは、聖地巡礼のための情報を共有するプラットフォームです。",
+      canonical: request.original_url,
+      separator: "|",
+      og: {
+        site_name: :site,
+        title: :title,
+        description: :description,
+        type: "website",
+        url: request.original_url,
+        image: image_url("ogp.png"),
+        local: "ja-JP"
+      },
+      twitter: {
+        card: "summary_large_image",
+        site: "@https://x.com/fune_6900",
+        image: image_url("ogp.png")
+      }
+    }
+  end
+
   # フラッシュメッセージの背景色を変更
   def flash_background_color(type)
     case type.to_sym
