@@ -14,9 +14,6 @@ class SeichiMemosController < ApplicationController
   end
 
   def show
-    @seichi_memo = SeichiMemo.includes(:anime, :place, :user, :genre_tags).find(params[:id])
-    # メタタグを設定
-    prepare_meta_tags(@seichi_memo)
     @comment = Comment.new
     @comments = @seichi_memo.comments.includes(:user).order(created_at: :desc)
   end
@@ -150,24 +147,5 @@ class SeichiMemosController < ApplicationController
       flash[:alert] = "この聖地メモは編集できません"
       redirect_to root_path
     end
-  end
-
-  # 🔹 メタタグを設定
-  def prepare_meta_tags(seichi_memo)
-    image_url = "#{request.base_url}/images/ogp.png?text=#{CGI.escape(seichi_memo.title)}"
-    set_meta_tags og: {
-      site_name: "アニめぐる",
-      title: seichi_memo.title,
-      description: "聖地メモの投稿です",
-      type: "website",
-      url: request.original_url,
-      image: image_url,
-      locale: "ja-JP"
-    },
-    twitter: {
-      card: "summary_large_image",
-      site: "@https://x.com/fune_6900",
-      image: image_url
-    }
   end
 end
