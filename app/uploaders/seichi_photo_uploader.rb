@@ -35,9 +35,12 @@ class SeichiPhotoUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  # version :show do
-  process resize_to_fill: [ 800, 600, "Center" ]
-  # end
+  process resize_to_fill: [ 800, 600 ]
+
+  version :ogp do
+    process resize_to_fill: [ 1200, 630 ]
+  end
+
 
   # Add an allowlist of extensions which are allowed to be uploaded.
   # For images you might use something like this:
@@ -45,9 +48,14 @@ class SeichiPhotoUploader < CarrierWave::Uploader::Base
     %w[jpg jpeg gif png webp]
   end
 
-  # Override the filename of the uploaded files:
-  # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
-  #   "something.jpg"
-  # end
+  def filename
+    @name ||= "#{secure_token}.#{file.extension}" if original_filename.present?
+  end
+
+  protected
+
+  def secure_token
+    model.instance_variable_get("@#{mounted_as}_secure_token") ||
+      model.instance_variable_set("@#{mounted_as}_secure_token", SecureRandom.uuid)
+  end
 end
