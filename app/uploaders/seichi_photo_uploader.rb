@@ -35,10 +35,10 @@ class SeichiPhotoUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  process resize_to_fill: [ 800, 600]
+  process resize_to_fill: [ 800, 600 ]
 
   version :ogp do
-    process resize_to_fill: [1200, 630]
+    process resize_to_fill: [ 1200, 630 ]
   end
 
 
