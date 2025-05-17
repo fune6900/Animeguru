@@ -7,7 +7,7 @@ module ApplicationHelper
       reverse: true,
       charset: "utf-8",
       description: "あなたの足で紡ぐ、作品と現実の交差点。アニめぐるは、アニメファンや聖地巡礼を考えている人のための聖地巡礼情報共有プラットフォームです。あなたの聖地巡礼の思い出を聖地メモとして共有しよう。",
-      keywords: "聖地巡礼, アニメ聖地, アニメの舞台, 聖地, 巡礼記録, 聖地マップ, アニメ巡り, 聖地投稿, アニメロケ地, アニメスポット, 作品の舞台, モデル地, アニメファン, アニメ×現実, 推し活, アニめぐる"
+      keywords: "聖地巡礼, アニメ聖地, アニメの舞台, 聖地, 巡礼記録, 聖地マップ, アニメ巡り, 聖地投稿, アニメロケ地, アニメスポット, 作品の舞台, モデル地, アニメファン, アニメ×現実, 推し活, アニめぐる",
       canonical: request.original_url,
       separator: "|",
       og: {
@@ -17,7 +17,7 @@ module ApplicationHelper
         type: "website",
         url: request.original_url,
         image: content_for(:og_image) || image_url("ogp.png"),
-        locale: "ja_JP"
+        local: "ja-JP"
       },
       twitter: {
         card: "summary_large_image",

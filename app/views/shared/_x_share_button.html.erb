@@ -1,0 +1,21 @@
+<%# X投稿内容（stripで行末の改行を削除） %>
+<% tweet_text = <<~EOF.strip
+  【聖地メモ投稿】
+
+  「#{@seichi_memo.title}」
+  #{truncate(@seichi_memo.body, length: 50, omission: "…")}
+
+  ▼投稿をチェックする
+  #{request.original_url}
+
+  #アニめぐる #聖地巡礼 #アニメ聖地 #推し活
+EOF
+%>
+
+<%= link_to "https://twitter.com/intent/tweet?text=#{CGI.escape(tweet_text)}",
+            target: "_blank",
+            rel: "noopener",
+            class: 'inline-flex items-center gap-2 px-4 py-2 bg-primary border border-gray-300 rounded-md text-md hover:bg-gray-300 transition' do %>
+  <i class="fa-brands fa-x-twitter text-2xl"></i>
+  <span class="text-white">シェア</span>
+<% end %>

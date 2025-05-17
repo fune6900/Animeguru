@@ -7,7 +7,8 @@
 
 <%# OGP画像 %>
 <% if @seichi_memo.seichi_photo.present? %>
-  <% content_for :og_image, @seichi_memo.seichi_photo.ogp.url %>
+  <% ogp_url = @seichi_memo.seichi_photo.ogp.url %>
+  <% content_for :og_image, request.base_url + ogp_url %>
 <% else %>
   <% content_for :og_image, image_url("ogp.png") %>
 <% end %>
@@ -73,15 +74,8 @@
     </div>
 
     <div class="flex items-center gap-4">
-      <% prepare_meta_tags @seichi_memo %>
-      <% twitter_share_url = "https://twitter.com/intent/tweet?url=#{CGI.escape(seichi_memo_url(@seichi_memo))}" %>
-      <%= link_to twitter_share_url,
-                  target: '_blank',
-                  rel: 'noopener',
-                  class: 'inline-flex items-center gap-2 px-4 py-2 bg-primary border border-gray-300 rounded-md text-md hover:bg-gray-300 transition' do %>
-        <i class="fa-brands fa-x-twitter text-2xl"></i>
-        <span class="text-white">シェア</span>
-      <% end %>
+      <!-- シェアボタン -->
+      <%= render "shared/x_share_button", review: @review %>
     </div>
   </div>
 
