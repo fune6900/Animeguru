@@ -166,7 +166,7 @@ class SeichiMemosController < ApplicationController
     },
     twitter: {
       card: 'summary_large_image',
-      site: '@https://https://x.com/fune_6900',
+      site: '@https://x.com/fune_6900',
       image: image_url
     }
   end
