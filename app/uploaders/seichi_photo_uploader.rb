@@ -35,9 +35,12 @@ class SeichiPhotoUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  # version :show do
-  process resize_to_fill: [ 800, 600, "Center" ]
-  # end
+  process resize_to_fill: [ 800, 600]
+
+  version :ogp do
+    process resize_to_fill: [1200, 630]
+  end
+
 
   # Add an allowlist of extensions which are allowed to be uploaded.
   # For images you might use something like this:

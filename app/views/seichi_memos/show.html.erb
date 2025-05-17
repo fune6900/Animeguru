@@ -1,3 +1,17 @@
+<%# OGPの各種設定 %>
+<% content_for :meta_description, "#{@seichi_memo.title}というタイトルで、聖地メモを投稿している。" %>
+
+<%# Xシェア用情報 %>
+<% content_for :og_title, @seichi_memo.title %>
+<% content_for :og_description, truncate(@seichi_memo.body, length: 100) %>
+
+<%# OGP画像 %>
+<% if @seichi_memo.seichi_photo.present? %>
+  <% content_for :og_image, @seichi_memo.seichi_photo.ogp.url %>
+<% else %>
+  <% content_for :og_image, image_url("ogp.png") %>
+<% end %>
+
 <div class="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
   <!-- タイトル & 編集・削除ボタン -->
   <div class="flex justify-between items-center">

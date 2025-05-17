@@ -2,8 +2,6 @@ class SeichiMemosController < ApplicationController
   before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy ]
   before_action :set_seichi_memo, only: [ :show, :edit, :update, :destroy ]
   before_action :correct_user, only: [ :edit, :update, :destroy ]
-  # 設定したprepare_meta_tagsをprivateにあってもseichi_memosコントローラー以外にも使えるようにする
-  helper_method :prepare_meta_tags
 
   require_dependency "seichi_memo_form"
 
