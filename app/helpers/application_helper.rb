@@ -3,25 +3,26 @@ module ApplicationHelper
   def default_meta_tags
     {
       site: "アニめぐる",
-      title: "アニめぐる",
+      title: "聖地巡礼情報共有プラットフォーム",
       reverse: true,
       charset: "utf-8",
-      description: "アニめぐるは、聖地巡礼のための情報を共有するプラットフォームです。",
+      description: "あなたの足で紡ぐ、作品と現実の交差点。アニめぐるは、アニメファンや聖地巡礼を考えている人のための聖地巡礼情報共有プラットフォームです。あなたの聖地巡礼の思い出を聖地メモとして共有しよう。",
+      keywords: "聖地巡礼, アニメ聖地, アニメの舞台, 聖地, 巡礼記録, 聖地マップ, アニメ巡り, 聖地投稿, アニメロケ地, アニメスポット, 作品の舞台, モデル地, アニメファン, アニメ×現実, 推し活, アニめぐる"
       canonical: request.original_url,
       separator: "|",
       og: {
         site_name: :site,
-        title: :title,
-        description: :description,
+        title: content_for(:og_title) || :title,
+        description: content_for(:og_description) || :description,
         type: "website",
         url: request.original_url,
-        image: image_url("ogp.png"),
-        local: "ja-JP"
+        image: content_for(:og_image) || image_url("ogp.png"),
+        locale: "ja_JP"
       },
       twitter: {
         card: "summary_large_image",
-        site: "@https://x.com/fune_6900",
-        image: image_url("ogp.png")
+        site: "@fune_6900",
+        image: content_for(:og_image) || image_url("ogp.png")
       }
     }
   end
