@@ -7,8 +7,7 @@
 
 <%# OGP画像 %>
 <% if @seichi_memo.seichi_photo.present? %>
-  <% ogp_url = @seichi_memo.seichi_photo.ogp.url %>
-  <% content_for :og_image, request.base_url + ogp_url %>
+  <% content_for :og_image, @seichi_memo.seichi_photo.ogp.url %>
 <% else %>
   <% content_for :og_image, image_url("ogp.png") %>
 <% end %>
