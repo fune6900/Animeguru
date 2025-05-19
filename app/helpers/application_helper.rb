@@ -16,13 +16,13 @@ module ApplicationHelper
         description: content_for(:og_description) || :description,
         type: "website",
         url: request.original_url,
-        image: content_for(:og_image) || image_url("ogp.png"),
+        image: image_url("ogp.png"),
         local: "ja-JP"
       },
       twitter: {
         card: "summary_large_image",
         site: "@fune_6900",
-        image: content_for(:og_image) || image_url("ogp.png")
+        image: image_url("ogp.png")
       }
     }
   end
