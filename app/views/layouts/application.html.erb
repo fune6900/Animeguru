@@ -10,9 +10,8 @@
     <%= yield :head %>
 
     <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
+    <%= favicon_link_tag 'favicon.ico' %>
+    <%= favicon_link_tag 'apple-touch-icon.png', rel: 'apple-touch-icon', type: 'image/png', sizes: '180x180' %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <script src="https://kit.fontawesome.com/eb37be60a7.js" crossorigin="anonymous"></script>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
