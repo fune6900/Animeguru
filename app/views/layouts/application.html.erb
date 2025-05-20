@@ -1,26 +1,41 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Myapp" %></title>
+    <title><%= content_for(:title) || "アニめぐる" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- 	フォーム送信時のCSRF対策用トークン -->
     <%= csrf_meta_tags %>
+    <!-- 外部スクリプトの読み込みなどを制限し、不正なスクリプト実行（XSS）を防ぐためのセキュリティ用metaタグ -->
     <%= csp_meta_tag %>
+    <!-- OGP設定 -->
+    <%= display_meta_tags(default_meta_tags) %>
+
+    <!-- Google Analytics (gtag.js) のタグ -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VD1HFG24CS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VD1HFG24CS');
+    </script>
 
     <%= yield :head %>
 
+    <!-- favicon(スマホ・PC・) -->
     <link rel="manifest" href="/manifest.json">
     <%= favicon_link_tag 'favicon.ico' %>
     <%= favicon_link_tag 'apple-touch-icon.png', rel: 'apple-touch-icon', type: 'image/png', sizes: '180x180' %>
+
+    <!-- Stylesheets -->
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <script src="https://kit.fontawesome.com/eb37be60a7.js" crossorigin="anonymous"></script>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rampart+One&display=swap" rel="stylesheet">
-    <!-- meta_tag -->
-    <%= display_meta_tags(default_meta_tags) %>
-    </head>
+  </head>
 
   <body class="bg-gray-100 min-h-screen flex flex-col">
     <%= render 'shared/header' %>
