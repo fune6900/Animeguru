@@ -1,57 +1,67 @@
-<style>
-  body {
-    background-image: url('<%= asset_path("background.jpg") %>');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* スクロールしても背景が固定される */
-  }
-</style>
-
-<div class="relative w-full h-screen">
-  <!-- Heroセクション（コンテンツ） -->
-  <section class="relative flex items-center justify-center text-center text-neutral-content w-full h-full">
-    <div>
-      <h1 class="text-6xl font-bold">アニめぐる</h1>
-      <p class="mt-4 text-lg">聖地情報共有サービス</p>
-      <%= link_to "聖地メモを見る", seichi_memos_path, class: "btn bg-primary text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 max-w-xs mt-6" %>
-    </div>
-  </section>
+<!-- Heroセクション（コンテンツ） -->
+<div class="flex flex-col items-center justify-center min-h-screen bg-primary">
+  <h1 class="text-6xl md:text-7xl lg:text-8xl text-white font-rampart tracking-tight leading-tight text-center">
+    アニめぐる
+  </h1>
+  <p class="text-base md:text-lg lg:text-xl text-center text-white leading-relaxed max-w-3xl mx-auto mt-6">
+    聖地巡礼情報共有プラットフォーム
+  </p>
+  <div class="flex justify-center items-center gap-4 mt-10 flex-col md:flex-row">
+    <%= link_to "聖地メモを見る", seichi_memos_path, class: "btn bg-primary text-white py-2 px-6 rounded-full shadow-md transition duration-200" %>
+    <% if user_signed_in? %>
+      <%= link_to "聖地メモを投稿", new_user_registration_path, class: "btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-full shadow-md transition duration-200" %>
+    <% else %>
+      <%= link_to "新規登録して投稿する", new_user_registration_path, class: "btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-full shadow-md transition duration-200" %>
+    <% end %>
+  </div>
+  <p class="text-white mt-10">scroll</p>
+  <p class="text-white text-2xl animate-bounce drop-shadow-md mt-4">
+    <i class="fa-solid fa-angles-down"></i>
+  </p>
 </div>
 
 <!-- できることセクション -->
-<section class="py-20 bg-transparent">
-  <h2 class="text-3xl font-bold text-center text-white">できること</h2>
-  <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mt-10">
-    <div class="card bg-white bg-opacity-80 shadow-md p-6 rounded-lg">
-      <h3 class="text-xl font-bold">聖地メモ作成投稿</h3>
-      <p class="mt-2">聖地巡礼で訪れた聖地の思い出を投稿しよう!!</p>
-    </div>
-    <div class="card bg-white bg-opacity-80 shadow-md p-6 rounded-lg">
-      <h3 class="text-xl font-bold">みんなの投稿の閲覧</h3>
-      <p class="mt-2">みんなの投稿を見て次に訪れたい聖地を見つけよう!!</p>
-    </div>
-    <div class="card bg-white bg-opacity-80 shadow-md p-6 rounded-lg">
-      <h3 class="text-xl font-bold">聖地メモ検索</h3>
-      <p class="mt-2">聖地名、作品タイトル、作品ジャンルからの検索ができます</p>
-    </div>
+<div class="flex flex-col items-center justify-center bg-transparent py-20 px-4">
+  <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-primary font-rampart tracking-wide mb-8">
+    できること ✨
+  </h2>
+
+  <div class="grid md:grid-cols-3 gap-8 max-w-6xl w-full ">
+    <% features = [
+      { title: "聖地メモ作成投稿", image: "camera_and_memory_icon.png", desc: "聖地巡礼で訪れた聖地の思い出を投稿しよう！！" },
+      { title: "みんなの聖地メモの閲覧", image: "map_with_pin_icon.png", desc: "みんなの聖地メモを見て次に訪れたい聖地を見つけよう！！" },
+      { title: "聖地メモ検索", image: "search_icon.png", desc: "聖地名、作品タイトル、作品ジャンルからの検索ができます" }
+    ] %>
+
+    <% features.each do |feature| %>
+      <div class="bg-white bg-opacity-80 shadow-xl hover:shadow-2xl transition-transform hover:scale-105 duration-300 p-8 rounded-2xl text-center">
+        <h3 class="text-xl font-semibold text-primary mb-3 tracking-tight"><%= feature[:title] %></h3>
+        <%= image_tag feature[:image], class: "w-20 mx-auto mb-4" %>
+        <p class="text-gray-700 text-sm leading-relaxed"><%= feature[:desc] %></p>
+      </div>
+    <% end %>
   </div>
-</section>
+</div>
 
 <!-- こんな方におすすめセクション -->
-<section class="py-20 bg-transparent">
-  <h2 class="text-3xl font-bold text-center text-white">こんな方におすすめ!!</h2>
-  <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mt-10">
-    <div class="card bg-white bg-opacity-80 shadow-md p-6 rounded-lg">
-      <h3 class="text-xl font-bold">アニメファン</h3>
-      <p class="mt-2">好きな作品の聖地や訪れたい聖地に関する情報を提供</p>
-    </div>
-    <div class="card bg-white bg-opacity-80 shadow-md p-6 rounded-lg">
-      <h3 class="text-xl font-bold">旅行好きの方</h3>
-      <p class="mt-2">聖地巡礼に興味のある方に楽しさや魅力を提供</p>
-    </div>
-    <div class="card bg-white bg-opacity-80 shadow-md p-6 rounded-lg">
-      <h3 class="text-xl font-bold">コミュニティ好きの方</h3>
-      <p class="mt-2">同じ作品が好きなファン同士で交流できるコミュニティを提供</p>
-    </div>
+<div class="flex flex-col items-center justify-center bg-transparent py-20 px-4">
+  <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-primary font-rampart tracking-wide mb-8">
+    こんな方におすすめ！！
+  </h2>
+
+  <div class="grid md:grid-cols-3 gap-8 max-w-6xl w-full">
+    <% recommendations = [
+      { title: "アニメファン", image: "fan_content_visual_set.png", desc: "好きな作品の聖地や訪れたい聖地に関する情報を提供" },
+      { title: "旅行好きの方", image: "travel_icon.png.png", desc: "聖地巡礼に興味のある方に楽しさや魅力を提供" },
+      { title: "コミュニティ好きの方", image: "community_talk_with_fan_icon.png", desc: "同じ作品が好きなファン同士で交流できるコミュニティを提供" }
+    ] %>
+
+    <% recommendations.each do |rec| %>
+      <div class="bg-white bg-opacity-80 shadow-xl hover:shadow-2xl transition-transform hover:scale-105 duration-300 p-8 rounded-2xl text-center">
+        <h3 class="text-xl font-semibold text-primary mb-3 tracking-tight"><%= rec[:title] %></h3>
+        <%= image_tag rec[:image], class: "w-25 mx-auto mb-4" %>
+        <p class="text-gray-700 text-sm leading-relaxed"><%= rec[:desc] %></p>
+      </div>
+    <% end %>
   </div>
-</section>
+</div>
