@@ -24,8 +24,7 @@ module.exports = {
       colors: {
         primary: '#6AB9DF',
         secondary: '#5B9CBD',
-        'base-100': '#FFFFFF',
-      },
+        'base-100': '#E2F4FD',      },
     },
   },
   plugins: [require("daisyui")]
