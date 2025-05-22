@@ -145,9 +145,6 @@ class SeichiMemoForm
   def update(seichi_memo)
     return false unless valid?
 
-    # 🔹 デバッグログを追加してgenre_tag_idsの中身を確認
-    puts "💥 genre_tag_ids: #{genre_tag_ids.inspect}"
-
     # 🔹 既存の作品情報を更新
     anime = Anime.find_or_create_by(title: anime_title)
     anime.update(

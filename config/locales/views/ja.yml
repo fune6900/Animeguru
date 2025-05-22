@@ -1,0 +1,42 @@
+ja:
+  views:
+    pagination:
+      previous: "前へ"
+      next: "次へ"
+
+  devise:
+    passwords:
+      new:
+        title: パスワード再設定
+      edit:
+        title: パスワード再設定
+    registrations:
+      new:
+        title: アカウント登録
+      edit:
+        title: プロフィール編集
+    sessions:
+      new:
+        title: ログイン
+  users:
+    show:
+      title: マイページ
+  homes:
+    privacy_policy:
+      title: プライバシーポリシー
+    terms_of_service:
+      title: 利用規約
+  seichi_memos:
+    index:
+      title: 聖地メモ検索
+    new:
+      title: 聖地メモ作成
+    edit:
+      title: 聖地メモ編集
+    show:
+      title: 聖地メモ情報
+    bookmarks:
+      title: ブックマークした聖地メモ
+  columns:
+    index:
+      title: 聖地巡礼コラム

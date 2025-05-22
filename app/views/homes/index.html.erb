@@ -9,7 +9,7 @@
   <div class="flex justify-center items-center gap-4 mt-10 flex-col md:flex-row">
     <%= link_to "聖地メモを見る", seichi_memos_path, class: "btn bg-primary text-white py-2 px-6 rounded-full shadow-md transition duration-200" %>
     <% if user_signed_in? %>
-      <%= link_to "聖地メモを投稿", new_user_registration_path, class: "btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-full shadow-md transition duration-200" %>
+      <%= link_to "聖地メモを投稿", new_seichi_memo_path, class: "btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-full shadow-md transition duration-200" %>
     <% else %>
       <%= link_to "新規登録して投稿する", new_user_registration_path, class: "btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-full shadow-md transition duration-200" %>
     <% end %>
