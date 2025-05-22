@@ -1,0 +1,35 @@
+ja:
+  errors:
+    format: "%{attribute}%{message}"
+    messages:
+      blank: "を入力してください"
+      invalid: "は有効な値ではありません"
+      too_short: "は%{count}文字以上で入力してください"
+      extension_allowlist_error: "は jpg, jpeg, png, gif のいずれかの形式でアップロードしてください"
+
+  activerecord:
+    models:
+      user: ユーザー
+      seichi_memo: 聖地メモ
+    attributes:
+      user:
+        email: メールアドレス
+        username: ユーザー名
+        password: パスワード
+        password_confirmation: パスワード確認
+        profile_image: プロフィール画像
+        introduction: ひとこと
+      seichi_memo:
+        title: タイトル
+        body: メモ
+        anime_title: 作品タイトル
+        place_name: 聖地名
+
+    errors:
+      models:
+        user:
+          attributes:
+            username:
+              taken: "ユーザー名は既に使用されています"
+            email:
+              taken: "メールアドレスは既に使用されています"
