@@ -1,4 +1,10 @@
 module ApplicationHelper
+  # タイトルの動的な変更
+  def page_title(title = "")
+    base_title = "アニめぐる"
+    title.present? ? "#{title} | #{base_title}" : base_title
+  end
+
   # デフォルトのメタタグを設定
   def default_meta_tags
     {
