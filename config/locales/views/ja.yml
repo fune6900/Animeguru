@@ -19,7 +19,8 @@ ja:
       new:
         title: ログイン
   users:
-    show: マイページ
+    show:
+      title: マイページ
   homes:
     privacy_policy:
       title: プライバシーポリシー
