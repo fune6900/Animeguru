@@ -21,6 +21,7 @@ class User < ApplicationRecord
   validates :introduction, length: { maximum: 500 }, allow_blank: true
   validate :profile_image_content_type
   validates :uid, uniqueness: { scope: :provider }, allow_nil: true
+  validates :favorite_anime, length: { maximum: 50 }
 
   # プロフィール画像のアップローダー
   mount_uploader :profile_image, ProfileImageUploader

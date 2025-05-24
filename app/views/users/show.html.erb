@@ -1,36 +1,51 @@
 <% content_for(:title, t(".title")) %>
-<!-- プロフィールカード -->
-<div class="max-w-3xl mx-auto p-8 bg-white shadow-xl rounded-2xl mb-8">
-  <div class="flex flex-col items-center text-center space-y-4">
-    <%= image_tag @user.profile_image.url, alt: "プロフィール画像", class: "w-32 h-32 rounded-full mb-4" %>
-    <h2 class="text-2xl font-bold text-gray-800"><%= @user.username %></h2>
-    <p class="text-gray-600 text-base leading-relaxed whitespace-pre-line">
-      <%= @user.introduction.presence || "よろしくお願いします！" %>
-    </p>
-    
-    <% if @user == current_user %>
-      <%= link_to "プロフィール編集", edit_user_registration_path, class: "btn bg-primary text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 max-w-xs" %>
-    <% end %>
-  </div>
-</div>
 
-<!-- 聖地メモ一覧 -->
-<div class="max-w-5xl mx-auto p-6 bg-white shadow-lg rounded-2xl">
-  <h3 class="text-2xl font-semibold text-gray-800 mb-6 border-b pb-2">
-    過去の聖地メモ<span class="text-base text-gray-500">（<%= @seichi_memos.total_count %>件）</span>
-  </h3>
+<!-- 🔹 プロフィールカード -->
+<section class="px-4 py-10 sm:px-6 lg:px-8 bg-gradient-to-br from-base-100 to-gray-50">
+  <div class="max-w-3xl mx-auto bg-white shadow-2xl rounded-3xl overflow-hidden p-6 sm:p-10 mb-12">
+    <div class="flex flex-col items-center text-center space-y-5">
+      <div class="relative">
+        <%= image_tag @user.profile_image.url, alt: "プロフィール画像", class: "w-28 h-28 sm:w-36 sm:h-36 rounded-full object-cover shadow-md" %>
+        <div class="absolute -bottom-2 right-2 bg-primary text-white text-xs px-2 py-0.5 rounded-full shadow">Lv.99</div>
+      </div>
 
-  <% if @seichi_memos.any? %>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      <% @seichi_memos.each do |seichi_memo| %>
-        <%= render 'seichi_memos/seichi_memo', seichi_memo: seichi_memo %>
+      <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 tracking-wide"><%= @user.username %></h2>
+
+      <% if @user.favorite_anime.present? %>
+        <p class="text-sm sm:text-base text-primary font-semibold bg-primary/10 px-4 py-1 rounded-full">
+          好きなアニメ作品: <%= @user.favorite_anime %>
+        </p>
+      <% end %>
+
+      <p class="text-gray-600 text-xl sm:text-base font-rampart leading-relaxed whitespace-pre-line">
+        <%= @user.introduction.presence || "よろしくお願いします！" %>
+      </p>
+
+      <% if @user == current_user %>
+        <%= link_to "プロフィール編集", edit_user_registration_path, class: "btn bg-primary text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 hover:scale-105 w-full sm:w-auto max-w-xs" %>
       <% end %>
     </div>
+  </div>
 
-    <div class="mt-8 text-center">
-      <%= paginate @seichi_memos %>
-    </div>
-  <% else %>
-    <p class="text-center text-gray-500">このユーザーの聖地メモはまだありません。</p>
-  <% end %>
-</div>
+  <!-- 🔹 聖地メモ一覧 -->
+  <div class="max-w-5xl w-full mx-auto bg-white shadow-xl rounded-2xl p-6 sm:p-8">
+    <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-6 border-b pb-2 flex items-center justify-between">
+      <span>過去の聖地メモ</span>
+      <span class="text-sm sm:text-base text-gray-500">（<%= @seichi_memos.total_count %>件）</span>
+    </h3>
+
+    <% if @seichi_memos.any? %>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% @seichi_memos.each do |seichi_memo| %>
+          <%= render 'seichi_memos/seichi_memo', seichi_memo: seichi_memo %>
+        <% end %>
+      </div>
+
+      <div class="mt-8 text-center">
+        <%= paginate @seichi_memos %>
+      </div>
+    <% else %>
+      <p class="text-center text-gray-500">このユーザーの聖地メモはありません</p>
+    <% end %>
+  </div>
+</section>
