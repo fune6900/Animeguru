@@ -31,6 +31,15 @@
         <%= f.password_field :password, class: "w-full p-3 border border-gray-300 rounded-md shadow-sm", placeholder: "パスワードを入力してください（6文字以上）", autocomplete: "current-password" %>
       </div>
 
+      <% if devise_mapping.rememberable? %>
+        <div class="flex items-center space-x-2 mt-4">
+          <label class="inline-flex items-center cursor-pointer">
+            <%= f.check_box :remember_me, class: "checkbox checkbox-primary" %>
+            <span class="ml-2 text-sm text-gray-700">ログイン状態を保持</span>
+          </label>
+        </div>
+      <% end %>
+
       <div class="form-control mt-4">
         <%= f.submit "ログイン", class: "btn bg-primary text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 w-full" %>
       </div>

@@ -11,11 +11,9 @@
 
       <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 tracking-wide"><%= @user.username %></h2>
 
-      <% if @user.favorite_anime.present? %>
-        <p class="text-sm sm:text-base text-primary font-semibold bg-primary/10 px-4 py-1 rounded-full">
-          好きなアニメ作品: <%= @user.favorite_anime %>
-        </p>
-      <% end %>
+      <p class="text-sm sm:text-base text-primary font-semibold bg-primary/10 px-4 py-1 rounded-full">
+        好きなアニメ作品: <%= @user.favorite_anime.presence || "未設定" %>
+      </p>
 
       <p class="text-gray-600 text-xl sm:text-base font-rampart leading-relaxed whitespace-pre-line">
         <%= @user.introduction.presence || "よろしくお願いします！" %>
