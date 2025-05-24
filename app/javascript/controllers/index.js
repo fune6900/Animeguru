@@ -10,8 +10,14 @@ application.register("anime-search", AnimeSearchController)
 import AutoCompleteController from "./auto_complete_controller"
 application.register("auto-complete", AutoCompleteController)
 
+import GenreModalController from "./genre_modal_controller"
+application.register("genre-modal", GenreModalController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import SearchClearController from "./search_clear_controller"
+application.register("search-clear", SearchClearController)
 
 import SeichiSearchController from "./seichi_search_controller"
 application.register("seichi-search", SeichiSearchController)

@@ -7,7 +7,7 @@ class Place < ApplicationRecord
 
   # ransackで許可するカラム
   def self.ransackable_attributes(auth_object = nil)
-    %w[name]
+    %w[name address]
   end
 
   # ransackで許可するテーブル
