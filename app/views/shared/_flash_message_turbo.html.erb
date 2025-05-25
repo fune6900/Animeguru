@@ -1,6 +1,7 @@
 <% comment_flashes = flash.select { |k, _| k.to_sym.in?([:comment_notice, :comment_alert]) } %>
 
-<div id="flash_message" class="<%= comment_flashes.any? ? '' : 'hidden' %> fixed top-5 right-5 w-96 z-50 space-y-3">
+<div id="flash_message"
+     class="fixed top-5 right-4 sm:right-6 sm:top-6 w-[90%] sm:w-96 z-[9999] space-y-3 transition-all duration-300">
   <% comment_flashes.each do |key, message| %>
     <div class="<%= flash_background_color(key) %> px-4 py-3 rounded-md text-white flex items-center shadow-lg animate-slide-in fade-out" id="flash-message-<%= key %>">
       <i class="<%= flash_icon_class(key) %> text-xl mr-3"></i>
@@ -9,8 +10,8 @@
     </div>
   <% end %>
 
+
   <script>
-    // 5秒後にフェードアウトさせて削除
     setTimeout(() => {
       document.querySelectorAll('.fade-out').forEach(el => {
         el.classList.add('animate-fade-out');

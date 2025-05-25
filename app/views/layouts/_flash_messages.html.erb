@@ -1,5 +1,6 @@
 <% if flash.any? %>
-  <div class="fixed top-5 right-5 w-96 z-50 space-y-3">
+  <div id="flash_message"
+       class="fixed top-16 sm:top-20 right-4 sm:right-6 w-[90%] sm:w-96 z-[9999] space-y-3 transition-all duration-300">
     <% flash.each do |message_type, message| %>
       <div class="<%= flash_background_color(message_type) %> px-4 py-3 rounded-md text-white flex items-center shadow-lg animate-slide-in fade-out" id="flash-message-<%= message_type %>">
         <i class="<%= flash_icon_class(message_type) %> text-xl mr-3"></i>
@@ -10,7 +11,6 @@
   </div>
 
   <script>
-    // 5秒後にフェードアウトさせて削除
     setTimeout(() => {
       document.querySelectorAll('.fade-out').forEach(el => {
         el.classList.add('animate-fade-out');
