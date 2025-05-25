@@ -6,7 +6,7 @@
   <p class="text-base md:text-lg lg:text-xl text-center text-white leading-relaxed max-w-3xl mx-auto mt-6">
     聖地巡礼情報共有プラットフォーム
   </p>
-  <div class="flex justify-center items-center gap-4 mt-10 flex-col md:flex-row">
+  <div class="flex justify-center items-center gap-4 mt-10 flex-col md:flex-row" data-aos="fade-up" data-aos-delay="300">
     <%= link_to "聖地メモを見る", seichi_memos_path, class: "btn bg-primary text-white py-2 px-6 rounded-full shadow-md transition duration-200" %>
     <% if user_signed_in? %>
       <%= link_to "聖地メモを投稿", new_seichi_memo_path, class: "btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-full shadow-md transition duration-200" %>
@@ -21,20 +21,25 @@
 </div>
 
 <!-- できることセクション -->
-<div class="flex flex-col items-center justify-center bg-transparent py-20 px-4">
-  <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-primary font-rampart tracking-wide mb-8">
+<div class="flex flex-col items-center justify-center bg-transparent py-10 px-4" data-aos="fade-up">
+  <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-primary font-rampart tracking-wide mb-8" data-aos="fade-up" data-aos-delay="100">
     できること ✨
   </h2>
 
-  <div class="grid md:grid-cols-3 gap-8 max-w-6xl w-full ">
+  <div class="grid md:grid-cols-3 gap-8 max-w-6xl w-full">
     <% features = [
       { title: "聖地メモ作成投稿", image: "camera_and_memory_icon.png", desc: "聖地巡礼で訪れた聖地の思い出を投稿しよう！！" },
       { title: "みんなの聖地メモの閲覧", image: "map_with_pin_icon.png", desc: "みんなの聖地メモを見て次に訪れたい聖地を見つけよう！！" },
       { title: "聖地メモ検索", image: "search_icon.png", desc: "聖地名、作品タイトル、作品ジャンルからの検索ができます" }
     ] %>
 
-    <% features.each do |feature| %>
-      <div class="bg-white bg-opacity-80 shadow-xl hover:shadow-2xl transition-transform hover:scale-105 duration-300 p-8 rounded-2xl text-center">
+    <% features.each_with_index do |feature, i| %>
+      <div
+        class="bg-white bg-opacity-80 shadow-xl hover:shadow-2xl transition-transform hover:scale-105 duration-300 p-8 rounded-2xl text-center"
+        data-aos="zoom-in"
+        data-aos-delay="<%= i * 150 %>"
+        data-aos-duration="800"
+      >
         <h3 class="text-xl font-semibold text-primary mb-3 tracking-tight"><%= feature[:title] %></h3>
         <%= image_tag feature[:image], class: "w-20 mx-auto mb-4" %>
         <p class="text-gray-700 text-sm leading-relaxed"><%= feature[:desc] %></p>
@@ -44,8 +49,8 @@
 </div>
 
 <!-- こんな方におすすめセクション -->
-<div class="flex flex-col items-center justify-center bg-transparent py-20 px-4">
-  <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-primary font-rampart tracking-wide mb-8">
+<div class="flex flex-col items-center justify-center bg-transparent py-10 px-4" data-aos="fade-up">
+  <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-primary font-rampart tracking-wide mb-8" data-aos="fade-up" data-aos-delay="100">
     こんな方におすすめ！！
   </h2>
 
@@ -56,12 +61,62 @@
       { title: "コミュニティ好きの方", image: "community_talk_with_fan_icon.png", desc: "同じ作品が好きなファン同士で交流できるコミュニティを提供" }
     ] %>
 
-    <% recommendations.each do |rec| %>
-      <div class="bg-white bg-opacity-80 shadow-xl hover:shadow-2xl transition-transform hover:scale-105 duration-300 p-8 rounded-2xl text-center">
+    <% recommendations.each_with_index do |rec, i| %>
+      <div
+        class="bg-white bg-opacity-80 shadow-xl hover:shadow-2xl transition-transform hover:scale-105 duration-300 p-8 rounded-2xl text-center"
+        data-aos="<%= i.even? ? 'fade-right' : 'fade-left' %>"
+        data-aos-delay="<%= i * 200 %>"
+        data-aos-duration="800"
+      >
         <h3 class="text-xl font-semibold text-primary mb-3 tracking-tight"><%= rec[:title] %></h3>
         <%= image_tag rec[:image], class: "w-25 mx-auto mb-4" %>
         <p class="text-gray-700 text-sm leading-relaxed"><%= rec[:desc] %></p>
       </div>
     <% end %>
   </div>
+</div>
+
+<!-- 投稿ステップセクション -->
+<div class="flex flex-col items-center justify-center bg-transparent py-10 px-4" data-aos="fade-up">
+  <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-primary font-rampart tracking-wide mb-8" data-aos="fade-up" data-aos-delay="100">
+    投稿のステップ 📝
+  </h2>
+
+  <div class="grid grid-cols-1 gap-8 max-w-3xl w-full text-center">
+    <% steps = [
+      { title: "ステップ1：巡礼記憶", image: "camera_icon.png", desc: "訪れた思い出やシーンを振り返って、感じたことや印象的な場面をメモや写真で登録しましょう。" },
+      { title: "ステップ2：聖地の基本情報", image: "location_pin_icon.png", desc: "聖地名を入力すれば住所と郵便番号は自動でラクチン入力！！" },
+      { title: "ステップ3：作品の基本情報", image: "anime_work_info_icon.png", desc: "聖地に関わる作品タイトルや公式サイトを登録！作品イメージや作品ジャンルも登録出来ます。" },
+      { title: "ステップ4：投稿する", image: "launch_rocket_icon.png", desc: "確認画面で投稿内容に誤りがないか確認して投稿ボタンを押しましょう。あなたの聖地メモをみんなに届けましょう！" }
+    ] %>
+
+    <% steps.each_with_index do |step, i| %>
+      <div class="relative">
+        <div
+          class="bg-white bg-opacity-80 shadow-lg hover:shadow-2xl transition-transform hover:scale-105 duration-300 p-6 rounded-2xl"
+          data-aos="fade-up"
+          data-aos-delay="<%= i * 200 %>"
+          data-aos-duration="800"
+        >
+          <h3 class="text-lg font-semibold text-primary mb-2"><%= step[:title] %></h3>
+          <%= image_tag step[:image], class: "w-40 mx-auto mb-4" %>
+          <p class="text-sm text-gray-700 leading-relaxed"><%= step[:desc] %></p>
+        </div>
+
+        <% unless i == steps.size - 1 %>
+          <div class="flex justify-center mt-4">
+            <i class="fa-solid fa-angles-down text-primary text-xl animate-bounce"
+               data-aos="fade-down"
+               data-aos-delay="<%= i * 200 + 100 %>"></i>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<!-- 聖地メモ投稿ボタンセクション -->
+<div class="mt-4 text-center" data-aos="fade-up" data-aos-delay="100">
+  <%= link_to "聖地メモを投稿する", new_seichi_memo_path,
+    class: "inline-block bg-primary text-white font-rampart py-3 px-8 rounded-full shadow-md hover:bg-opacity-90 transition text-lg" %>
 </div>

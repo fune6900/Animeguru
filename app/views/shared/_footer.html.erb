@@ -1,28 +1,26 @@
-<footer class="footer footer-center p-10 bg-primary text-base-content">
-  <div class="container mx-auto text-center">
-    <nav class="flex justify-center gap-8">
-      <%= link_to '利用規約', terms_of_service_path, class: "text-white link link-hover text-lg font-medium" %>
-      <%= link_to 'プライバシーポリシー', privacy_policy_path, class: "text-white link link-hover text-lg font-medium" %>
-      <%= link_to 'お問い合わせ', "https://docs.google.com/forms/d/e/1FAIpQLSekT6TW4qUS0U_2krQmXsxsHztTwAVqa-vr6avHHjgUeifblA/viewform", target: "_blank", rel: "noopener noreferrer", class: "text-white link link-hover text-lg font-medium" %>
+<footer class="bg-primary text-white py-10">
+  <div class="container mx-auto px-4 flex flex-col items-center space-y-6 md:space-y-4 md:flex-row md:justify-between md:items-center">
+    
+    <!-- ナビゲーションリンク -->
+    <nav class="flex flex-col md:flex-row gap-4 md:gap-8 items-center text-center">
+      <%= link_to '利用規約', terms_of_service_path, class: "text-white hover:underline text-base md:text-lg font-medium transition" %>
+      <%= link_to 'プライバシーポリシー', privacy_policy_path, class: "text-white hover:underline text-base md:text-lg font-medium transition" %>
+      <%= link_to 'お問い合わせ', "https://docs.google.com/forms/d/e/1FAIpQLSekT6TW4qUS0U_2krQmXsxsHztTwAVqa-vr6avHHjgUeifblA/viewform", target: "_blank", rel: "noopener noreferrer", class: "text-white hover:underline text-base md:text-lg font-medium transition" %>
     </nav>
 
-    <div class="flex justify-center gap-4 mt-2">
-      <!-- X -->
-      <%= link_to 'https://x.com/fune_6900',
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  class: "p-2 rounded-full hover:bg-gray-300 hover:text-white transition text-white flex items-center justify-center text-2xl" do %>
-        <i class="fa-brands fa-x-twitter"></i>
+    <!-- SNSアイコン -->
+    <div class="flex gap-4">
+      <%= link_to "https://x.com/fune_6900", target: "_blank", rel: "noopener noreferrer", class: "w-10 h-10 flex items-center justify-center rounded-full border border-white hover:bg-white hover:text-primary transition" do %>
+        <i class="fa-brands fa-x-twitter text-xl"></i>
       <% end %>
-
-      <!-- GitHub -->
-      <%= link_to 'https://github.com/fune6900/Animeguru',
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  class: "p-2 rounded-full hover:bg-gray-300 hover:text-white transition text-white flex items-center justify-center text-2xl" do %>
-        <i class="fa-brands fa-github"></i>
+      <%= link_to "https://github.com/fune6900/Animeguru", target: "_blank", rel: "noopener noreferrer", class: "w-10 h-10 flex items-center justify-center rounded-full border border-white hover:bg-white hover:text-primary transition" do %>
+        <i class="fa-brands fa-github text-xl"></i>
       <% end %>
     </div>
-    <p class="text-sm text-white">Copyright &copy; 2025 Animeguru</p>
+  </div>
+
+  <!-- コピーライト -->
+  <div class="mt-6 text-center text-sm text-white/70">
+    &copy; 2025 Animeguru — All rights reserved.
   </div>
 </footer>

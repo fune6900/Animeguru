@@ -30,16 +30,18 @@
 
     <!-- Stylesheets -->
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/eb37be60a7.js" crossorigin="anonymous"></script>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rampart+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi&display=swap" rel="stylesheet">
   </head>
 
-  <body class="bg-base-100 min-h-screen flex flex-col">
-    <%= render 'shared/header' %>
+  <body class="bg-base-100 min-h-screen flex flex-col font-kosugi">
     <%= render 'layouts/flash_messages' %>
+    <%= render 'shared/header' %>
     <main class="flex-grow w-full max-w-none pb-24">
       <%= yield %>
     </main>
@@ -48,5 +50,17 @@
     <% else %>
       <%= render 'shared/footer' %>
     <% end %>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        AOS.init({
+          duration: 800,
+          easing: 'ease-in-out',
+          once: true,
+          offset: 50
+        });
+      });
+    </script>
   </body>
 </html>

@@ -15,7 +15,7 @@ EOF
 <%= link_to "https://twitter.com/intent/tweet?text=#{CGI.escape(tweet_text)}",
             target: "_blank",
             rel: "noopener",
-            class: 'inline-flex items-center gap-2 px-4 py-2 bg-primary border border-gray-300 rounded-md text-md hover:bg-gray-300 transition' do %>
+            class: 'btn bg-primary text-white py-2 px-6 shadow-md transition duration-200' do %>
   <i class="fa-brands fa-x-twitter text-2xl"></i>
   <span class="text-white">シェア</span>
 <% end %>

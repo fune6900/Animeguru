@@ -13,7 +13,7 @@ class SeichiMemo < ApplicationRecord
 
   # ransackで許可するテーブル
   def self.ransackable_attributes(auth_object = nil)
-    %w[title]
+    %w[title created_at]
   end
 
   def self.ransackable_associations(auth_object = nil)

@@ -19,6 +19,7 @@ ja:
         password_confirmation: パスワード確認
         profile_image: プロフィール画像
         introduction: ひとこと
+        favorite_anime: 好きなアニメ作品
       seichi_memo:
         title: タイトル
         body: メモ

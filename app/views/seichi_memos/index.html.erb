@@ -1,16 +1,23 @@
 <% content_for(:title, t(".title")) %>
+
 <!-- 検索フォーム -->
 <%= render "seichi_memos/search_form", search_url: seichi_memos_path %>
 
-<div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
   <% if @seichi_memos.any? %>
-    <% @seichi_memos.each do |seichi_memo| %>
-      <%= render "seichi_memos/seichi_memo", seichi_memo: seichi_memo %>
-    <% end %>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <% @seichi_memos.each do |seichi_memo| %>
+        <%= render "seichi_memos/seichi_memo", seichi_memo: seichi_memo %>
+      <% end %>
+    </div>
   <% else %>
     <div class="flex justify-center items-center w-full py-10">
       <p class="text-gray-600 text-xl font-bold text-center">聖地メモはありません。</p>
     </div>
   <% end %>
 </div>
-<%= paginate @seichi_memos %>
+
+<!-- ページネーション -->
+<div class="flex justify-center mt-4">
+  <%= paginate @seichi_memos %>
+</div>

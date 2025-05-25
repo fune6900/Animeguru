@@ -23,7 +23,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # アカウント更新時に許可するパラメータを追加
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [ :username, :profile_image, :introduction, :email, :password, :password_confirmation, :current_password ])
+    devise_parameter_sanitizer.permit(:account_update, keys: [ :username, :profile_image, :introduction, :favorite_anime, :email, :password, :password_confirmation, :current_password ])
   end
 
   # パスワードなしでユーザー情報を編集

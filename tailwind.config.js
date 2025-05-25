@@ -24,8 +24,21 @@ module.exports = {
       colors: {
         primary: '#6AB9DF',
         secondary: '#5B9CBD',
+        accent: '#3F85C5',
         'base-100': '#E2F4FD',      },
     },
   },
-  plugins: [require("daisyui")]
+  plugins: [require("daisyui")],
+  daisyui: {
+    themes: [
+      {
+        mytheme: {
+          primary: "#6AB9DF",
+          secondary: "#5B9CBD",
+          accent: "#3F85C5",
+          "base-100": "#E2F4FD",
+        },
+      },
+    ],
+  },
 }
