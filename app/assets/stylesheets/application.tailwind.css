@@ -9,3 +9,11 @@
     font-style: normal;
   }
 }
+
+@layer utilities {
+  .font-kosugi {
+  font-family: "Kosugi", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  }
+}
