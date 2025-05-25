@@ -30,7 +30,7 @@
                   ["タイトル降順", "title desc"]
                 ], selected: params.dig(:q, :s)),
                 { include_blank: "並び替え" },
-                class: "text-sm w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition",
+                class: "text-xs w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition",
                 data: { search_clear_target: "select" } %>
         </div>
 
@@ -39,7 +39,7 @@
           <%= f.select :place_address_cont,
                 options_for_select(prefecture_options, selected: params.dig(:q, :place_address_cont)),
                 { include_blank: "エリア" },
-                class: "w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition",
+                class: "text-xs w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition",
                 data: { search_clear_target: "select" } %>
         </div>
 
@@ -48,7 +48,7 @@
           <%= f.select :genre_tags_name_eq,
                 options_for_select(GenreTag.all.map { |tag| [tag.name, tag.name] }, selected: params.dig(:q, :genre_tags_name_eq)),
                 { include_blank: "ジャンル" },
-                class: "text-sm w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition",
+                class: "text-xs w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition",
                 data: { search_clear_target: "select" } %>
         </div>
       </div>
