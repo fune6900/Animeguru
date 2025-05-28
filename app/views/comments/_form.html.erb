@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
   <div id="comment_form" class="w-full max-w-2xl mx-auto px-4">
-    <%= form_with model: [seichi_memo, comment], local: true, class: "flex flex-col space-y-2" do |f| %>
+    <%= form_with(model: [seichi_memo, comment], local: true, id: "#{dom_id(comment)}_form", class: "flex flex-col space-y-2") do |f| %>
 
       <div class="bg-gray-100 rounded shadow-sm">
         <%= f.text_area :content,

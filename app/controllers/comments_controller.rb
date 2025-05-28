@@ -52,6 +52,38 @@ class CommentsController < ApplicationController
     end
   end
 
+  def edit
+    @comment = current_user.comments.find(params[:id])
+    @seichi_memo = @comment.seichi_memo
+  end
+
+  def update
+    @comment = current_user.comments.find(params[:id])
+
+    if @comment.update(comment_params)
+      respond_to do |format|
+        format.turbo_stream do
+          flash.now[:comment_notice] = "コメントを編集しました。"
+          render :update
+        end
+        format.html { redirect_to seichi_memo_path(@comment.seichi_memo), flash: { comment_notice: "コメントを編集しました。" } }
+      end
+    else
+      @seichi_memo = @comment.seichi_memo
+      @comments = @seichi_memo.comments.includes(:user)
+
+      respond_to do |format|
+        format.turbo_stream do
+          flash.now[:comment_alert] = "コメントの編集に失敗しました。"
+          render turbo_stream: [
+            turbo_stream.replace("flash", partial: "shared/flash_message_turbo")
+          ]
+        end
+        format.html { redirect_to seichi_memo_path(@seichi_memo), flash: { comment_alert: "コメントの編集に失敗しました。" } }
+      end
+    end
+  end
+
   private
 
   def comment_params

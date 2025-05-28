@@ -1,4 +1,4 @@
-<%= turbo_stream.prepend "comments", partial: "comments/comment", locals: { comments: [@comment] } %>
+<%= turbo_stream.prepend "comments", partial: "comments/comment", locals: { comment: @comment } %>
 
 <%= turbo_stream.replace "comment_form", partial: "comments/form", locals: { seichi_memo: @seichi_memo, comment: Comment.new } %>
 

@@ -1,0 +1,6 @@
+<%= turbo_frame_tag dom_id(@comment) do %>
+  <%= render 'comments/form', seichi_memo: @comment.seichi_memo, comment: @comment %>
+  <div class="text-right mt-2">
+    <%= link_to "キャンセル", seichi_memo_path(@comment.seichi_memo), class: "btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-lg shadow-md transition duration-200" %>
+  </div>
+<% end %>
