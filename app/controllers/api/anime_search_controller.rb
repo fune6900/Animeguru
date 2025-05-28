@@ -6,21 +6,21 @@ class Api::AnimeSearchController < ApplicationController
 
   def index
     # ユーザーの作品タイトル名を取得
-    title = params[:title]
+    title = params[:title].to_s.strip
 
     # 環境変数からAPIキーを取得
     api_key = ENV["ANNICT_API_KEY"]
 
     # Annict APIのURLを設定（タイトルで検索）
-    # brakeman:ignore FileAccess
-    url = URI.parse("https://api.annict.com/v1/works?filter_title=#{URI.encode_www_form_component(title)}&per_page=1")
+    uri = URI("https://api.annict.com/v1/works")
+    uri.query = URI.encode_www_form({ filter_title: title, per_page: 1 })
 
     # HTTPリクエストの準備
-    http = Net::HTTP.new(url.host, url.port)
+    http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true  # HTTPSを使用
 
     # GETリクエストを作成
-    request = Net::HTTP::Get.new(url)
+    request = Net::HTTP::Get.new(uri)
     request["Authorization"] = "Bearer #{api_key}" # APIの認証情報をヘッダーに追加
 
     # Annict APIにリクエストを送信

@@ -1,0 +1,7 @@
+<%= turbo_stream.remove dom_id(@comment) %>
+
+<%= turbo_stream.update "comments_count" do %>
+  <%= @comment.seichi_memo.comments.count %>件のコメント
+<% end %>
+
+<%= turbo_stream.replace "flash", partial: "shared/flash_message_turbo" %>
