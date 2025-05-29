@@ -13,9 +13,20 @@ export default class extends Controller {
 
   // 🔹 「次へ」ボタンが押されたときに実行
   next(event) {
-    event.preventDefault() // フォームのデフォルト送信を防ぐ
-    this.saveData() // 現在のステップのデータをセッションに保存
-  }
+  event.preventDefault()
+  const button = event.currentTarget
+  const isFinalStep = button.dataset.stepFormFinalStep === "true"
+
+  this.saveData().then(() => {
+    if (isFinalStep) {
+      Turbo.visit("/seichi_memos/confirm")
+    } else {
+      this.currentStep++
+      this.showStep()
+      this.clearErrors()
+    }
+  })
+}
 
   // 🔹 「戻る」ボタンが押されたときに実行
   prev(event) {
@@ -29,29 +40,17 @@ export default class extends Controller {
 
   // 🔹 現在のステップのデータをセッションに保存
   saveData() {
-    const formData = new FormData(this.formTarget) // フォームのデータを取得
+    const formData = new FormData(this.formTarget)
 
-    fetch(`/seichi_memos/update_session?step=${this.currentStepName()}`, {
-      method: "POST", // データを送信
-      body: formData, // フォームのデータを送る
+    return fetch(`/seichi_memos/update_session?step=${this.currentStepName()}`, {
+      method: "POST",
+      body: formData,
       headers: {
-        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content // CSRFトークンを追加
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
       }
     }).then(response => {
       if (response.ok) {
-        if (this.currentStepName() === "confirm") {
-          window.location.href = "/seichi_memos/confirm"
-          return
-        }
-
-        this.currentStep++
-        this.showStep()
-        this.clearErrors()
-
-        // 成功時はエラーメッセージを非表示にして空にする
-        const errorContainer = document.getElementById("form-errors")
-        errorContainer.classList.add("hidden")
-        errorContainer.innerHTML = ""
+        return Promise.resolve()
       } else {
         return response.json().then(data => {
           const errorContainer = document.getElementById("form-errors")
@@ -69,6 +68,7 @@ export default class extends Controller {
               </div>
             </div>
           `
+          return Promise.reject()
         })
       }
     })

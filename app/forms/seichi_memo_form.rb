@@ -34,8 +34,13 @@ class SeichiMemoForm
 
   # 🔹 セッションデータを元にフォームオブジェクトを作成
   def self.from_session(session_data, step, session)
-    new(session_data || {}).tap do |form|
+    cleaned_data = (session_data || {}).except("id")
+
+    new(cleaned_data).tap do |form|
       form.current_step = step
+      if session_data&.dig("id").present?
+        form.seichi_memo = SeichiMemo.find_by(id: session_data["id"])
+      end
       form.assign_cache(session) if session_data.present?
     end
   end
@@ -100,14 +105,15 @@ class SeichiMemoForm
       uploader.cache!(image_url)
       session[:seichi_memo]["image_url_cache"] = uploader.cache_name
     end
+
+    Rails.logger.debug("===== save_to_session: 最終セッション内容 =====")
+    Rails.logger.debug(session[:seichi_memo].inspect)
+
   end
 
   # 🔹 最終ステップでデータベースに保存
   def save
     return false unless valid?
-
-    # 🔹 デバッグログを追加してgenre_tag_idsの中身を確認
-    puts "💥 genre_tag_ids: #{genre_tag_ids.inspect}"
 
     # 🔹 既存の作品情報を再利用 or 作成
     anime = Anime.find_or_create_by(title: anime_title)
