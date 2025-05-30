@@ -13,9 +13,20 @@ export default class extends Controller {
 
   // 🔹 「次へ」ボタンが押されたときに実行
   next(event) {
-    event.preventDefault() // フォームのデフォルト送信を防ぐ
-    this.saveData() // 現在のステップのデータをセッションに保存
-  }
+  event.preventDefault()
+  const button = event.currentTarget
+  const isFinalStep = button.dataset.stepFormFinalStep === "true"
+
+  this.saveData().then(() => {
+    if (isFinalStep) {
+      Turbo.visit("/seichi_memos/confirm")
+    } else {
+      this.currentStep++
+      this.showStep()
+      this.clearErrors()
+    }
+  })
+}
 
   // 🔹 「戻る」ボタンが押されたときに実行
   prev(event) {
@@ -29,46 +40,37 @@ export default class extends Controller {
 
   // 🔹 現在のステップのデータをセッションに保存
   saveData() {
-    const formData = new FormData(this.formTarget) // フォームのデータを取得
+    const formData = new FormData(this.formTarget)
 
-    fetch(`/seichi_memos/update_session?step=${this.currentStepName()}`, {
-      method: "POST", // データを送信
-      body: formData, // フォームのデータを送る
+    return fetch(`/seichi_memos/update_session?step=${this.currentStepName()}`, {
+      method: "POST",
+      body: formData,
       headers: {
-        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content // CSRFトークンを追加
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
       }
     }).then(response => {
       if (response.ok) {
-        if (this.currentStepName() === "confirm") {
-          window.location.href = "/seichi_memos/confirm"
-          return
-        }
-
-        this.currentStep++
-        this.showStep()
-        this.clearErrors()
-
-        // 成功時はエラーメッセージを非表示にして空にする
-        const errorContainer = document.getElementById("form-errors")
-        errorContainer.classList.add("hidden")
-        errorContainer.innerHTML = ""
+        return Promise.resolve()
       } else {
         return response.json().then(data => {
           const errorContainer = document.getElementById("form-errors")
           errorContainer.classList.remove("hidden")
           errorContainer.innerHTML = `
-            <div class="bg-red-100 border-l-4 border-red-500 text-red-800 p-4 rounded-md shadow-sm space-y-2 mb-6">
-              <div class="flex items-center mb-2">
-                <svg class="w-5 h-5 mr-2 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M12 2a10 10 0 100 20 10 10 0 000-20z"/>
-                </svg>
-                <span class="font-semibold">入力内容に問題があります：</span>
-              </div>
-              <div class="list-disc list-inside pl-4 text-sm text-red-700 space-y-1">
-                ${data.errors.map(error => `<li>${error}</li>`).join("")}
+            <div class="px-4 sm:px-8">
+              <div class="bg-red-100 border-l-4 border-red-500 text-red-800 p-4 rounded-md shadow-sm space-y-2 mb-6">
+                <div class="flex items-center mb-2">
+                  <svg class="w-5 h-5 mr-2 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M12 2a10 10 0 100 20 10 10 0 000-20z"/>
+                  </svg>
+                  <span class="font-semibold">入力内容に問題があります：</span>
+                </div>
+                <div class="list-disc list-inside pl-4 text-sm text-red-700 space-y-1">
+                  ${data.errors.map(error => `<li>${error}</li>`).join("")}
+                </div>
               </div>
             </div>
           `
+          return Promise.reject()
         })
       }
     })

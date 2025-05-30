@@ -15,7 +15,7 @@ class User < ApplicationRecord
   # Usernameに関するカスタムバリデーション
   validates :username, presence: true,
                        uniqueness: { case_sensitive: false },
-                       length: { minimum: 3, maximum: 25 }
+                       length: { minimum: 2, maximum: 25 }
 
   # その他のカスタムバリデーション
   validates :introduction, length: { maximum: 500 }, allow_blank: true

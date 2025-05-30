@@ -1,0 +1,104 @@
+<%= form_with model: @seichi_memo_form,
+              url: (@seichi_memo_form.seichi_memo && @seichi_memo_form.seichi_memo.persisted?) ?
+                      seichi_memo_path(@seichi_memo_form.seichi_memo.id) :
+                      seichi_memos_path,
+              method: (@seichi_memo_form.seichi_memo && @seichi_memo_form.seichi_memo.persisted?) ?
+                        :patch : :post,
+              local: true,
+              class: "space-y-4" do |f| %>
+
+  <div class="px-4 sm:px-6 lg:px-8">
+    <!-- 🔹 投稿状態によるタイトル表示 -->
+    <div class="text-center mb-2">
+      <% if @seichi_memo_form.seichi_memo&.persisted? %>
+        <h1 class="text-xl sm:text-2xl font-bold text-gray-700">聖地メモ編集</h1>
+      <% else %>
+        <h1 class="text-xl sm:text-2xl font-bold text-gray-700">新規投稿</h1>
+      <% end %>
+    </div>
+
+    <!-- 🔹 ステップのタイトルと進捗バー -->
+    <div class="my-8 space-y-2">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-primary to-pink-500 tracking-wide mb-4">
+        ステップ 4/4：確認画面
+      </h2>
+
+      <div class="flex items-center justify-center space-x-2">
+        <% ["巡礼記録", "聖地", "作品"].each do |label| %>
+          <div class="px-3 py-1 rounded-full bg-primary text-white text-xs font-semibold whitespace-nowrap"><%= label %></div>
+          <div class="w-6 h-1 bg-primary"></div>
+        <% end %>
+        <div class="px-3 py-1 rounded-full border-2 border-primary text-primary text-xs font-semibold bg-white whitespace-nowrap">確認画面</div>
+      </div>
+    </div>
+
+    <div class="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+      <!-- 🔹 巡礼記録 -->
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold mb-2">巡礼記録</h3>
+
+        <div class="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 mb-4">
+          <div class="w-full md:w-1/2 h-60 mb-4">
+            <h4 class="font-semibold mb-1">聖地が登場したシーン画像:</h4>
+            <%= image_tag (@seichi_memo_form.scene_image.present? ? @seichi_memo_form.scene_image.url : SceneImageUploader.new.default_url),
+                          class: "rounded-lg shadow-md w-full h-full object-cover" %>
+          </div>
+
+          <div class="w-full md:w-1/2 h-60">
+            <h4 class="font-semibold mb-1">聖地の写真:</h4>
+            <%= image_tag (@seichi_memo_form.seichi_photo.present? ? @seichi_memo_form.seichi_photo.url : SeichiPhotoUploader.new.default_url),
+                          class: "rounded-lg shadow-md w-full h-full object-cover" %>
+          </div>
+        </div>
+
+        <div class="mt-12">
+          <p class="text-gray-700 mb-1"><strong>タイトル:</strong> <%= @seichi_memo_form.title %></p>
+          <p class="text-gray-700 mb-4"><strong>メモ:</strong> <%= @seichi_memo_form.body %></p>
+        </div>
+      </div>
+
+      <!-- 🔹 聖地情報 -->
+      <div class="border-t border-gray-300 pt-4 mb-6">
+        <h3 class="text-lg font-semibold mb-2">聖地情報</h3>
+        <p class="text-gray-700 mb-1"><strong>聖地名:</strong> <%= @seichi_memo_form.place_name %></p>
+        <p class="text-gray-700 mb-1"><strong>住所:</strong> <%= @seichi_memo_form.place_address.presence || "未入力" %></p>
+        <p class="text-gray-700 mb-1"><strong>郵便番号:</strong> <%= @seichi_memo_form.place_postal_code.presence || "未入力" %></p>
+      </div>
+
+      <!-- 🔹 作品情報 -->
+      <div class="border-t border-gray-300 pt-4">
+        <h3 class="text-lg font-semibold mb-2">作品情報</h3>
+        <p class="text-gray-700 mb-1"><strong>タイトル:</strong> <%= @seichi_memo_form.anime_title %></p>
+        <p class="text-gray-700 mb-2">
+          <strong>公式サイト:</strong>
+          <% if @seichi_memo_form.anime_official_site_url.present? %>
+            <%= link_to @seichi_memo_form.anime_official_site_url, @seichi_memo_form.anime_official_site_url, target: "_blank", class: "text-blue-500 underline ml-1" %>
+          <% else %>
+            未入力
+          <% end %>
+        </p>
+        <p class="text-gray-700 mb-1"><strong>ジャンル:</strong>
+          <% if @seichi_memo_form.genre_tag_ids.present? %>
+            <%= @seichi_memo_form.genre_tag_ids.map { |id| GenreTag.find(id).name }.join(", ") %>
+          <% else %>
+            未入力
+          <% end %>
+        </p>
+        <div class="mt-2 flex justify-center">
+          <h4 class="font-semibold mb-1">作品イメージ</h4>
+        </div>
+        <div class="flex justify-center">
+          <%= image_tag (@seichi_memo_form.image_url.present? ? @seichi_memo_form.image_url.url : AnimeImageUploader.new.default_url),
+                        class: "rounded-lg shadow-md w-2/3 object-cover" %>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🔹 ステップボタン -->
+    <div class="flex justify-center mt-4 space-x-4">
+      <%= link_to "戻る", "javascript:history.back()", class: "btn bg-gray-300 text-black py-2 px-6 shadow-md" %>
+      <%= f.submit @seichi_memo_form.persisted? ? "更新する" : "投稿する", class: "btn bg-primary text-white py-2 px-6 shadow-md" %>
+    </div>
+  </div>
+
+<% end %>

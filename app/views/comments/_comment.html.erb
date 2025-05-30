@@ -2,7 +2,9 @@
   <div id="<%= dom_id(comment) %>" class="flex flex-col sm:flex-row sm:justify-between sm:items-center p-4 bg-white rounded-lg shadow-sm space-y-3 sm:space-y-0">
     <!-- 左側：ユーザー情報とコメント内容 -->
     <div class="flex items-start space-x-3">
-      <%= link_to (comment.user == current_user ? profile_path : user_path(comment.user)) do %>
+      <%# Turboがフレーム内に読み込もうとして失敗するため、ページ全体をリロードして遷移させるようにする %>
+      <%= link_to (comment.user == current_user ? profile_path : user_path(comment.user)),
+                  data: { turbo: false } do %>
         <%= image_tag comment.user.profile_image.url, alt: comment.user.username, class: "w-10 h-10 rounded-full mt-1" %>
       <% end %>
       <div class="flex flex-col">

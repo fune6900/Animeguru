@@ -22,11 +22,20 @@ class SeichiMemosController < ApplicationController
 
   # 🔹 各ステップごとにセッションを更新
   def update_session
-    @seichi_memo_form = SeichiMemoForm.new(seichi_memo_params.merge(current_step: params[:step]))
+    previous_data = session[:seichi_memo] || {}
+
+    cleaned_previous_data = previous_data.except("id")
+
+    merged_params = cleaned_previous_data.merge(seichi_memo_params.to_h).merge(current_step: params[:step])
+    @seichi_memo_form = SeichiMemoForm.new(merged_params)
+
+    if previous_data["id"].present?
+      @seichi_memo_form.seichi_memo = SeichiMemo.find_by(id: previous_data["id"])
+    end
 
     if @seichi_memo_form.valid?
       @seichi_memo_form.save_to_session(session)
-      head :ok  # 成功時は 200 OK を返す
+      head :ok
     else
       render json: { errors: @seichi_memo_form.errors.full_messages }, status: :unprocessable_entity
     end
@@ -40,8 +49,8 @@ class SeichiMemosController < ApplicationController
       session.delete(:seichi_memo)
       redirect_to seichi_memo_path(@seichi_memo_form.seichi_memo), notice: "聖地メモを投稿しました！"
     else
-      flash.now[:alert] = "聖地メモを投稿出来ませんでした"
-      render :new, status: :unprocessable_entity
+      flash.now[:alert] = "聖地メモを投稿できませんでした。"
+      render :confirm, status: :unprocessable_entity
     end
   end
 
@@ -62,6 +71,10 @@ class SeichiMemosController < ApplicationController
       genre_tag_ids: @seichi_memo.genre_tags.pluck(:id)
     )
     @seichi_memo_form.seichi_memo = @seichi_memo
+    @seichi_memo_form.save_to_session(session)
+
+    session[:seichi_memo] ||= {}
+    session[:seichi_memo]["id"] = @seichi_memo.id
   end
 
   # 🔹 編集したデータをデータベースに保存
@@ -74,7 +87,7 @@ class SeichiMemosController < ApplicationController
       redirect_to seichi_memo_path(@seichi_memo_form.seichi_memo), notice: "聖地メモを更新しました！"
     else
       flash.now[:alert] = "聖地メモを更新できませんでした"
-      render :edit, status: :unprocessable_entity
+      render :confirm, status: :unprocessable_entity
     end
   end
 
@@ -88,9 +101,8 @@ class SeichiMemosController < ApplicationController
     end
   end
 
-  def prepare_confirm
-    SeichiMemoForm.from_session(session[:seichi_memo], "confirm", session)
-    head :ok
+  def confirm
+    @seichi_memo_form = SeichiMemoForm.from_session(session[:seichi_memo], "confirm", session)
   end
 
   def bookmarks

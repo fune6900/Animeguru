@@ -1,7 +1,11 @@
-<%= form_with model: @seichi_memo_form, 
-              url: @seichi_memo_form.persisted? ? seichi_memo_path(@seichi_memo) : seichi_memos_path, 
-              method: @seichi_memo_form.persisted? ? :patch : :post, 
-              local: true, class: "space-y-4",
+<%= form_with model: @seichi_memo_form,
+              url: (@seichi_memo_form.seichi_memo && @seichi_memo_form.seichi_memo.persisted?) ?
+                      seichi_memo_path(@seichi_memo_form.seichi_memo.id) :
+                      seichi_memos_path,
+              method: (@seichi_memo_form.seichi_memo && @seichi_memo_form.seichi_memo.persisted?) ?
+                        :patch : :post,
+              local: true,
+              class: "space-y-4",
               data: { controller: "step-form anime-search seichi-search genre-modal", step_form_target: "form" } do |f| %>
 
   <!-- エラーメッセージを表示 -->
@@ -21,10 +25,5 @@
   <!-- 🔹 ステップ 3: 作品の基本情報 -->
   <div data-step-form-target="step" style="display:none;">
     <%= render "seichi_memos/anime", f: f %>
-  </div>
-
-  <!-- 🔹 ステップ 4: 確認画面 -->
-  <div data-step-form-target="step" style="display:none;">
-    <%= render "seichi_memos/confirm", f: f %>
   </div>
 <% end %>
