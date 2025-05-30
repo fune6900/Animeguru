@@ -108,7 +108,6 @@ class SeichiMemoForm
 
     Rails.logger.debug("===== save_to_session: 最終セッション内容 =====")
     Rails.logger.debug(session[:seichi_memo].inspect)
-
   end
 
   # 🔹 最終ステップでデータベースに保存
