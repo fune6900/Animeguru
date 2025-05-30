@@ -6,170 +6,172 @@
 <% content_for :og_title, @seichi_memo.title %>
 <% content_for :og_description, truncate(@seichi_memo.body, length: 100) %>
 
-<div class="max-w-3xl mx-auto px-4 sm:px-6 md:px-8 py-6 space-y-6 bg-white shadow-lg rounded-lg">
-  <!-- タイトル -->
-  <div class="flex justify-start items-center">
-    <h1 class="text-2xl font-bold"><%= @seichi_memo.title %></h1>
-  </div>
+<div class="px-4 sm:px-6 md:px-8 my-6">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 md:px-8 py-6 space-y-6 bg-white shadow-lg rounded-lg">
+    <!-- タイトル -->
+    <div class="flex justify-start items-center">
+      <h1 class="text-2xl font-bold"><%= @seichi_memo.title %></h1>
+    </div>
 
-	<!-- ユーザー情報エリア -->
-  <div class="flex items-center justify-between px-2 py-2 mt-4">
-    <!-- 左：画像＋ユーザー名＋投稿日 -->
-    <div class="flex items-center space-x-2">
-      <%= link_to (@seichi_memo.user == current_user ? profile_path : user_path(@seichi_memo.user)) do %>
-        <%= image_tag @seichi_memo.user.profile_image.url, alt: @seichi_memo.user.username, class: "w-10 h-10 rounded-full" %>
+    <!-- ユーザー情報エリア -->
+    <div class="flex items-center justify-between px-2 py-2 mt-4">
+      <!-- 左：画像＋ユーザー名＋投稿日 -->
+      <div class="flex items-center space-x-2">
+        <%= link_to (@seichi_memo.user == current_user ? profile_path : user_path(@seichi_memo.user)) do %>
+          <%= image_tag @seichi_memo.user.profile_image.url, alt: @seichi_memo.user.username, class: "w-10 h-10 rounded-full" %>
+        <% end %>
+        <div class="flex flex-col justify-center">
+          <p class="text-sm text-gray-800 font-semibold"><%= @seichi_memo.user.username %></p>
+          <p class="text-sm text-gray-500"><%= @seichi_memo.created_at.strftime("%Y年%m月%d日") %></p>
+        </div>
+      </div>
+
+      <!-- 右：編集・削除ボタン -->
+      <% if current_user == @seichi_memo.user %>
+        <div class="flex space-x-2">
+          <%= link_to edit_seichi_memo_path(@seichi_memo), class: "btn bg-primary text-white shadow-md flex items-center space-x-1" do %>
+            <i class="fas fa-pen"></i>
+            <span>編集</span>
+          <% end %>
+
+          <%= link_to seichi_memo_path(@seichi_memo),
+                      data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' },
+                      class: "btn bg-primary text-white shadow-md flex items-center space-x-1" do %>
+            <i class="fas fa-trash-alt"></i>
+            <span>削除</span>
+          <% end %>
+        </div>
       <% end %>
-      <div class="flex flex-col justify-center">
-        <p class="text-sm text-gray-800 font-semibold"><%= @seichi_memo.user.username %></p>
-        <p class="text-sm text-gray-500"><%= @seichi_memo.created_at.strftime("%Y年%m月%d日") %></p>
+    </div>
+
+    <!-- 🔹 聖地の写真 & アニメのシーン -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      <!-- アニメのシーン -->
+      <div class="h-60">
+        <%= image_tag (@seichi_memo.scene_image.present? ? @seichi_memo.scene_image.url : SceneImageUploader.new.default_url(:show)), 
+          class: "rounded-lg shadow-md w-full h-full object-cover" %>
+      </div>
+
+      <!-- 聖地の実際の写真 -->
+      <div class="h-60">
+        <%= image_tag (@seichi_memo.seichi_photo.present? ? @seichi_memo.seichi_photo.url : SeichiPhotoUploader.new.default_url(:show)), 
+          class: "rounded-lg shadow-md w-full h-full object-cover" %>
       </div>
     </div>
 
-    <!-- 右：編集・削除ボタン -->
-    <% if current_user == @seichi_memo.user %>
-      <div class="flex space-x-2">
-        <%= link_to edit_seichi_memo_path(@seichi_memo), class: "btn bg-primary text-white shadow-md flex items-center space-x-1" do %>
-          <i class="fas fa-pen"></i>
-          <span>編集</span>
-        <% end %>
+    <!-- アクションボタン(ブックマーク、いいね、Xでの共有) -->
+    <div class="flex items-center justify-between mb-2 px-4">
+      <div class="flex items-center gap-4">
+        <%= render 'likes/like_buttons', seichi_memo: @seichi_memo %>
+        <%= render 'bookmarks/bookmark_buttons', seichi_memo: @seichi_memo %>
+      </div>
 
-        <%= link_to seichi_memo_path(@seichi_memo),
-                    data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' },
-                    class: "btn bg-primary text-white shadow-md flex items-center space-x-1" do %>
-          <i class="fas fa-trash-alt"></i>
-          <span>削除</span>
+      <div class="flex items-center gap-4">
+        <!-- シェアボタン -->
+        <%= render "shared/x_share_button", review: @review %>
+      </div>
+    </div>
+
+    <!-- 作成ジャンル -->
+    <% if @seichi_memo.genre_tags.present? %>
+      <div class="flex flex-wrap gap-2 mt-2">
+        <% @seichi_memo.genre_tags.each do |genre_tag| %>
+          <%  if current_user && current_user.bookmark?(@seichi_memo) %>
+            <%= link_to bookmarks_seichi_memos_path(current_user, q: { genre_tags_name_eq: genre_tag.name }), 
+                        class: "bg-primary text-gray-700 text-xs font-medium px-2 py-0.5 rounded-full hover:bg-secondary" do %>
+              <%= genre_tag.name %>
+            <% end %>
+          <% else %>
+            <%= link_to seichi_memos_path(q: { genre_tags_name_eq: genre_tag.name }), 
+                        class: "bg-primary text-gray-700 text-xs font-medium px-2 py-0.5 rounded-full hover:bg-secondary" do %>
+              <%= genre_tag.name %>
+            <% end %>
+          <% end %>
         <% end %>
       </div>
     <% end %>
-  </div>
 
-  <!-- 🔹 聖地の写真 & アニメのシーン -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-    <!-- アニメのシーン -->
-    <div class="h-60">
-      <%= image_tag (@seichi_memo.scene_image.present? ? @seichi_memo.scene_image.url : SceneImageUploader.new.default_url(:show)), 
-        class: "rounded-lg shadow-md w-full h-full object-cover" %>
+    <!-- 聖地メモの本文 -->
+    <div class="p-4">
+      <h2 class="text-lg font-bold">メモ</h2>
+      <p class="text-gray-700"><%= simple_format(@seichi_memo.body) %></p>
     </div>
 
-    <!-- 聖地の実際の写真 -->
-    <div class="h-60">
-      <%= image_tag (@seichi_memo.seichi_photo.present? ? @seichi_memo.seichi_photo.url : SeichiPhotoUploader.new.default_url(:show)), 
-        class: "rounded-lg shadow-md w-full h-full object-cover" %>
-    </div>
-  </div>
+    <!-- 聖地の情報 -->
+    <div class="border-t border-gray-300 p-4 space-y-2">
+      <h2 class="text-lg font-bold mb-2">聖地情報</h2>
 
-  <!-- アクションボタン(ブックマーク、いいね、Xでの共有) -->
-  <div class="flex items-center justify-between mb-2 px-4">
-    <div class="flex items-center gap-4">
-      <%= render 'likes/like_buttons', seichi_memo: @seichi_memo %>
-      <%= render 'bookmarks/bookmark_buttons', seichi_memo: @seichi_memo %>
+      <div class="flex items-start space-x-3">
+        <i class="fas fa-map text-primary text-lg w-6 text-center"></i>
+        <span class="text-gray-700"><%= @seichi_memo.place.name %></span>
+      </div>
+
+      <div class="flex items-start space-x-3">
+        <i class="fas fa-map-marker-alt text-primary text-lg w-6 text-center"></i>
+        <span class="text-gray-700"><%= @seichi_memo.place.address.presence || "情報なし" %></span>
+      </div>
+
+      <div class="flex items-start space-x-3">
+        <i class="fas fa-envelope text-primary text-lg w-6 text-center"></i>
+        <span class="text-gray-700"><%= @seichi_memo.place.postal_code.presence || "情報なし" %></span>
+      </div>
     </div>
 
-    <div class="flex items-center gap-4">
-      <!-- シェアボタン -->
-      <%= render "shared/x_share_button", review: @review %>
-    </div>
-  </div>
+    <!-- 作品情報 -->
+    <div class="border-t border-gray-300 p-4 space-y-2">
+      <h2 class="text-lg font-bold mb-2">作品情報</h2>
 
-  <!-- 作成ジャンル -->
-  <% if @seichi_memo.genre_tags.present? %>
-    <div class="flex flex-wrap gap-2 mt-2">
-      <% @seichi_memo.genre_tags.each do |genre_tag| %>
-        <%  if current_user && current_user.bookmark?(@seichi_memo) %>
-          <%= link_to bookmarks_seichi_memos_path(current_user, q: { genre_tags_name_eq: genre_tag.name }), 
-                      class: "bg-primary text-gray-700 text-xs font-medium px-2 py-0.5 rounded-full hover:bg-secondary" do %>
-            <%= genre_tag.name %>
-          <% end %>
+      <div class="flex items-start space-x-3">
+        <i class="fas fa-film text-primary text-lg w-6 text-center"></i>
+        <span class="text-gray-700"><%= @seichi_memo.anime.title %></span>
+      </div>
+
+      <div class="flex items-start space-x-3">
+        <i class="fas fa-link text-primary text-lg w-6 text-center"></i>
+        <% if @seichi_memo.anime.official_site_url.present? %>
+          <a href="<%= @seichi_memo.anime.official_site_url %>" target="_blank" class="text-blue-500 hover:underline flex items-center space-x-1">
+            <span>公式サイト</span>
+            <i class="fas fa-up-right-from-square text-sm"></i>
+          </a>
         <% else %>
-          <%= link_to seichi_memos_path(q: { genre_tags_name_eq: genre_tag.name }), 
-                      class: "bg-primary text-gray-700 text-xs font-medium px-2 py-0.5 rounded-full hover:bg-secondary" do %>
-            <%= genre_tag.name %>
-          <% end %>
+          <span class="text-gray-500">リンクなし</span>
         <% end %>
+      </div>
+
+      <div class="mt-4 flex justify-center">
+        <%= image_tag(
+          @seichi_memo.anime.image_url.present? ? @seichi_memo.anime.image_url.url : AnimeImageUploader.new.default_url,
+          class: "rounded-lg shadow-md w-2/3 object-cover"
+        ) %>
+      </div>
+    </div>
+
+
+    <!-- コメントセクション -->
+    <div class="border-t border-gray-300 p-4">
+      <!-- コメント件数表示 -->
+      <h2 id="comments_count" class="text-base text-black font-semibold mb-3"><%= @comments.count %>件のコメント</h2>
+
+      <!-- フラッシュメッセージ -->
+      <div id="flash" class="mb-5">
+        <%= render "shared/flash_message_turbo" %>
+      </div>
+
+      <!-- コメントフォーム -->
+      <%= render partial: "comments/form", locals: { seichi_memo: @seichi_memo, comment: @comment } %>
+
+      <!-- コメント一覧 -->
+      <%= render partial: "comments/comments", locals: { comments: @comments } %>
+    </div>
+
+    <!-- ボタンエリア -->
+    <div class="flex flex-col items-center space-y-4 mt-8">
+      <%= link_to "https://www.google.com/maps/search/?api=1&query=#{CGI.escape(@seichi_memo.place.name.to_s + ' ' + @seichi_memo.place.address.to_s)}", target: "_blank", class: "btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 w-full max-w-xs" do %>
+        <i class="fa-solid fa-map-location-dot"></i>
+        <span>ここへ行く</span>
       <% end %>
+
+      <%= link_to "みんなの投稿に戻る", seichi_memos_path, class: "btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 w-full max-w-xs" %>
     </div>
-  <% end %>
-
-  <!-- 聖地メモの本文 -->
-	<div class="p-4">
-	  <h2 class="text-lg font-bold">メモ</h2>
-    <p class="text-gray-700"><%= simple_format(@seichi_memo.body) %></p>
-	</div>
-
-  <!-- 聖地の情報 -->
-  <div class="border-t border-gray-300 p-4 space-y-2">
-    <h2 class="text-lg font-bold mb-2">聖地情報</h2>
-
-    <div class="flex items-start space-x-3">
-      <i class="fas fa-map text-primary text-lg w-6 text-center"></i>
-      <span class="text-gray-700"><%= @seichi_memo.place.name %></span>
-    </div>
-
-    <div class="flex items-start space-x-3">
-      <i class="fas fa-map-marker-alt text-primary text-lg w-6 text-center"></i>
-      <span class="text-gray-700"><%= @seichi_memo.place.address.presence || "情報なし" %></span>
-    </div>
-
-    <div class="flex items-start space-x-3">
-      <i class="fas fa-envelope text-primary text-lg w-6 text-center"></i>
-      <span class="text-gray-700"><%= @seichi_memo.place.postal_code.presence || "情報なし" %></span>
-    </div>
-  </div>
-
-  <!-- 作品情報 -->
-  <div class="border-t border-gray-300 p-4 space-y-2">
-    <h2 class="text-lg font-bold mb-2">作品情報</h2>
-
-    <div class="flex items-start space-x-3">
-      <i class="fas fa-film text-primary text-lg w-6 text-center"></i>
-      <span class="text-gray-700"><%= @seichi_memo.anime.title %></span>
-    </div>
-
-    <div class="flex items-start space-x-3">
-      <i class="fas fa-link text-primary text-lg w-6 text-center"></i>
-      <% if @seichi_memo.anime.official_site_url.present? %>
-        <a href="<%= @seichi_memo.anime.official_site_url %>" target="_blank" class="text-blue-500 hover:underline flex items-center space-x-1">
-          <span>公式サイト</span>
-          <i class="fas fa-up-right-from-square text-sm"></i>
-        </a>
-      <% else %>
-        <span class="text-gray-500">リンクなし</span>
-      <% end %>
-    </div>
-
-    <div class="mt-4 flex justify-center">
-      <%= image_tag(
-        @seichi_memo.anime.image_url.present? ? @seichi_memo.anime.image_url.url : AnimeImageUploader.new.default_url,
-        class: "rounded-lg shadow-md w-2/3 object-cover"
-      ) %>
-    </div>
-  </div>
-
-
-  <!-- コメントセクション -->
-  <div class="border-t border-gray-300 p-4">
-    <!-- コメント件数表示 -->
-    <h2 id="comments_count" class="text-base text-black font-semibold mb-3"><%= @comments.count %>件のコメント</h2>
-
-    <!-- フラッシュメッセージ -->
-    <div id="flash" class="mb-5">
-      <%= render "shared/flash_message_turbo" %>
-    </div>
-
-    <!-- コメントフォーム -->
-    <%= render partial: "comments/form", locals: { seichi_memo: @seichi_memo, comment: @comment } %>
-
-    <!-- コメント一覧 -->
-    <%= render partial: "comments/comments", locals: { comments: @comments } %>
-  </div>
-
-  <!-- ボタンエリア -->
-  <div class="flex flex-col items-center space-y-4 mt-8">
-    <%= link_to "https://www.google.com/maps/search/?api=1&query=#{CGI.escape(@seichi_memo.place.name.to_s + ' ' + @seichi_memo.place.address.to_s)}", target: "_blank", class: "btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 w-full max-w-xs" do %>
-      <i class="fa-solid fa-map-location-dot"></i>
-      <span>ここへ行く</span>
-    <% end %>
-
-    <%= link_to "みんなの投稿に戻る", seichi_memos_path, class: "btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 w-full max-w-xs" %>
   </div>
 </div>

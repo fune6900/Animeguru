@@ -56,15 +56,17 @@ export default class extends Controller {
           const errorContainer = document.getElementById("form-errors")
           errorContainer.classList.remove("hidden")
           errorContainer.innerHTML = `
-            <div class="bg-red-100 border-l-4 border-red-500 text-red-800 p-4 rounded-md shadow-sm space-y-2 mb-6">
-              <div class="flex items-center mb-2">
-                <svg class="w-5 h-5 mr-2 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M12 2a10 10 0 100 20 10 10 0 000-20z"/>
-                </svg>
-                <span class="font-semibold">入力内容に問題があります：</span>
-              </div>
-              <div class="list-disc list-inside pl-4 text-sm text-red-700 space-y-1">
-                ${data.errors.map(error => `<li>${error}</li>`).join("")}
+            <div class="px-4 sm:px-8">
+              <div class="bg-red-100 border-l-4 border-red-500 text-red-800 p-4 rounded-md shadow-sm space-y-2 mb-6">
+                <div class="flex items-center mb-2">
+                  <svg class="w-5 h-5 mr-2 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M12 2a10 10 0 100 20 10 10 0 000-20z"/>
+                  </svg>
+                  <span class="font-semibold">入力内容に問題があります：</span>
+                </div>
+                <div class="list-disc list-inside pl-4 text-sm text-red-700 space-y-1">
+                  ${data.errors.map(error => `<li>${error}</li>`).join("")}
+                </div>
               </div>
             </div>
           `

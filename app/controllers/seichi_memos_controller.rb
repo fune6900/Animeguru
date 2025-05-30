@@ -72,6 +72,14 @@ class SeichiMemosController < ApplicationController
     )
     @seichi_memo_form.seichi_memo = @seichi_memo
 
+      # 🔸 キャッシュ保存
+    @seichi_memo_form.save_to_session(session)
+
+    # 🔍 デバッグログ出力（セッション確認）
+    Rails.logger.debug "🌀 editアクション実行中: image_urlキャッシュ => #{session.dig(:seichi_memo, 'image_url_cache')}"
+    Rails.logger.debug "🌀 editアクション実行中: seichi_photoキャッシュ => #{session.dig(:seichi_memo, 'seichi_photo_cache')}"
+    Rails.logger.debug "🌀 editアクション実行中: scene_imageキャッシュ => #{session.dig(:seichi_memo, 'scene_image_cache')}"
+    
     session[:seichi_memo] ||= {}
     session[:seichi_memo]["id"] = @seichi_memo.id
   end
