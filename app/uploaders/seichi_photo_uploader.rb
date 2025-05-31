@@ -48,12 +48,12 @@ class SeichiPhotoUploader < CarrierWave::Uploader::Base
 
   def convert_to_webp
     manipulate! do |img|
-      img.format 'webp'
+      img.format "webp"
       img
     end
   end
-    # 拡張子を.webpで保存
+  # 拡張子を.webpで保存
   def filename
-    super.chomp(File.extname(super)) + '.webp' if original_filename.present?
+    super.chomp(File.extname(super)) + ".webp" if original_filename.present?
   end
 end
