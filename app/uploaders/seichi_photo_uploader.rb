@@ -43,9 +43,17 @@ class SeichiPhotoUploader < CarrierWave::Uploader::Base
     %w[jpg jpeg gif png webp]
   end
 
-  # Override the filename of the uploaded files:
-  # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
-  #   "something.jpg"
-  # end
+  # WebPに変換
+  process :convert_to_webp
+
+  def convert_to_webp
+    manipulate! do |img|
+      img.format "webp"
+      img
+    end
+  end
+  # 拡張子を.webpで保存
+  def filename
+    super.chomp(File.extname(super)) + ".webp" if original_filename.present?
+  end
 end
