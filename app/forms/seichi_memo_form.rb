@@ -45,11 +45,10 @@ class SeichiMemoForm
     end
   end
 
-  # 🔹 キャッシュ名から再セット
+  # 🔹 セッションからキャッシュを割り当てるメソッド
   def assign_cache(session)
     return unless session[:seichi_memo]
 
-    # 🔹 seichi_photo の復元
     if session[:seichi_memo]["seichi_photo_cache"].present?
       uploader = SeichiPhotoUploader.new
       uploader.retrieve_from_cache!(session[:seichi_memo]["seichi_photo_cache"])
@@ -58,7 +57,6 @@ class SeichiMemoForm
       self.seichi_photo = @seichi_memo.seichi_photo
     end
 
-    # 🔹 scene_image の復元
     if session[:seichi_memo]["scene_image_cache"].present?
       uploader = SceneImageUploader.new
       uploader.retrieve_from_cache!(session[:seichi_memo]["scene_image_cache"])
@@ -67,7 +65,6 @@ class SeichiMemoForm
       self.scene_image = @seichi_memo.scene_image
     end
 
-    # 🔹 image_url の復元
     if session[:seichi_memo]["image_url_cache"].present?
       uploader = AnimeImageUploader.new
       uploader.retrieve_from_cache!(session[:seichi_memo]["image_url_cache"])
@@ -77,32 +74,36 @@ class SeichiMemoForm
     end
   end
 
-  # 🔹 セッション保存
+  # 🔹 現在のフォーム入力内容をセッションに保存するメソッド
   def save_to_session(session)
     session[:seichi_memo] ||= {}
     session[:seichi_memo].merge!(attributes.except("seichi_photo", "scene_image", "image_url"))
 
-    if seichi_photo.present?
-      uploader = SeichiPhotoUploader.new
-      uploader.cache!(seichi_photo)
-      session[:seichi_memo]["seichi_photo_cache"] = uploader.cache_name
-    end
+    case current_step
+    when "memo"
+      if seichi_photo.present? && (!editing? || seichi_photo_changed?)
+        uploader = SeichiPhotoUploader.new
+        uploader.cache!(seichi_photo)
+        session[:seichi_memo]["seichi_photo_cache"] = uploader.cache_name
+      end
 
-    if scene_image.present?
-      uploader = SceneImageUploader.new
-      uploader.cache!(scene_image)
-      session[:seichi_memo]["scene_image_cache"] = uploader.cache_name
-    end
+      if scene_image.present? && (!editing? || scene_image_changed?)
+        uploader = SceneImageUploader.new
+        uploader.cache!(scene_image)
+        session[:seichi_memo]["scene_image_cache"] = uploader.cache_name
+      end
 
-    if image_url.present?
-      uploader = AnimeImageUploader.new
-      uploader.cache!(image_url)
-      session[:seichi_memo]["image_url_cache"] = uploader.cache_name
+    when "anime"
+      if image_url.present? && (!editing? || image_url_changed?)
+        uploader = AnimeImageUploader.new
+        uploader.cache!(image_url)
+        session[:seichi_memo]["image_url_cache"] = uploader.cache_name
+      end
     end
   end
 
-  # 🔹 最終ステップでデータベースに保存
-  def save
+    # 🔹 最終ステップでデータベースに保存
+    def save
     return false unless valid?
 
     # 🔹 既存の作品情報を再利用 or 作成
@@ -210,5 +211,21 @@ class SeichiMemoForm
 
   def editing?
     seichi_memo.present? && seichi_memo.persisted?
+  end
+
+  # 🔹 それぞれの画像が編集前から変更されたかどうかを判定する
+  def seichi_photo_changed?
+    return false unless editing? && seichi_photo.respond_to?(:original_filename)
+    seichi_photo.original_filename != File.basename(@seichi_memo.seichi_photo.url.to_s)
+  end
+
+  def scene_image_changed?
+    return false unless editing? && scene_image.respond_to?(:original_filename)
+    scene_image.original_filename != File.basename(@seichi_memo.scene_image.url.to_s)
+  end
+
+  def image_url_changed?
+    return false unless editing? && image_url.respond_to?(:original_filename)
+    image_url.original_filename != File.basename(@seichi_memo.anime.image_url.to_s)
   end
 end

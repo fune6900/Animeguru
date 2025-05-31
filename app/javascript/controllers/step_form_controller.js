@@ -42,6 +42,22 @@ export default class extends Controller {
   saveData() {
     const formData = new FormData(this.formTarget)
 
+    switch (this.currentStepName()) {
+      case "memo":
+        if (!this.formTarget.querySelector('input[name="seichi_memo_form[seichi_photo]"]').files.length) {
+          formData.delete("seichi_memo_form[seichi_photo]");
+        }
+        if (!this.formTarget.querySelector('input[name="seichi_memo_form[scene_image]"]').files.length) {
+          formData.delete("seichi_memo_form[scene_image]");
+        }
+        break;
+      case "anime":
+        if (!this.formTarget.querySelector('input[name="seichi_memo_form[image_url]"]').files.length) {
+          formData.delete("seichi_memo_form[image_url]");
+        }
+        break;
+    }
+
     return fetch(`/seichi_memos/update_session?step=${this.currentStepName()}`, {
       method: "POST",
       body: formData,
