@@ -31,7 +31,7 @@ class User < ApplicationRecord
     if profile_image.present? && profile_image.file.present?
       content_type = profile_image.file.content_type
       unless allowed_image_types.include?(content_type)
-        errors.add(:profile_image, "はjpg, jpeg, png, gifのいずれかの形式でアップロードしてください")
+        errors.add(:profile_image, "はjpg, jpeg, png, gif, webpのいずれかの形式でアップロードしてください")
       end
     end
   end
@@ -78,6 +78,6 @@ class User < ApplicationRecord
   private
 
   def allowed_image_types
-    %w[image/jpeg image/jpg image/png image/gif]
+    %w[image/jpeg image/jpg image/png image/gif image/webp]
   end
 end
