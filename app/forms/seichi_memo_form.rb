@@ -74,32 +74,15 @@ class SeichiMemoForm
     end
   end
 
-  # 🔹 現在のフォーム入力内容をセッションに保存するメソッド
+    # 🔹 現在のフォーム入力内容をセッションに保存するメソッド
   def save_to_session(session)
     session[:seichi_memo] ||= {}
     session[:seichi_memo].merge!(attributes.except("seichi_photo", "scene_image", "image_url"))
 
-    case current_step
-    when "memo"
-      if seichi_photo.present? && (!editing? || seichi_photo_changed?)
-        uploader = SeichiPhotoUploader.new
-        uploader.cache!(seichi_photo)
-        session[:seichi_memo]["seichi_photo_cache"] = uploader.cache_name
-      end
-
-      if scene_image.present? && (!editing? || scene_image_changed?)
-        uploader = SceneImageUploader.new
-        uploader.cache!(scene_image)
-        session[:seichi_memo]["scene_image_cache"] = uploader.cache_name
-      end
-
-    when "anime"
-      if image_url.present? && (!editing? || image_url_changed?)
-        uploader = AnimeImageUploader.new
-        uploader.cache!(image_url)
-        session[:seichi_memo]["image_url_cache"] = uploader.cache_name
-      end
-    end
+    # キャッシュ名があればセッションに直接保存
+    session[:seichi_memo]["seichi_photo_cache"] = seichi_photo_cache if seichi_photo_cache.present?
+    session[:seichi_memo]["scene_image_cache"]  = scene_image_cache  if scene_image_cache.present?
+    session[:seichi_memo]["image_url_cache"]    = image_url_cache    if image_url_cache.present?
   end
 
     # 🔹 最終ステップでデータベースに保存

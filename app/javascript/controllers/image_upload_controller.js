@@ -5,6 +5,10 @@ export default class extends Controller {
   static targets = ["input", "cacheField"]
   static values = { type: String }
 
+  connect() {
+    console.log("📸 image-uploadが接続された")
+  }
+
   upload() {
     const file = this.inputTarget.files[0]
     if (!file) return
