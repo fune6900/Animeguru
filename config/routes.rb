@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       get :confirm # 確認画面でセッション情報を反映する
       get :bookmarks # ブックマークした聖地メモを表示する
       get :autocomplete # オートコンプリート機能
+      post :upload_image # 画像アップロード時に即座にキャッシュ処理を行う
     end
   end
 

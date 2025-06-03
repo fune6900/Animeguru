@@ -127,6 +127,18 @@ class SeichiMemosController < ApplicationController
     render json: places + animes
   end
 
+  # アップロードされた画像ファイルを一時キャッシュしてキャッシュ名を返す
+  def upload_image
+    uploader = {
+      "seichi_photo" => SeichiPhotoUploader,
+      "scene_image"  => SceneImageUploader,
+      "image_url"    => AnimeImageUploader
+    }[params[:type]]&.new or return head :bad_request
+
+    uploader.cache!(params[:file])
+    render json: { cache_name: uploader.cache_name }
+  end
+
   private
 
   # 🔹 Strong Parameters
@@ -142,6 +154,9 @@ class SeichiMemosController < ApplicationController
       :place_postal_code,
       :seichi_photo,
       :scene_image,
+      :seichi_photo_cache,
+      :scene_image_cache,
+      :image_url_cache,
       genre_tag_ids: []
     ).merge(user_id: current_user.id)
   end
