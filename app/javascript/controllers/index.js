@@ -16,6 +16,9 @@ application.register("genre-modal", GenreModalController)
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
+import ImageUploadController from "./image_upload_controller"
+application.register("image-upload", ImageUploadController)
+
 import SearchClearController from "./search_clear_controller"
 application.register("search-clear", SearchClearController)
 
