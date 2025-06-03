@@ -40,9 +40,10 @@
   </div>
 
   <!-- 🔹 作品イメージ -->
-  <div class="mt-4">
+  <div class="mt-4" data-controller="image-upload" data-image-upload-type-value="image_url">
     <label class="block text-gray-700 font-semibold mb-1">作品イメージ</label>
-    <%= f.file_field :image_url, class: "btn w-full p-2 border cursor-pointer shadow-sm" %>
+    <%= f.file_field :image_url, class: "btn w-full p-2 border cursor-pointer shadow-sm", data: { action: "change->image-upload#upload", image_upload_target: "input" } %>
+    <%= f.hidden_field :image_url_cache, data: { image_upload_target: "cacheField" } %>
   </div>
 
   <!-- 🔹 作品ジャンル -->

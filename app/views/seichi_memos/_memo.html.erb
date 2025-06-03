@@ -35,14 +35,16 @@
   </div>
 
   <!-- 🔹 画像アップロード -->
-  <div class="mt-4">
+  <div class="mt-4" data-controller="image-upload" data-image-upload-type-value="seichi_photo">
     <label class="block text-gray-700 font-semibold mb-1">聖地の写真</label>
-    <%= f.file_field :seichi_photo, class: "btn w-full p-2 border cursor-pointer shadow-sm" %>
+    <%= f.file_field :seichi_photo, class: "btn w-full p-2 border cursor-pointer shadow-sm", data: { action: "change->image-upload#upload", image_upload_target: "input" } %>
+    <%= f.hidden_field :seichi_photo_cache, data: { image_upload_target: "cacheField" } %>
   </div>
 
-  <div class="mt-4">
+  <div class="mt-4" data-controller="image-upload" data-image-upload-type-value="scene_image">
     <label class="block text-gray-700 font-semibold mb-1">聖地が登場したシーン画像</label>
-    <%= f.file_field :scene_image, class: "btn w-full p-2 border cursor-pointer shadow-sm" %>
+    <%= f.file_field :scene_image, class: "btn w-full p-2 border cursor-pointer shadow-sm", data: { action: "change->image-upload#upload", image_upload_target: "input" } %>
+    <%= f.hidden_field :scene_image_cache, data: { image_upload_target: "cacheField" } %>
   </div>
 
   <!-- 🔹 ステップボタン -->
