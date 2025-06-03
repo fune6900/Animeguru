@@ -156,7 +156,7 @@ class SeichiMemosController < ApplicationController
       :scene_image,
       :seichi_photo_cache,
       :scene_image_cache,
-      :image_url_cache, 
+      :image_url_cache,
       genre_tag_ids: []
     ).merge(user_id: current_user.id)
   end

@@ -74,7 +74,7 @@ class SeichiMemoForm
     end
   end
 
-    # 🔹 現在のフォーム入力内容をセッションに保存するメソッド
+  # 🔹 現在のフォーム入力内容をセッションに保存するメソッド
   def save_to_session(session)
     session[:seichi_memo] ||= {}
     session[:seichi_memo].merge!(attributes.except("seichi_photo", "scene_image", "image_url"))
