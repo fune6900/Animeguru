@@ -8,6 +8,9 @@
               class: "space-y-4",
               data: { controller: "step-form anime-search seichi-search genre-modal image-upload", step_form_target: "form" } do |f| %>
 
+  <%# 編集モード時に投稿IDを保持するためのhiddenフィールド。Stimulus経由で送信されるFormDataに含めるため必要 %>
+  <%= hidden_field_tag :id, @seichi_memo_form.seichi_memo.id if @seichi_memo_form.persisted? %>
+
   <!-- エラーメッセージを表示 -->
   <div id="form-errors" class="hidden"></div>
   <%= render "shared/error_messages", resource: @seichi_memo_form %>
