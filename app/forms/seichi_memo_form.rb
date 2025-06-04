@@ -79,6 +79,8 @@ class SeichiMemoForm
     session[:seichi_memo] ||= {}
     session[:seichi_memo].merge!(attributes.except("seichi_photo", "scene_image", "image_url"))
 
+    session[:seichi_memo]["id"] = seichi_memo&.id
+
     # キャッシュ名があればセッションに直接保存
     session[:seichi_memo]["seichi_photo_cache"] = seichi_photo_cache if seichi_photo_cache.present?
     session[:seichi_memo]["scene_image_cache"]  = scene_image_cache  if scene_image_cache.present?

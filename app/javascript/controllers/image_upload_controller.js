@@ -7,6 +7,7 @@ export default class extends Controller {
 
   connect() {
     console.log("📸 image-uploadが接続された")
+    this.checkImageVisibility() // ← ここで呼び出す
   }
 
   upload() {
@@ -34,5 +35,27 @@ export default class extends Controller {
       .catch(error => {
         console.error("画像アップロードに失敗しました:", error)
       })
+  }
+
+  checkImageVisibility() {
+    const image = document.getElementById("preview-image")
+    const container = document.getElementById("image-check-container")
+
+    if (!image || !container) {
+      console.warn("画像またはチェック用コンテナが見つかりませんでした")
+      return
+    }
+
+    // 読み込み後のチェック
+    image.addEventListener("load", () => {
+      if (image.naturalWidth === 0) {
+        container.classList.remove("hidden")
+      }
+    })
+
+    // 読み込み済みなら即時チェック
+    if (image.complete && image.naturalWidth === 0) {
+      container.classList.remove("hidden")
+    }
   }
 }

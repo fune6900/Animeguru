@@ -22,11 +22,15 @@ class SeichiMemosController < ApplicationController
 
   # 🔹 各ステップごとにセッションを更新
   def update_session
+    session[:seichi_memo] ||= {}
     previous_data = session[:seichi_memo] || {}
 
-    cleaned_previous_data = previous_data.except("id")
+    if session[:seichi_memo]["id"].blank? && params[:id].present?
+      session[:seichi_memo]["id"] = params[:id]
+    end
 
-    merged_params = cleaned_previous_data.merge(seichi_memo_params.to_h).merge(current_step: params[:step])
+    merged_params = previous_data.except("id").merge(seichi_memo_params.to_h).merge(current_step: params[:step])
+
     @seichi_memo_form = SeichiMemoForm.new(merged_params)
 
     if previous_data["id"].present?
