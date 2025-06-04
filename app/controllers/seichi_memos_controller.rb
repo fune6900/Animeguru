@@ -24,7 +24,7 @@ class SeichiMemosController < ApplicationController
   def update_session
     session[:seichi_memo] ||= {}
     previous_data = session[:seichi_memo] || {}
-    
+
     if session[:seichi_memo]["id"].blank? && params[:id].present?
       session[:seichi_memo]["id"] = params[:id]
     end
