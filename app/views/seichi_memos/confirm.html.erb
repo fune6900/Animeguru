@@ -94,6 +94,18 @@
       </div>
     </div>
 
+    <!-- 🔹 画像が表示されない場合の再読み込み案内 -->
+    <div id="image-check-container" class="mt-6 hidden">
+      <p class="text-sm text-red-600 mb-2">画像が表示されていない場合は、再読み込みしてください。</p>
+      <button
+        type="button"
+        class="btn bg-primary text-white"
+        onclick="window.location.reload();"
+      >
+        確認画面を再読み込みする
+      </button>
+    </div>
+
     <!-- 🔹 ステップボタン -->
     <div class="flex justify-center mt-4 space-x-4">
       <%= link_to "戻る", "javascript:history.back()", class: "btn bg-gray-300 text-black py-2 px-6 shadow-md" %>
