@@ -1,4 +1,12 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
+  # sidekiqのWeb UIを `/sidekiq` パスでマウント
+  Sidekiq::Web.use(Rack::Auth::Basic) do |user_id, password|
+    [ user_id, password ] == [ ENV["SIDEKIQ_BASIC_ID"], ENV["SIDEKIQ_BASIC_PASSWORD"] ]
+  end
+  mount Sidekiq::Web, at: "/sidekiq"
+
   # ルートパス（ホーム画面）
   root "homes#index"
 
