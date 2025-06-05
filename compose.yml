@@ -40,7 +40,26 @@ services: # コンテナの定義開始
       db: # dbサービスに依存
         condition: service_healthy # dbの健康チェックが通るまで待機
 
+  redis: # Redisの設定
+    image: "redis:7.4-alpine" # Redisの公式イメージを使用
+    volumes: # ボリュームマウントの設定
+      - redis_volume:/data # Redisデータの永続化
+    command: redis-server --appendonly yes # Redisの永続化設定
+    ports: # ポート設定
+      - "6379:6379" # Redisのポート設定
+
+  sidekiq: # Sidekiqの設定
+    build: # SidekiqのDockerイメージビルド設定
+      context: . # ビルドコンテキストはカレントディレクトリ
+    command: bundle exec sidekiq # Sidekiqの起動コマンド
+    volumes: # ボリュームマウントの設定
+      - .:/myapp # ソースコードのマウント
+    depends_on: # 依存関係の設定
+      - db # DBコンテナが起動してからこのコンテナを起動する
+      - redis # Redisコンテナが起動してからこのコンテナを起動する
+
 volumes: # ボリュームの定義
   bundle_data: # gemデータの永続化用ボリューム
   postgresql_data: # PostgreSQLデータの永続化用ボリューム
   node_modules: # Node.jsパッケージの永続化用ボリューム
+  redis_volume: # Redisデータの永続化用ボリューム
