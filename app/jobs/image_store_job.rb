@@ -1,6 +1,6 @@
 class ImageStoreJob < ApplicationJob
   queue_as :default
-  
+
   # このジョブは、CarrierWaveのアップローダーによる `.store!` 処理を
   # 非同期（バックグラウンド）で行うためのジョブ。
   def perform(uploader_cache)
