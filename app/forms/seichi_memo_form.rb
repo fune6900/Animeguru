@@ -87,8 +87,8 @@ class SeichiMemoForm
     session[:seichi_memo]["image_url_cache"]    = image_url_cache    if image_url_cache.present?
   end
 
-    # 🔹 最終ステップでデータベースに保存
-    def save
+  # 🔹 最終ステップでデータベースに保存
+  def save
     return false unless valid?
 
     # 🔹 既存の作品情報を再利用 or 作成
@@ -119,6 +119,17 @@ class SeichiMemoForm
     Array(genre_tag_ids).reject(&:blank?).each do |genre_tag_id|
       @seichi_memo.taggings.create!(genre_tag_id: genre_tag_id)
     end
+
+    # 🔹 画像保存ジョブを非同期で実行
+    ImageStoreJob.perform_later({
+      "SeichiMemo" => {
+        "seichi_photo" => { "model_id" => @seichi_memo.id, "cache_name" => seichi_photo.cache_name },
+        "scene_image"  => { "model_id" => @seichi_memo.id, "cache_name" => scene_image.cache_name }
+      },
+      "Anime" => {
+        "image_url" => { "model_id" => anime.id, "cache_name" => image_url.cache_name }
+      }
+    })
 
     true
   end
@@ -155,6 +166,35 @@ class SeichiMemoForm
     Array(genre_tag_ids).reject(&:blank?).each do |genre_tag_id|
       seichi_memo.taggings.create!(genre_tag_id: genre_tag_id)
     end
+
+    # 🔹 画像保存ジョブを非同期で実行（cache_name が存在する場合のみ）
+    uploader_cache = {}
+
+    if seichi_photo.cache_name.present?
+      uploader_cache["SeichiMemo"] ||= {}
+      uploader_cache["SeichiMemo"]["seichi_photo"] = {
+        "model_id" => seichi_memo.id,
+        "cache_name" => seichi_photo.cache_name
+      }
+    end
+
+    if scene_image.cache_name.present?
+      uploader_cache["SeichiMemo"] ||= {}
+      uploader_cache["SeichiMemo"]["scene_image"] = {
+        "model_id" => seichi_memo.id,
+        "cache_name" => scene_image.cache_name
+      }
+    end
+
+    if image_url.cache_name.present?
+      uploader_cache["Anime"] ||= {}
+      uploader_cache["Anime"]["image_url"] = {
+        "model_id" => anime.id,
+        "cache_name" => image_url.cache_name
+      }
+    end
+
+    ImageStoreJob.perform_later(uploader_cache) unless uploader_cache.empty?
 
     true
   end

@@ -3,6 +3,18 @@
 <!-- 検索フォーム -->
 <%= render "seichi_memos/search_form", search_url: seichi_memos_path %>
 
+<!-- #アニめぐる 投稿リンクボタン -->
+<div class="flex justify-center mt-4">
+  <%= link_to "https://x.com/hashtag/アニめぐる?src=hashtag_click&f=live",
+              target: '_blank',
+              rel: 'noopener noreferrer',
+              class: "btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 w-full max-w-xs",
+              "aria-label": "聖地メモの投稿を見る" do %>
+    <i class="fab fa-x-twitter text-white text-2xl mr-2"></i>
+    <span>聖地メモの投稿を見る</span>
+  <% end %>
+</div>
+
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
   <% if @seichi_memos.any? %>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">

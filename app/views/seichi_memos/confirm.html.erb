@@ -5,7 +5,8 @@
               method: (@seichi_memo_form.seichi_memo && @seichi_memo_form.seichi_memo.persisted?) ?
                         :patch : :post,
               local: true,
-              class: "space-y-4" do |f| %>
+              class: "space-y-4",
+              data: { controller: "image-upload" } do |f| %>
 
   <div class="px-4 sm:px-6 lg:px-8">
     <!-- 🔹 投稿状態によるタイトル表示 -->
@@ -89,19 +90,16 @@
         </div>
         <div class="flex justify-center">
           <%= image_tag (@seichi_memo_form.image_url.present? ? @seichi_memo_form.image_url.url : AnimeImageUploader.new.default_url),
+                        id: "preview-image",
                         class: "rounded-lg shadow-md w-2/3 object-cover" %>
         </div>
       </div>
     </div>
 
     <!-- 🔹 画像が表示されない場合の再読み込み案内 -->
-    <div id="image-check-container" class="mt-6 hidden">
+    <div id="image-check-container" class="flex flex-col items-center mt-6">
       <p class="text-sm text-red-600 mb-2">画像が表示されていない場合は、再読み込みしてください。</p>
-      <button
-        type="button"
-        class="btn bg-primary text-white"
-        onclick="window.location.reload();"
-      >
+      <button type="button" class="btn bg-primary text-white py-2 px-6 shadow-md" onclick="window.location.reload();">
         確認画面を再読み込みする
       </button>
     </div>
