@@ -8,7 +8,7 @@
 
     <!-- ステップインジケーター -->
     <div class="flex items-center justify-center space-x-2">
-      <% ["巡礼記録", "聖地", "作品"].each_with_index do |label, i| %>
+      <% ["巡礼記録", "作品", "聖地"].each_with_index do |label, i| %>
         <div class="<%= label == '巡礼記録' ? 'px-3 py-1 rounded-full border-2 border-primary text-primary text-xs font-semibold bg-white whitespace-nowrap' : 'px-3 py-1 rounded-full bg-primary text-white text-xs font-semibold whitespace-nowrap' %>">
           <%= label %>
         </div>

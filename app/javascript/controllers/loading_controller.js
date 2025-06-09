@@ -6,6 +6,10 @@ export default class extends Controller {
 
   connect() {
     this.hide()
+
+    document.addEventListener("turbo:load", () => {
+      this.hide()
+    })
   }
 
   show() {

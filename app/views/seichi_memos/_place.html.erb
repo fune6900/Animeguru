@@ -3,12 +3,12 @@
   <div class="my-8 space-y-2">
     <!-- タイトル -->
     <h2 class="text-2xl sm:text-3xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-primary to-pink-500 tracking-wide mb-4">
-      ステップ 2/4：聖地の基本情報
+      ステップ 3/4：聖地の基本情報
     </h2>
 
     <!-- ステップインジケーター -->
     <div class="flex items-center justify-center space-x-2">
-      <% ["巡礼記録", "聖地", "作品"].each_with_index do |label, i| %>
+      <% ["巡礼記録", "作品", "聖地"].each_with_index do |label, i| %>
         <div class="<%= label == '聖地' ? 'px-3 py-1 rounded-full border-2 border-primary text-primary text-xs font-semibold bg-white whitespace-nowrap' : 'px-3 py-1 rounded-full bg-primary text-white text-xs font-semibold whitespace-nowrap' %>">
           <%= label %>
         </div>
@@ -48,6 +48,11 @@
   <!-- 🔹 ステップボタン -->
   <div class="flex justify-center mt-4 space-x-4">
     <button type="button" class="btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 w-auto mt-2" data-action="click->step-form#prev">前のステップへ</button>
-    <button type="button" class="btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 w-auto mt-2" data-action="click->step-form#next">次のステップへ</button>
+    <button type="button"
+            class="btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 w-auto mt-2"
+            data-action="click->step-form#next"
+            data-step-form-final-step="true">
+      確認画面へ
+    </button>
   </div>
 </div>

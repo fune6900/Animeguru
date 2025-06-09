@@ -1,7 +1,7 @@
 <div class="bg-white/70 backdrop-blur-m p-4 rounded-lg shadow-lg flex flex-col">
   <!-- 画像（クリックで詳細画面へ遷移） -->
   <div class="h-60 flex items-center justify-center rounded-md overflow-hidden">
-    <%= link_to seichi_memo_path(seichi_memo) do %>
+    <%= link_to seichi_memo_path(seichi_memo), data: { action: "click->loading#show" } do %>
       <%= image_tag (seichi_memo.seichi_photo.present? ? seichi_memo.seichi_photo.url : SeichiPhotoUploader.new.default_url),
           alt: "聖地画像",
           class: "object-cover w-full h-full cursor-pointer transition hover:opacity-80" %>
@@ -21,12 +21,14 @@
         <% seichi_memo.genre_tags.each do |genre_tag| %>
           <% if current_user && current_user.bookmark?(seichi_memo) %>
             <%= link_to bookmarks_seichi_memos_path(current_user, q: { genre_tags_name_eq: genre_tag.name }), 
-                        class: "bg-primary text-gray-700 text-xs font-medium px-2 py-0.5 rounded-full hover:bg-secondary" do %>
+                        class: "bg-primary text-gray-700 text-xs font-medium px-2 py-0.5 rounded-full hover:bg-secondary",
+                        data: { action: "click->loading#show" } do %>
               <%= genre_tag.name %>
             <% end %>
           <% else %>
             <%= link_to seichi_memos_path(q: { genre_tags_name_eq: genre_tag.name }), 
-                        class: "bg-primary text-gray-700 text-xs font-medium px-2 py-0.5 rounded-full hover:bg-secondary" do %>
+                        class: "bg-primary text-gray-700 text-xs font-medium px-2 py-0.5 rounded-full hover:bg-secondary",
+                        data: { action: "click->loading#show" } do %>
               <%= genre_tag.name %>
             <% end %>
           <% end %>
@@ -40,7 +42,7 @@
   <!-- ユーザー情報 -->
   <div class="flex items-center justify-between mt-4 px-2">
     <div class="flex items-center space-x-2">
-      <%= link_to (seichi_memo.user == current_user ? profile_path : user_path(seichi_memo.user)) do %>
+      <%= link_to (seichi_memo.user == current_user ? profile_path : user_path(seichi_memo.user)), data: { action: "click->loading#show" } do %>
         <%= image_tag seichi_memo.user.profile_image.url, alt: seichi_memo.user.username, class: "w-8 h-8 rounded-full" %>
       <% end %>
       <div class="flex flex-col">

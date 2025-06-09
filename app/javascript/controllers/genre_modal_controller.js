@@ -5,7 +5,7 @@ export default class extends Controller {
   static targets = ["checkbox", "display"]
 
   connect() {
-    this.updateDisplay()
+    console.log("genre-modalが接続された")
   }
 
   update() {

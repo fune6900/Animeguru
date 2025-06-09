@@ -18,24 +18,40 @@ export default class extends Controller {
   const isFinalStep = button.dataset.stepFormFinalStep === "true"
 
   this.saveData().then(() => {
+    const loadingController = this.application.getControllerForElementAndIdentifier(
+      document.querySelector("[data-controller='loading']"),
+      "loading"
+    )
+    loadingController?.show()
+
     if (isFinalStep) {
       Turbo.visit("/seichi_memos/confirm")
     } else {
       this.currentStep++
       this.showStep()
       this.clearErrors()
+      loadingController?.hide()
     }
   })
 }
 
-  // 🔹 「戻る」ボタンが押されたときに実行
   prev(event) {
-    event.preventDefault() // フォームのデフォルト送信を防ぐ
-    if (this.currentStep > 0) {
-      this.currentStep-- // 1つ前のステップへ戻る
-      this.showStep() // ステップを更新して表示
-      this.clearErrors() // エラーメッセージを消す
-    }
+    event.preventDefault()
+
+    const loadingController = this.application.getControllerForElementAndIdentifier(
+      document.querySelector("[data-controller='loading']"),
+      "loading"
+    )
+    loadingController?.show()
+
+    setTimeout(() => {
+      if (this.currentStep > 0) {
+        this.currentStep--
+        this.showStep()
+        this.clearErrors()
+      }
+      loadingController?.hide()
+    }, 300)
   }
 
   // 🔹 現在のステップのデータをセッションに保存
@@ -102,8 +118,8 @@ export default class extends Controller {
   currentStepName() {
     switch (this.currentStep) {
       case 0: return "memo"
-      case 1: return "place"
-      case 2: return "anime"
+      case 1: return "anime"
+      case 2: return "place"
       case 3: return "confirm"
       default: return "memo"
     }

@@ -55,10 +55,10 @@
 
       <!-- 🔹 3段目：検索・クリアボタン -->
       <div class="flex space-x-2 mt-2 justify-center">
-        <%= button_tag type: "submit", class: "btn bg-primary text-white py-2 px-4 shadow-md transition duration-200" do %>
+        <%= button_tag type: "submit", class: "btn bg-primary text-white py-2 px-4 shadow-md transition duration-200", data: { action: "click->loading#show" } do %>
           <i class="fa-solid fa-magnifying-glass mr-1"></i>検索
         <% end %>
-        <%= button_tag type: "button", id: "search-clear", class: "btn bg-primary text-white py-2 px-4 shadow-md transition duration-200", data: { action: "search-clear#clear" } do %>
+        <%= button_tag type: "button", id: "search-clear", class: "btn bg-primary text-white py-2 px-4 shadow-md transition duration-200", data: { action: "search-clear#clear click->loading#show" } do %>
           <i class="fa-solid fa-broom mr-1"></i>クリア
         <% end %>
       </div>

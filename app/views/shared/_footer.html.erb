@@ -3,8 +3,8 @@
     
     <!-- ナビゲーションリンク -->
     <nav class="flex flex-col md:flex-row gap-4 md:gap-8 items-center text-center">
-      <%= link_to '利用規約', terms_of_service_path, class: "text-white hover:underline text-base md:text-lg font-medium transition" %>
-      <%= link_to 'プライバシーポリシー', privacy_policy_path, class: "text-white hover:underline text-base md:text-lg font-medium transition" %>
+      <%= link_to '利用規約', terms_of_service_path, class: "text-white hover:underline text-base md:text-lg font-medium transition", data: { action: "click->loading#show" } %>
+      <%= link_to 'プライバシーポリシー', privacy_policy_path, class: "text-white hover:underline text-base md:text-lg font-medium transition", data: { action: "click->loading#show" } %>
       <%= link_to 'お問い合わせ', "https://docs.google.com/forms/d/e/1FAIpQLSekT6TW4qUS0U_2krQmXsxsHztTwAVqa-vr6avHHjgUeifblA/viewform", target: "_blank", rel: "noopener noreferrer", class: "text-white hover:underline text-base md:text-lg font-medium transition" %>
     </nav>
 
