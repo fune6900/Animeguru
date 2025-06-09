@@ -42,27 +42,35 @@
   </head>
 
   <body class="bg-base-100 min-h-screen flex flex-col font-kosugi">
-    <%= render 'layouts/flash_messages' %>
-    <%= render 'shared/header' %>
-    <main class="flex-grow w-full max-w-none pb-24">
-      <%= yield %>
-    </main>
-    <% if user_signed_in? %>
-      <%= render 'shared/bottom_navigation' %>
-    <% else %>
-      <%= render 'shared/footer' %>
-    <% end %>
+    <div data-controller="loading">
+      <div data-loading-target="spinner" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
+        <div class="h-[150px] w-[150px] flex items-center justify-center">
+          <span class="loading loading-spinner text-default w-full h-full"></span>
+        </div>
+      </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        AOS.init({
-          duration: 800,
-          easing: 'ease-in-out',
-          once: true,
-          offset: 50
+      <%= render 'layouts/flash_messages' %>
+      <%= render 'shared/header' %>
+      <main class="flex-grow w-full max-w-none pb-24">
+        <%= yield %>
+      </main>
+      <% if user_signed_in? %>
+        <%= render 'shared/bottom_navigation' %>
+      <% else %>
+        <%= render 'shared/footer' %>
+      <% end %>
+
+      <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 50
+          });
         });
-      });
-    </script>
+      </script>
+    </div>
   </body>
 </html>
