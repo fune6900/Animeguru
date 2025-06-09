@@ -42,6 +42,7 @@ class SeichiMemoForm
         form.seichi_memo = SeichiMemo.find_by(id: session_data["id"])
       end
       form.assign_cache(session) if session_data.present?
+      Rails.logger.debug "[Aura] セッションから復元された anime_title: #{form.anime_title.inspect}"
     end
   end
 
@@ -121,15 +122,28 @@ class SeichiMemoForm
     end
 
     # 🔹 画像保存ジョブを非同期で実行
-    ImageStoreJob.perform_later({
-      "SeichiMemo" => {
-        "seichi_photo" => { "model_id" => @seichi_memo.id, "cache_name" => seichi_photo.cache_name },
-        "scene_image"  => { "model_id" => @seichi_memo.id, "cache_name" => scene_image.cache_name }
-      },
-      "Anime" => {
-        "image_url" => { "model_id" => anime.id, "cache_name" => image_url.cache_name }
+    ImageStoreJob.perform_later(
+      {
+        "SeichiMemo" => {}.tap do |memo|
+          memo["seichi_photo"] = {
+            "model_id" => @seichi_memo.id,
+            "cache_name" => seichi_photo.cache_name
+          } if seichi_photo.present?
+
+          memo["scene_image"] = {
+            "model_id" => @seichi_memo.id,
+            "cache_name" => scene_image.cache_name
+          } if scene_image.present?
+        end,
+
+        "Anime" => {}.tap do |anime_hash|
+          anime_hash["image_url"] = {
+            "model_id" => anime.id,
+            "cache_name" => image_url.cache_name
+          } if image_url.present?
+        end
       }
-    })
+    )
 
     true
   end

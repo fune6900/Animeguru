@@ -52,13 +52,13 @@
 
       <!-- 登録ボタン -->
       <div class="mt-6">
-        <%= f.submit "アカウントを作成", class: "btn bg-primary text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 w-full" %>
+        <%= f.submit "アカウントを作成", class: "btn bg-primary text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 w-full", data: { action: "click->loading#show" } %>
       </div>
     <% end %>
 
     <!-- ログインリンク -->
     <div class="text-center mt-4">
-      <%= link_to "ログインはこちら", new_session_path(resource_name), class: "btn bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-6 shadow-md transition duration-200 w-full" %>
+      <%= link_to "ログインはこちら", new_session_path(resource_name), class: "btn bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-6 shadow-md transition duration-200 w-full", data: { action: "click->loading#show" } %>
     </div>
   </div>
 </section>

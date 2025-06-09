@@ -7,7 +7,7 @@
     <div class="w-full mx-auto flex justify-between items-center px-2">
       <!-- ロゴ -->
       <div class="flex items-center">
-        <%= link_to "アニめぐる", root_path, class:"text-2xl font-rampart" %>
+        <%= link_to "アニめぐる", root_path, class:"text-2xl font-rampart", data: { action: "click->loading#show" } %>
       </div>
 
       <!-- Drawerを開くボタン -->
@@ -32,31 +32,31 @@
       <% if user_signed_in? %>
         <!-- ユーザー情報 -->
         <li class="mb-2">
-          <%= link_to profile_path, class: "flex items-center gap-3" do %>
+          <%= link_to profile_path, class: "flex items-center gap-3", data: { action: "click->loading#show" } do %>
             <%= image_tag current_user.profile_image.url || "default_profile_image.png", class: "w-10 h-10 rounded-full" %>
             <span class="font-semibold"><%= current_user.username %></span>
           <% end %>
         </li>
         <div class="divider"></div>
-        <li><%= link_to profile_path do %><i class="fa-solid fa-user"></i> マイページ <% end %></li>
-        <li><%= link_to root_path do %><i class="fa-regular fa-circle-question"></i> アプリの使い方 <% end %></li>
-        <li><%= link_to destroy_user_session_path, data: { turbo_method: :delete } do %><i class="fa-solid fa-right-from-bracket"></i> ログアウト <% end %></li>
+        <li><%= link_to profile_path, data: { action: "click->loading#show" } do %><i class="fa-solid fa-user"></i> マイページ <% end %></li>
+        <li><%= link_to root_path, data: { action: "click->loading#show" } do %><i class="fa-regular fa-circle-question"></i> アプリの使い方 <% end %></li>
+        <li><%= link_to destroy_user_session_path, data: { turbo_method: :delete, action: "click->loading#show" } do %><i class="fa-solid fa-right-from-bracket"></i> ログアウト <% end %></li>
         <div class="divider"></div>
-        <li><%= link_to seichi_memos_path do %><i class="fas fa-search"></i> 聖地メモ検索 <% end %></li>
+        <li><%= link_to seichi_memos_path, data: { action: "click->loading#show" } do %><i class="fas fa-search"></i> 聖地メモ検索 <% end %></li>
         <li><%= link_to "#" do %><i class="fa-solid fa-map-location-dot"></i> マップ検索（実装予定）<% end %></li>
-        <li><%= link_to new_seichi_memo_path do %><i class="fas fa-plus-circle"></i> 聖地メモ作成 <% end %></li>
-        <li><%= link_to bookmarks_seichi_memos_path do %><i class="fa-solid fa-bookmark"></i> ブックマーク <% end %></li>
-        <li><%= link_to columns_path do %><i class="fa-solid fa-hands-praying"></i> 聖地巡礼コラム <% end %></li>
+        <li><%= link_to new_seichi_memo_path, data: { action: "click->loading#show" } do %><i class="fas fa-plus-circle"></i> 聖地メモ作成 <% end %></li>
+        <li><%= link_to bookmarks_seichi_memos_path, data: { action: "click->loading#show" } do %><i class="fa-solid fa-bookmark"></i> ブックマーク <% end %></li>
+        <li><%= link_to columns_path, data: { action: "click->loading#show" } do %><i class="fa-solid fa-hands-praying"></i> 聖地巡礼コラム <% end %></li>
       <% else %>
-        <li><%= link_to new_user_session_path do %><i class="fa-solid fa-right-to-bracket"></i> ログイン <% end %></li>
-        <li><%= link_to new_user_registration_path do %><i class="fa-solid fa-user-plus"></i> 新規登録 <% end %></li>
+        <li><%= link_to new_user_session_path, data: { action: "click->loading#show" } do %><i class="fa-solid fa-right-to-bracket"></i> ログイン <% end %></li>
+        <li><%= link_to new_user_registration_path, data: { action: "click->loading#show" } do %><i class="fa-solid fa-user-plus"></i> 新規登録 <% end %></li>
         <div class="divider"></div>
-        <li><%= link_to root_path do %><i class="fa-regular fa-circle-question"></i> アプリの使い方 <% end %></li>
-        <li><%= link_to seichi_memos_path do %><i class="fas fa-search"></i> 聖地メモ検索 <% end %></li>
+        <li><%= link_to root_path, data: { action: "click->loading#show" } do %><i class="fa-regular fa-circle-question"></i> アプリの使い方 <% end %></li>
+        <li><%= link_to seichi_memos_path, data: { action: "click->loading#show" } do %><i class="fas fa-search"></i> 聖地メモ検索 <% end %></li>
       <% end %>
       <div class="divider"></div>
-      <li><%= link_to '利用規約', terms_of_service_path %></li>
-      <li><%= link_to 'プライバシーポリシー', privacy_policy_path %></li>
+      <li><%= link_to '利用規約', terms_of_service_path, data: { action: "click->loading#show" } %></li>
+      <li><%= link_to 'プライバシーポリシー', privacy_policy_path, data: { action: "click->loading#show" } %></li>
       <li><%= link_to 'お問い合わせ', 'https://docs.google.com/forms/d/e/1FAIpQLSekT6TW4qUS0U_2krQmXsxsHztTwAVqa-vr6avHHjgUeifblA/viewform', target: '_blank', rel: 'noopener' %></li>
       <div class="divider"></div>
       <div class="flex justify-center gap-4 py-2">

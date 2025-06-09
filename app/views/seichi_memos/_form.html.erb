@@ -20,13 +20,13 @@
     <%= render "seichi_memos/memo", f: f %>
   </div>
 
-  <!-- 🔹 ステップ 2: 聖地の基本情報 -->
-  <div data-step-form-target="step" style="display:none;">
-    <%= render "seichi_memos/place", f: f %>
-  </div>
-
-  <!-- 🔹 ステップ 3: 作品の基本情報 -->
+  <!-- 🔹 ステップ 2: 作品の基本情報 -->
   <div data-step-form-target="step" style="display:none;">
     <%= render "seichi_memos/anime", f: f %>
+  </div>
+
+  <!-- 🔹 ステップ 3: 聖地の基本情報 -->
+  <div data-step-form-target="step" style="display:none;">
+    <%= render "seichi_memos/place", f: f %>
   </div>
 <% end %>

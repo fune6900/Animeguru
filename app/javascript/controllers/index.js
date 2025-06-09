@@ -19,6 +19,9 @@ application.register("hello", HelloController)
 import ImageUploadController from "./image_upload_controller"
 application.register("image-upload", ImageUploadController)
 
+import LoadingController from "./loading_controller"
+application.register("loading", LoadingController)
+
 import SearchClearController from "./search_clear_controller"
 application.register("search-clear", SearchClearController)
 

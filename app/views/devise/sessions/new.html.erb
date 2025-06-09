@@ -41,18 +41,18 @@
       <% end %>
 
       <div class="form-control mt-4">
-        <%= f.submit "ログイン", class: "btn bg-primary text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 w-full" %>
+        <%= f.submit "ログイン", class: "btn bg-primary text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 w-full", data: { action: "click->loading#show" } %>
       </div>
     <% end %>
 
     <!-- 新規登録 -->
     <div class="text-center mt-4">
-      <%= link_to "アカウント登録はこちら", new_registration_path(resource_name), class: "btn bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-6 shadow-md transition duration-200 w-full" %>
+      <%= link_to "アカウント登録はこちら", new_registration_path(resource_name), class: "btn bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-6 shadow-md transition duration-200 w-full", data: { action: "click->loading#show" } %>
     </div>
 
     <!-- パスワード再発行 -->
     <div class="text-center mt-4">
-      <%= link_to "パスワードをお忘れの方はこちら", new_password_path(resource_name), class: "text-sm text-gray-600 link link-hover hover:text-blue-500" %>
+      <%= link_to "パスワードをお忘れの方はこちら", new_password_path(resource_name), class: "text-sm text-gray-600 link link-hover hover:text-blue-500", data: { action: "click->loading#show" } %>
     </div>
   </div>
 </section>

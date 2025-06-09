@@ -5,8 +5,7 @@
               method: (@seichi_memo_form.seichi_memo && @seichi_memo_form.seichi_memo.persisted?) ?
                         :patch : :post,
               local: true,
-              class: "space-y-4",
-              data: { controller: "image-upload" } do |f| %>
+              class: "space-y-4" do |f| %>
 
   <div class="px-4 sm:px-6 lg:px-8">
     <!-- 🔹 投稿状態によるタイトル表示 -->
@@ -25,7 +24,7 @@
       </h2>
 
       <div class="flex items-center justify-center space-x-2">
-        <% ["巡礼記録", "聖地", "作品"].each do |label| %>
+        <% ["巡礼記録", "作品", "聖地"].each do |label| %>
           <div class="px-3 py-1 rounded-full bg-primary text-white text-xs font-semibold whitespace-nowrap"><%= label %></div>
           <div class="w-6 h-1 bg-primary"></div>
         <% end %>
@@ -96,18 +95,10 @@
       </div>
     </div>
 
-    <!-- 🔹 画像が表示されない場合の再読み込み案内 -->
-    <div id="image-check-container" class="flex flex-col items-center mt-6">
-      <p class="text-sm text-red-600 mb-2">画像が表示されていない場合は、再読み込みしてください。</p>
-      <button type="button" class="btn bg-primary text-white py-2 px-6 shadow-md" onclick="window.location.reload();">
-        確認画面を再読み込みする
-      </button>
-    </div>
-
     <!-- 🔹 ステップボタン -->
     <div class="flex justify-center mt-4 space-x-4">
-      <%= link_to "戻る", "javascript:history.back()", class: "btn bg-gray-300 text-black py-2 px-6 shadow-md" %>
-      <%= f.submit @seichi_memo_form.persisted? ? "更新する" : "投稿する", class: "btn bg-primary text-white py-2 px-6 shadow-md" %>
+      <%= link_to "戻る", "javascript:history.back()", class: "btn bg-gray-300 text-black py-2 px-6 shadow-md", data: { action: "click->loading#show" } %>
+      <%= f.submit @seichi_memo_form.persisted? ? "更新する" : "投稿する", class: "btn bg-primary text-white py-2 px-6 shadow-md", data: { action: "click->loading#show" } %>
     </div>
   </div>
 

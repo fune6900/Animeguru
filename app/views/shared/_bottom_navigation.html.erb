@@ -1,18 +1,18 @@
 <div class="btm-nav bg-primary text-white shadow-lg fixed bottom-0 left-0 w-full z-40">
   <!-- 左：聖地メモ検索 -->
-  <%= link_to seichi_memos_path, class: "flex flex-col items-center justify-center w-full py-2 transition duration-200 hover:bg-secondary hover:scale-105 active:scale-95" do %>
+  <%= link_to seichi_memos_path, class: "flex flex-col items-center justify-center w-full py-2 transition duration-200 hover:bg-secondary hover:scale-105 active:scale-95", data: { action: "click->loading#show" } do %>
     <i class="fas fa-search text-xl transition-transform duration-300 group-hover:rotate-6"></i>
     <span class="text-xs mt-1">聖地メモ検索</span>
   <% end %>
 
   <!-- 中央：聖地メモ作成 -->
-  <%= link_to new_seichi_memo_path, class: "btm-nav-item relative -top-4 bg-white text-primary rounded-full p-4 shadow-xl ring ring-white ring-offset-2 hover:ring-offset-4 hover:scale-110 active:scale-95 transition duration-300" do %>
+  <%= link_to new_seichi_memo_path, class: "btm-nav-item relative -top-4 bg-white text-primary rounded-full p-4 shadow-xl ring ring-white ring-offset-2 hover:ring-offset-4 hover:scale-110 active:scale-95 transition duration-300", data: { action: "click->loading#show" } do %>
     <i class="fas fa-plus-circle text-2xl"></i>
     <span class="text-xs mt-1">聖地メモ作成</span>
   <% end %>
 
   <!-- 右：マイページ -->
-  <%= link_to profile_path, class: "flex flex-col items-center justify-center w-full py-2 transition duration-200 hover:bg-secondary hover:scale-105 active:scale-95" do %>
+  <%= link_to profile_path, class: "flex flex-col items-center justify-center w-full py-2 transition duration-200 hover:bg-secondary hover:scale-105 active:scale-95", data: { action: "click->loading#show" } do %>
     <i class="fas fa-user text-xl transition-transform duration-300 group-hover:rotate-6"></i>
     <span class="text-xs mt-1">マイページ</span>
   <% end %>

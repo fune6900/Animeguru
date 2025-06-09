@@ -20,7 +20,7 @@
       </p>
 
       <% if @user == current_user %>
-        <%= link_to "プロフィール編集", edit_user_registration_path, class: "btn bg-primary text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 hover:scale-105 w-full sm:w-auto max-w-xs" %>
+        <%= link_to "プロフィール編集", edit_user_registration_path, class: "btn bg-primary text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 hover:scale-105 w-full sm:w-auto max-w-xs", data: { action: "click->loading#show" } %>
       <% end %>
     </div>
   </div>
