@@ -3,7 +3,7 @@
     <%= search_form_for @q, url: search_url, method: :get, data: { search_clear_target: "form" } do |f| %>
 
       <!-- 1段目：キーワード検索（全幅） -->
-      <div>
+      <div class="relative">
         <%= f.search_field :place_name_or_anime_title_cont,
               placeholder: "聖地名・作品タイトル",
               class: "w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition",
@@ -14,7 +14,7 @@
 
         <!-- オートコンプリート結果 -->
         <div data-auto-complete-target="results"
-             class="absolute z-10 w-full bg-white mt-1 rounded-md shadow-lg border border-gray-200 max-h-60 overflow-y-auto">
+             class="absolute z-10 w-full bg-white mt-1 rounded-md shadow-lg max-h-60 overflow-y-auto">
         </div>
       </div>
 

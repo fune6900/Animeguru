@@ -23,15 +23,15 @@
   </div>
 
   <!-- 🔹 聖地名 -->
-  <div class="mt-4">
+  <div class="mt-4 relative">
     <label class="block text-gray-700 font-semibold mb-1">聖地名 <span class="text-red-500">*</span></label>
     <%= f.text_field :place_name, class: "w-full p-3 border border-gray-300 rounded-md shadow-sm", placeholder: "聖地の名前を入力してください", data: { seichi_search_target: "seichi" } %>
-  </div>
 
-  <!-- 🔹 聖地名から住所と郵便番号を取得するボタン -->
-  <button type="button" class="btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 w-auto mt-2" data-action="click->seichi-search#search">
-    聖地名から住所と郵便番号を取得
-  </button>
+    <!-- 🔹 オートコンプリート候補表示エリア -->
+    <div data-seichi-search-target="suggestions"
+        class="absolute z-10 w-full bg-white mt-1 rounded-md shadow-lg max-h-60 overflow-y-auto">
+    </div>
+  </div>
 
   <!-- 🔹 住所 -->
   <div class="mt-2">
