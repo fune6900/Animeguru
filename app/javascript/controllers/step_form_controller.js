@@ -17,13 +17,13 @@ export default class extends Controller {
   const button = event.currentTarget
   const isFinalStep = button.dataset.stepFormFinalStep === "true"
 
-  this.saveData().then(() => {
-    const loadingController = this.application.getControllerForElementAndIdentifier(
-      document.querySelector("[data-controller='loading']"),
-      "loading"
-    )
-    loadingController?.show()
+  const loadingController = this.application.getControllerForElementAndIdentifier(
+    document.querySelector("[data-controller='loading']"),
+    "loading"
+  )
+  loadingController?.show()
 
+  this.saveData().then(() => {
     if (isFinalStep) {
       Turbo.visit("/seichi_memos/confirm")
     } else {
@@ -32,6 +32,8 @@ export default class extends Controller {
       this.clearErrors()
       loadingController?.hide()
     }
+  }).catch(() => {
+    loadingController?.hide()
   })
 }
 
