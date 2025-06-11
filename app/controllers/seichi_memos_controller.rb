@@ -25,8 +25,6 @@ class SeichiMemosController < ApplicationController
     session[:seichi_memo] ||= {}
     previous_data = session[:seichi_memo] || {}
 
-    Rails.logger.debug "[Aura] パラメータ: #{params[:seichi_memo_form].inspect}"
-
     if session[:seichi_memo]["id"].blank? && params[:id].present?
       session[:seichi_memo]["id"] = params[:id]
     end

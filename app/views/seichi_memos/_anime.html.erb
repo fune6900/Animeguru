@@ -23,15 +23,15 @@
   </div>
 
   <!-- 🔹 作品タイトル -->
-  <div class="mt-4">
+  <div class="mt-4 relative">
     <label class="block text-gray-700 font-semibold mb-1">作品タイトル <span class="text-red-500">*</span></label>
-    <%= f.text_field :anime_title, class: "w-full p-2 border rounded-md", placeholder: "作品のタイトルを入力してください", data: { anime_search_target: "title" } %>
-  </div>
+    <%= f.text_field :anime_title, class: "w-full p-2 border rounded-md", placeholder: "作品のタイトルを入力してください", data: { anime_search_target: "title", action: "input->anime-search#autocomplete" } %>
 
-  <!-- 🔹 作品タイトルから公式サイトを取得するボタン -->
-  <button type="button" class="btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 w-auto mt-2" data-action="click->anime-search#search">
-    作品タイトルから公式サイトを取得
-  </button>
+    <!-- 🔹 オートコンプリート候補表示エリア -->
+    <div data-anime-search-target="suggestions"
+      class="absolute z-50 mt-1 w-full bg-white rounded-md shadow-lg">
+    </div>
+  </div>
 
   <!-- 🔹 公式サイト -->
   <div class="mt-2">
@@ -56,7 +56,7 @@
       ジャンルを選択
     </label>
 
-    <!-- 🔸 選択中のジャンル表示 -->
+    <!-- 🔹 選択中のジャンル表示 -->
     <div class="mt-2">
       <p class="text-sm font-semibold text-gray-400 mb-1">選択中のジャンル：</p>
       <div data-genre-modal-target="display" class="flex flex-wrap gap-2"></div>

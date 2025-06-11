@@ -49,7 +49,7 @@ Rails.application.routes.draw do
   # APIエンドポイントのルーティングを追加
   namespace :api do
     get "seichi_search_suggestions", to: "seichi_search#suggestions"
-    get "anime_search", to: "anime_search#index"
+    get "anime_search_suggestions", to: "anime_search_suggestions#index"
   end
 
   # 利用規約とプライバシーポリシー

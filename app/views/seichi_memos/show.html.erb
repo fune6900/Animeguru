@@ -71,8 +71,7 @@
         <%= render "shared/x_share_button", review: @review %>
       </div>
     </div>
-
-    <!-- 作成ジャンル -->
+    <!-- 作品ジャンル -->
     <% if @seichi_memo.genre_tags.present? %>
       <div class="flex flex-wrap gap-2 mt-2">
         <% @seichi_memo.genre_tags.each do |genre_tag| %>

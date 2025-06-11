@@ -42,7 +42,6 @@ class SeichiMemoForm
         form.seichi_memo = SeichiMemo.find_by(id: session_data["id"])
       end
       form.assign_cache(session) if session_data.present?
-      Rails.logger.debug "[Aura] セッションから復元された anime_title: #{form.anime_title.inspect}"
     end
   end
 
