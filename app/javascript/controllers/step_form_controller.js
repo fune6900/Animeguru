@@ -1,6 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
 
-
 export default class extends Controller {
   // 🔹 ステップ要素とフォーム要素をターゲットとして指定
   static targets = ["step", "form"]
