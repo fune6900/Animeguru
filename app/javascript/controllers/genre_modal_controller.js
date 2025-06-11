@@ -20,7 +20,7 @@ export default class extends Controller {
     this.checkboxTargets.filter(cb => cb.checked).forEach(cb => {
       const name = cb.dataset.tagName
       const badge = document.createElement("span")
-      badge.className = "bg-primary text-white px-3 py-1 rounded-full text-sm mr-1 mb-1 inline-block"
+      badge.className = "bg-primary text-gray-700 px-3 py-1 rounded-full text-sm mr-1 mb-1 inline-block"
       badge.textContent = name
       this.displayTarget.appendChild(badge)
     })
