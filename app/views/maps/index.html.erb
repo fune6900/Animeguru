@@ -1,89 +1,151 @@
 <% content_for(:title, t('.title')) %>
 
-<%# 🔹 検索フォーム & 現在地ボタン（上部中央） %>
-<div id="search-container" class="fixed top-4 left-1/2 transform -translate-x-1/2 z-10 flex justify-center space-x-2 w-11/12 sm:w-2/3">
-  <input id="pac-input" class="controls input input-bordered input-sm w-full" type="text" placeholder="聖地名">
-  <button id="current-location-btn" class="btn btn-sm btn-primary text-white">現在地</button>
+<%# 🔹 検索フォーム＋現在地ボタンの表示（レスポンシブ対応、固定位置） %>
+<div id="search-container" class="fixed top-28 sm:top-4 left-1/2 transform -translate-x-1/2 z-10 flex justify-center space-x-2 w-4/5 sm:w-3/5 scale-90 sm:scale-100">
+  <input id="pac-input" class="controls input input-bordered input-sm flex-grow text-[16px] bg-white" type="text" placeholder="店名/地名">
+  <button id="current-location-btn" class="btn btn-sm btn-primary text-xs sm:text-sm text-white">現在地</button>
 </div>
 
-<%# 🔹 レイアウト：マップ + 聖地メモ一覧を横並び or 縦並び（レスポンシブ） %>
-<div class="flex flex-col md:flex-row h-[90vh] mt-20 px-4 gap-4">
-  <%# 🔹 地図表示領域 %>
-  <div id="map" class="w-full md:w-2/3 h-96 md:h-full rounded shadow"></div>
-
-  <%# 🔹 聖地メモ一覧（スクロール可） %>
-  <div class="w-full md:w-1/3 overflow-y-auto h-96 md:h-full bg-white rounded shadow p-4">
-    <h2 class="text-lg font-bold mb-2">聖地メモ一覧</h2>
-    <% @seichi_memos.each do |memo| %>
-      <div class="border-b py-2">
-        <p class="text-sm text-gray-600"><%= memo.anime.title %>（<%= memo.place.name %>）</p>
-        <p class="font-semibold"><%= memo.title %></p>
-        <p class="text-xs text-gray-500"><%= memo.place.address %></p>
-        <%= link_to '詳細を見る', seichi_memo_path(memo), class: "text-blue-600 hover:underline text-sm" %>
-      </div>
-    <% end %>
+<%# 🔹 Google Mapを描画するエリア（ローディング中はアニメーション表示） %>
+<div id="map-container" class="flex-grow w-full">
+  <div id="map" class="relative w-full h-full">
+    <div class="absolute inset-0 flex items-center justify-center">
+      <img src="<%= asset_path('apple-touch-icon.png') %>" class="w-6 h-6 animate-bounce-slow" alt="Loading">
+    </div>
   </div>
 </div>
 
-<%# 🔹 Google Maps の表示用スクリプト %>
+<%# 🔹 モーダル（クリックされたマーカーの詳細を表示） %>
+<dialog id="post_modal" class="modal">
+  <div class="modal-box bg-white">
+    <div class="post_show"></div>
+  </div>
+</dialog>
+
 <script>
-  let map;
+// 🔹 地図と現在地マーカーを扱う変数を宣言
+let map, marker;
 
-  function initMap() {
-    const center = { lat: 35.6803997, lng: 139.7690174 }; // 東京駅
+// 🔹 情報表示用DOMの取得（使用しない場合は削除OK）
+const latlngDis = document.getElementById('latlngDisplay');
+const addressDis = document.getElementById('addressDisplay');
 
-    map = new google.maps.Map(document.getElementById("map"), {
-      center: center,
-      zoom: 10,
-      gestureHandling: 'greedy',
+// 🔹 カスタムマーカーアイコン
+const iconImage = 'https://maps.google.com/mapfiles/ms/micons/yellow-dot.png';
+const currentLocation = 'https://www.google.com/mapfiles/marker.png';
+
+// 🔹 Google Maps APIが呼び出すコールバック関数（グローバルスコープに登録）
+window.initMap = function() {
+  // 🔹 地図の初期設定
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 12,
+    gestureHandling: 'greedy',
+    center: { lat: 35.6803997, lng: 139.7690174 } // 東京駅を初期中心に
+  });
+
+  // 🔹 検索ボックスの設定
+  const input = document.getElementById("pac-input");
+  const searchBox = new google.maps.places.SearchBox(input);
+
+  // 🔹 現在地ボタンのイベント登録
+  document.getElementById('current-location-btn').addEventListener('click', showCurrentLocation);
+
+  // 🔹 地図が移動した時に検索範囲を更新
+  map.addListener("bounds_changed", () => {
+    searchBox.setBounds(map.getBounds());
+  });
+
+  // 🔹 検索で表示されるマーカーを一時的に保存
+  let markers = [];
+
+  // 🔹 検索候補から場所が選ばれたときの処理
+  searchBox.addEventListener("places_changed", () => {
+    const places = searchBox.getPlaces();
+    if (places.length === 0) return;
+
+    // 🔹 既存マーカーを削除
+    markers.forEach((marker) => marker.setMap(null));
+    markers = [];
+
+    // 🔹 新しい候補に合わせて地図の範囲を更新
+    const bounds = new google.maps.LatLngBounds();
+    places.forEach((place) => {
+      if (!place.geometry || !place.geometry.location) return;
+      place.geometry.viewport ? bounds.union(place.geometry.viewport) : bounds.extend(place.geometry.location);
     });
+    map.fitBounds(bounds);
+  });
 
-    const input = document.getElementById("pac-input");
-    const searchBox = new google.maps.places.SearchBox(input);
+  // 🔹 初期状態で現在地を表示
+  showCurrentLocation();
 
-    // 🔹 検索範囲制限
-    map.addListener("bounds_changed", () => {
-      searchBox.setBounds(map.getBounds());
-    });
+  // 🔹 聖地メモに対応するマーカーピンを立てる
+  setMemoMarkers();
 
-    // 🔹 現在地ボタン
-    document.getElementById("current-location-btn").addEventListener("click", () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          const pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
-          map.setCenter(pos);
-          new google.maps.Marker({
-            position: pos,
-            map: map,
-            icon: 'https://www.google.com/mapfiles/marker.png'
-          });
-        }, () => {
-          alert("位置情報の取得に失敗しました。");
-        });
-      } else {
-        alert("お使いのブラウザでは位置情報が利用できません。");
-      }
-    });
+  // 🔹 モーダル外をクリックしたときに閉じる
+  document.addEventListener('click', function(event) {
+    const modal = document.getElementById('post_modal');
+    if (event.target === modal) {
+      modal.close();
+    }
+  });
+};
 
-    // 🔹 聖地メモのマーカーを表示
-    <% @seichi_memos.each do |memo| %>
-      new google.maps.Marker({
-        position: {
-          lat: <%= memo.place.latitude %>,
-          lng: <%= memo.place.longitude %>
-        },
+// 🔹 現在地を取得して地図を移動、ピンを表示
+function showCurrentLocation(){
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      const userLocation = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      map.setCenter(userLocation);
+
+      if (marker) marker.setMap(null);
+
+      marker = new google.maps.Marker({
+        position: userLocation,
         map: map,
-        title: "<%= j memo.title %>"
+        icon: currentLocation
       });
-    <% end %>
-  }
 
-  // 🔹 グローバル登録
-  window.initMap = initMap;
+      if (latlngDis) latlngDis.innerHTML = `Latitude: ${userLocation.lat}, Longitude: ${userLocation.lng}`;
+    }, function() {
+      alert('位置情報の取得に失敗しました。');
+    });
+  } else {
+    alert('お使いのブラウザでは地理位置情報の取得がサポートされていません。');
+  }
+}
+
+// 🔹 各聖地メモに対応するマーカーを地図に配置し、モーダルで詳細表示
+function setMemoMarkers() {
+  <% @seichi_memos.each do |memo| %>
+    (() => {
+      const marker = new google.maps.Marker({
+        position: { lat: <%= memo.place.latitude %>, lng: <%= memo.place.longitude %> },
+        map: map,
+        title: "<%= j memo.title %>",
+        icon: iconImage
+      });
+
+      marker.addListener('click', function() {
+        const modalContent = `
+          <div class='text-center'>
+            <div class='text-xs'><%= j t("enums.post.category.#{memo.category}") %></div>
+            <div class='text-lg font-semibold'><%= j memo.place.name %></div>
+            <p class='text-sm text-gray-600'><%= j memo.place.address %></p>
+            <p class='text-sm mt-2'><%= j memo.body.truncate(60) %></p>
+            <a href="<%= seichi_memo_path(memo) %>" class="text-blue-500 hover:underline mt-2 inline-block">詳細を見る</a>
+          </div>
+        `;
+        document.querySelector('.post_show').innerHTML = modalContent;
+        document.getElementById('post_modal').showModal();
+      });
+    })();
+  <% end %>
+}
 </script>
 
-<%# 🔹 Google Maps API 読み込み（APIキーは .env で管理） %>
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&libraries=places&callback=initMap" async defer></script>
+<%# 🔹Google Maps APIを読み込むスクリプトタグ（ENVからAPIキーを取得） %>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_PLACES_API_KEY'] %>&libraries=places&callback=initMap" async defer></script>
