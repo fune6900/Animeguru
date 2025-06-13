@@ -40,3 +40,6 @@ ja:
   columns:
     index:
       title: 聖地巡礼コラム
+  maps:
+    index:
+      title: マップ検索
