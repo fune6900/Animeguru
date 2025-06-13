@@ -8,12 +8,14 @@
     font-weight: 400;
     font-style: normal;
   }
-}
 
-@layer utilities {
   .font-kosugi {
-  font-family: "Kosugi", sans-serif;
-  font-weight: 400;
-  font-style: normal;
+    font-family: "Kosugi", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .h-map {
+    height: calc(100vh - 64px - 64px); /* ヘッダーとフッター分を引く */
   }
 }

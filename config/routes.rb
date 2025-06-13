@@ -36,8 +36,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :bookmarks, only: %i[create destroy]
-  resources :columns, only: %i[index]
+  resources :bookmarks, only: %i[create destroy] # ブックマークのルーティング
+  resources :columns, only: %i[index] # コラム一覧のルーティング
+  resources :maps, only: %i[index] # 地図表示用のルーティング
 
   # Health check ルート（アップタイムモニタリング用）
   get "up" => "rails/health#show", as: :rails_health_check

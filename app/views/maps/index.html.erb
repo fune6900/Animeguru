@@ -1,0 +1,185 @@
+<% content_for(:title, t('.title')) %>
+
+<!--🔹 検索フォーム＋現在地ボタンの表示 -->
+<div id="search-container" class="fixed top-28 sm:top-20 left-1/2 transform -translate-x-1/2 z-[50] bg-transparent px-4 py-2 rounded-md flex justify-center space-x-2 shadow-none w-11/12 sm:w-4/5 lg:w-2/5">
+  <input id="pac-input" class="input input-bordered input-sm flex-grow text-[16px] bg-white bg-opacity-100" type="text" placeholder="聖地名">
+  <button id="current-location-btn" class="btn btn-sm btn-primary text-xs sm:text-sm text-white shadow-md transition duration-200">現在地</button>
+</div>
+
+<%# 🔹 Google Mapを描画するエリア（ローディング中はアニメーション表示） %>
+<div id="map-container" class="relative overflow-hidden h-map w-full">
+  <div id="map" class="w-full h-full"></div>
+</div>
+
+<%# 🔹 モーダル（クリックされたマーカーの詳細を表示） %>
+<dialog id="post_modal" class="modal">
+  <div class="modal-box bg-white">
+    <div class="post_show"></div>
+  </div>
+</dialog>
+
+<script>
+// 🔹 地図と現在地マーカーを扱う変数を宣言
+let map, marker;
+
+// 🔹 情報表示用DOMの取得（使用しない場合は削除OK）
+const latlngDis = document.getElementById('latlngDisplay');
+const addressDis = document.getElementById('addressDisplay');
+
+// 🔹 カスタムマーカーアイコン
+const iconImage = 'https://maps.google.com/mapfiles/ms/micons/yellow-dot.png';
+const currentLocation = 'https://www.google.com/mapfiles/marker.png';
+
+// 🔹 Google Maps APIが呼び出すコールバック関数（グローバルスコープに登録）
+window.initMap = function() {
+  // 🔹 地図の初期設定
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 12,
+    gestureHandling: 'greedy',
+    center: { lat: 35.6803997, lng: 139.7690174 } // 東京駅を初期中心に
+  });
+
+  // 🔹 検索ボックスの設定
+  const input = document.getElementById("pac-input");
+  const searchBox = new google.maps.places.SearchBox(input);
+
+  // 🔹 現在地ボタンのイベント登録
+  document.getElementById('current-location-btn').addEventListener('click', showCurrentLocation);
+
+  // 🔹 地図が移動した時に検索範囲を更新
+  map.addListener("bounds_changed", () => {
+    searchBox.setBounds(map.getBounds());
+  });
+
+  // 🔹 検索で表示されるマーカーを一時的に保存
+  let markers = [];
+
+  // 🔹 検索候補から場所が選ばれたときの処理
+  searchBox.addListener("places_changed", () => {
+    const places = searchBox.getPlaces();
+    if (places.length === 0) return;
+
+    // 🔹 既存マーカーを削除
+    markers.forEach((marker) => marker.setMap(null));
+    markers = [];
+
+    // 🔹 新しい候補に合わせて地図の範囲を更新
+    const bounds = new google.maps.LatLngBounds();
+    places.forEach((place) => {
+      if (!place.geometry || !place.geometry.location) return;
+      place.geometry.viewport ? bounds.union(place.geometry.viewport) : bounds.extend(place.geometry.location);
+    });
+    map.fitBounds(bounds);
+  });
+
+  // 🔹 初期状態で現在地を表示
+  showCurrentLocation();
+
+  // 🔹 聖地メモに対応するマーカーピンを立てる
+  setMemoMarkers();
+
+  // 🔹 モーダル外をクリックしたときに閉じる
+  document.addEventListener('click', function(event) {
+    const modal = document.getElementById('post_modal');
+    if (event.target === modal) {
+      modal.close();
+    }
+  });
+};
+
+// 🔹 現在地を取得して地図を移動、ピンを表示
+function showCurrentLocation(){
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      const userLocation = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      map.setCenter(userLocation);
+
+      if (marker) marker.setMap(null);
+
+      marker = new google.maps.Marker({
+        position: userLocation,
+        map: map,
+        icon: currentLocation
+      });
+
+      if (latlngDis) latlngDis.innerHTML = `Latitude: ${userLocation.lat}, Longitude: ${userLocation.lng}`;
+    }, function() {
+      alert('位置情報の取得に失敗しました。');
+    });
+  } else {
+    alert('お使いのブラウザでは地理位置情報の取得がサポートされていません。');
+  }
+}
+
+// 🔹 各聖地メモに対応するマーカーを地図に配置し、モーダルで詳細表示
+function setMemoMarkers() {
+  <% @seichi_memos.each do |memo| %>
+    (() => {
+      const marker = new google.maps.Marker({
+        position: { lat: <%= memo.place.latitude || 0 %>, lng: <%= memo.place.longitude || 0 %> },
+        map: map,
+        title: <%= raw(json_escape(memo.title.to_json)) %>,
+        icon: iconImage
+      });
+
+      marker.addListener('click', function() {
+        const modalContent = `
+          <div class="bg-white/70 backdrop-blur-md p-2 rounded-lg flex flex-col">
+            <div class="h-60 flex items-center justify-center rounded-md overflow-hidden">
+              <img src="<%= memo.seichi_photo.present? ? memo.seichi_photo.url : SeichiPhotoUploader.new.default_url %>" alt="聖地画像" class="object-cover w-full h-full cursor-default transition">
+            </div>
+            <div class="flex flex-grow flex-col">
+              <div class="flex items-start mt-3 space-x-2 justify-start">
+                <h2 class="text-lg font-bold flex-grow"><%= j memo.title.truncate(25) %></h2>
+              </div>
+              <h3 class="font-bold"><%= j memo.anime.title %></h3>
+              <div class="flex flex-wrap gap-2 mt-2">
+                <% memo.genre_tags.each do |tag| %>
+                  <span class="bg-primary text-gray-700 text-xs font-medium px-2 py-0.5 rounded-full"><%= j tag.name %></span>
+                <% end %>
+              </div>
+              <p class="text-gray-600 line-clamp-3 mt-2"><%= j memo.body.truncate(100) %></p>
+            </div>
+            <div class="flex items-center justify-between mt-4 px-2">
+              <div class="flex items-center space-x-2">
+                <a href="<%= memo.user == current_user ? profile_path : user_path(memo.user) %>" data-action="click->loading#show">
+                  <img src="<%= memo.user.profile_image.url %>" alt="<%= j memo.user.username %>" class="w-8 h-8 rounded-full">
+                </a>
+                <div class="flex flex-col">
+                  <span class="text-gray-700 text-sm font-medium"><%= j memo.user.username %></span>
+                  <span class="text-xs text-gray-500"><%= memo.created_at.strftime("%Y年%m月%d日") %></span>
+                </div>
+              </div>
+              <div class="flex items-center gap-4">
+                <%= j render 'likes/like_buttons', seichi_memo: memo %>
+                <%= j render 'bookmarks/bookmark_buttons', seichi_memo: memo %>
+              </div>
+            </div>
+
+            <div class="mt-4 flex flex-col sm:flex-row justify-center gap-4">
+              <a href="/seichi_memos/<%= memo.id %>" class="btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 text-center w-full sm:w-auto">
+                <i class="fa-solid fa-circle-info mr-1"></i>
+                <span>詳細ページへ</span>
+              </a>
+              <a href="https://www.google.com/maps/search/?api=1&query=<%= CGI.escape(memo.place.name.to_s + ' ' + memo.place.address.to_s) %>" 
+                target="_blank"
+                class="btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 text-center w-full sm:w-auto">
+                <i class="fa-solid fa-map-location-dot mr-1"></i>
+                <span>ここへ行く</span>
+              </a>
+            </div>
+          </div>
+        `;
+        document.querySelector('.post_show').innerHTML = modalContent;
+        document.getElementById('post_modal').showModal();
+      });
+    })();
+  <% end %>
+}
+</script>
+
+<%# 🔹Google Maps APIを読み込むスクリプトタグ（ENVからAPIキーを取得） %>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_PLACES_API_KEY'] %>&libraries=places&callback=initMap" async defer></script>
