@@ -159,14 +159,14 @@ function setMemoMarkers() {
               </div>
             </div>
 
-            <div class="mt-4 flex justify-center gap-4">
-              <a href="/seichi_memos/<%= memo.id %>" class="btn bg-primary text-white py-2 px-6 shadow-md transition duration-200">
+            <div class="mt-4 flex flex-col sm:flex-row justify-center gap-4">
+              <a href="/seichi_memos/<%= memo.id %>" class="btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 text-center w-full sm:w-auto">
                 <i class="fa-solid fa-circle-info mr-1"></i>
                 <span>詳細ページへ</span>
               </a>
               <a href="https://www.google.com/maps/search/?api=1&query=<%= CGI.escape(memo.place.name.to_s + ' ' + memo.place.address.to_s) %>" 
                 target="_blank"
-                class="btn bg-primary text-white py-2 px-6 shadow-md transition duration-200">
+                class="btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 text-center w-full sm:w-auto">
                 <i class="fa-solid fa-map-location-dot mr-1"></i>
                 <span>ここへ行く</span>
               </a>
