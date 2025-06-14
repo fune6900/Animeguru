@@ -1,17 +1,17 @@
 <% content_for(:title, t('.title')) %>
 
 <!--🔹 検索フォーム＋現在地ボタンの表示 -->
-<div id="search-container" class="fixed top-28 sm:top-20 left-1/2 transform -translate-x-1/2 z-[50] bg-transparent px-4 py-2 rounded-md flex justify-center space-x-2 shadow-none w-11/12 sm:w-4/5 lg:w-2/5">
+<div id="search-container" class="fixed top-28 sm:top-20 left-1/2 transform -translate-x-1/2 z-[50] bg-transparent px-4 py-2 rounded-md flex justify-center space-x-2 w-4/5 sm:w-3/5 scale-90 sm:scale-100">
   <input id="pac-input" class="input input-bordered input-sm flex-grow text-[16px] bg-white bg-opacity-100" type="text" placeholder="聖地名">
   <button id="current-location-btn" class="btn btn-sm btn-primary text-xs sm:text-sm text-white shadow-md transition duration-200">現在地</button>
 </div>
 
-<%# 🔹 Google Mapを描画するエリア（ローディング中はアニメーション表示） %>
+<!-- 🔹 Google Mapを描画するエリア -->
 <div id="map-container" class="relative overflow-hidden h-map w-full">
   <div id="map" class="w-full h-full"></div>
 </div>
 
-<%# 🔹 モーダル（クリックされたマーカーの詳細を表示） %>
+<!-- 🔹 モーダル（クリックされたマーカーの詳細を表示） -->
 <dialog id="post_modal" class="modal">
   <div class="modal-box bg-white">
     <div class="post_show"></div>
@@ -191,5 +191,5 @@ function setMemoMarkers() {
 }
 </script>
 
-<%# 🔹Google Maps APIを読み込むスクリプトタグ（ENVからAPIキーを取得） %>
+<!-- 🔹Google Maps APIを読み込むスクリプトタグ（ENVからAPIキーを取得） -->
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_PLACES_API_KEY'] %>&libraries=places&callback=initMap" async defer></script>
