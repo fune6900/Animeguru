@@ -128,9 +128,12 @@ function setMemoMarkers() {
       marker.addListener('click', function() {
         const modalContent = `
           <div class="bg-white/70 backdrop-blur-md p-2 rounded-lg flex flex-col">
+            <!-- 聖地の写真 -->
             <div class="h-60 flex items-center justify-center rounded-md overflow-hidden">
-              <img src="<%= memo.seichi_photo.present? ? memo.seichi_photo.url : SeichiPhotoUploader.new.default_url %>" alt="聖地画像" class="object-cover w-full h-full cursor-default transition">
+              <%= image_tag (memo.seichi_photo.present? ? memo.seichi_photo.url : SeichiPhotoUploader.new.default_url), alt:"聖地の写真", class:"object-cover w-full h-full cursor-default transition" %>
             </div>
+
+            <!-- コンテンツ -->
             <div class="flex flex-grow flex-col">
               <div class="flex items-start mt-3 space-x-2 justify-start">
                 <h2 class="text-lg font-bold flex-grow"><%= j memo.title.truncate(25) %></h2>
@@ -143,33 +146,40 @@ function setMemoMarkers() {
               </div>
               <p class="text-gray-600 line-clamp-3 mt-2"><%= j memo.body.truncate(100) %></p>
             </div>
+
+            <!-- ユーザー情報 -->
             <div class="flex items-center justify-between mt-4 px-2">
               <div class="flex items-center space-x-2">
-                <a href="<%= memo.user == current_user ? profile_path : user_path(memo.user) %>" data-action="click->loading#show">
-                  <img src="<%= memo.user.profile_image.url %>" alt="<%= j memo.user.username %>" class="w-8 h-8 rounded-full">
-                </a>
+                <%= link_to (memo.user == current_user ? profile_path : user_path(memo.user)), data: { action: "click->loading#show" } do %>
+                  <%= image_tag memo.user.profile_image.url, alt: j(memo.user.username), class: "w-8 h-8 rounded-full" %>
+                <% end %>
                 <div class="flex flex-col">
                   <span class="text-gray-700 text-sm font-medium"><%= j memo.user.username %></span>
                   <span class="text-xs text-gray-500"><%= memo.created_at.strftime("%Y年%m月%d日") %></span>
                 </div>
               </div>
+
+              <!-- アクションボタン(ブックマーク、いいね) -->
               <div class="flex items-center gap-4">
                 <%= j render 'likes/like_buttons', seichi_memo: memo %>
                 <%= j render 'bookmarks/bookmark_buttons', seichi_memo: memo %>
               </div>
             </div>
 
+            <!-- 詳細ページと地図へ行くボタン -->
             <div class="mt-4 flex flex-col sm:flex-row justify-center gap-4">
-              <a href="/seichi_memos/<%= memo.id %>" class="btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 text-center w-full sm:w-auto">
+              <%= link_to seichi_memo_path(memo),
+                          class: "btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 text-center w-full sm:w-auto",
+                          data: { action: "click->loading#show" } do %>
                 <i class="fa-solid fa-circle-info mr-1"></i>
                 <span>詳細ページへ</span>
-              </a>
-              <a href="https://www.google.com/maps/search/?api=1&query=<%= CGI.escape(memo.place.name.to_s + ' ' + memo.place.address.to_s) %>" 
-                target="_blank"
-                class="btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 text-center w-full sm:w-auto">
+              <% end %>
+              <%= link_to "https://www.google.com/maps/search/?api=1&query=#{CGI.escape(memo.place.name.to_s + ' ' + memo.place.address.to_s)}",
+                          target: "_blank",
+                          class: "btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 text-center w-full sm:w-auto" do %>
                 <i class="fa-solid fa-map-location-dot mr-1"></i>
                 <span>ここへ行く</span>
-              </a>
+              <% end %>
             </div>
           </div>
         `;
