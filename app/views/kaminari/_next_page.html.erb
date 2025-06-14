@@ -7,5 +7,12 @@
     remote:        data-remote
 -%>
 <span class="next">
-  <%= link_to_unless current_page.last?, t('views.pagination.next').html_safe, url, class: "join-item btn bg-primary text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 max-w-xs", rel: 'next', remote: remote, data: { action: "click->loading#show" } %>
+  <%= link_to_unless current_page.last?, t('views.pagination.next').html_safe, url,
+    class: "join-item btn btn-sm bg-primary text-white font-semibold px-4 py-2 rounded-full hover:bg-primary/80 hover:shadow-lg transition-all duration-300 ease-in-out inline-flex items-center space-x-2",
+    rel: 'next',
+    remote: remote,
+    data: { action: "click->loading#show" } do %>
+      <span><%= t('views.pagination.next') %></span>
+      <i class="fa-solid fa-arrow-right"></i>
+  <% end %>
 </span>

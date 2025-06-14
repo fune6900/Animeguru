@@ -5,7 +5,7 @@
               method: (@seichi_memo_form.seichi_memo && @seichi_memo_form.seichi_memo.persisted?) ?
                         :patch : :post,
               local: true,
-              class: "space-y-4",
+              class: "space-y-4 mb-24",
               data: { controller: "step-form anime-search seichi-search genre-modal image-upload", step_form_target: "form" } do |f| %>
 
   <%# 編集モード時に投稿IDを保持するためのhiddenフィールド。Stimulus経由で送信されるFormDataに含めるため必要 %>

@@ -6,7 +6,7 @@
 <% content_for :og_title, @seichi_memo.title %>
 <% content_for :og_description, truncate(@seichi_memo.body, length: 100) %>
 
-<div class="px-3 sm:px-6 md:px-8 my-6">
+<div class="px-3 sm:px-6 md:pt-8 mt-4 mb-24">
   <div class="max-w-3xl mx-auto px-4 sm:px-6 md:px-8 py-6 space-y-6 bg-white shadow-lg rounded-lg">
     <!-- タイトル -->
     <div class="flex justify-start items-center">
@@ -14,7 +14,7 @@
     </div>
 
     <!-- ユーザー情報エリア -->
-    <div class="flex items-center justify-between px-2 py-2 mt-4">
+    <div class="flex items-center justify-between py-2 mt-4">
       <!-- 左：画像＋ユーザー名＋投稿日 -->
       <div class="flex items-center space-x-2">
         <%= link_to (@seichi_memo.user == current_user ? profile_path : user_path(@seichi_memo.user)), data: { action: "click->loading#show" } do %>
