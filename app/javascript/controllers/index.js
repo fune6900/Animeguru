@@ -22,6 +22,9 @@ application.register("image-upload", ImageUploadController)
 import LoadingController from "./loading_controller"
 application.register("loading", LoadingController)
 
+import PreviewController from "./preview_controller"
+application.register("preview", PreviewController)
+
 import SearchClearController from "./search_clear_controller"
 application.register("search-clear", SearchClearController)
 
