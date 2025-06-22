@@ -2,19 +2,25 @@
 
 <!-- ページ全体の外枠に余白追加 -->
 <section class="px-4 py-12 sm:px-6 lg:px-8">
-  <h2 class="text-2xl sm:text-3xl font-bold text-center mb-6 text-gray-800">パスワード再設定</h2>
-
   <!-- エラーメッセージ -->
   <%= render "shared/error_messages", resource: resource %>
 
   <div class="max-w-md w-full mx-auto bg-white p-4 sm:p-6 rounded-lg shadow-md">
     <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "space-y-4" }) do |f| %>
+      <!-- アプリロゴ -->
+      <p class="text-xl font-rampart text-center mt-2 mb-6">アニめぐる</p>
+
+      <!-- パスワード再設定「大文字」 -->
+      <h2 class="ext-xl sm:text-2xl font-bold text-center mb-6">パスワード再設定</h2>
 
       <!-- メールアドレス -->
       <div>
-        <label class="block text-gray-700 font-semibold mb-1">メールアドレス <span class="text-red-500">*</span></label>
+        <label class="block text-gray-700 font-semibold mt-6 mb-1">
+          <i class="fas fa-envelope"></i>
+          メールアドレス <span class="text-red-500">*</span>
+        </label>
         <%= f.email_field :email,
-              class: "w-full p-3 border border-gray-300 rounded-md shadow-sm",
+              class: "w-full p-3 border border-gray-300 rounded-md shadow-sm mb-4",
               placeholder: "メールアドレスを入力してください",
               autofocus: true,
               autocomplete: "email" %>
@@ -22,15 +28,23 @@
 
       <!-- メール送信ボタン -->
       <div class="mt-6">
-        <%= f.submit "確認メールを送信", class: "btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 w-full", data: { action: "click->loading#show" } %>
+        <%= button_tag type: "submit",
+            class: "btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 w-full flex items-center justify-center gap-2",
+            data: { action: "click->loading#show" } do %>
+          <i class="fas fa-paper-plane"></i>
+          確認メールを送信
+        <% end %>
       </div>
     <% end %>
 
     <!-- ログインページへのリンク -->
     <div class="text-center mt-4">
-      <%= link_to "ログインページへ戻る", new_session_path(resource_name),
-            class: "btn bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-6 shadow-md transition duration-200 w-full",
-            data: { action: "click->loading#show" } %>
+      <%= link_to new_session_path(resource_name),
+          class: "btn bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-6 shadow-md transition duration-200 w-full flex items-center justify-center gap-2",
+          data: { action: "click->loading#show" } do %>
+        <i class="fas fa-arrow-left"></i>
+        ログインページへ戻る
+      <% end %>
     </div>
   </div>
 </section>
