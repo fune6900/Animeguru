@@ -1,19 +1,29 @@
-<div class="bg-white/70 backdrop-blur-m p-4 rounded-lg shadow-lg flex flex-col">
+<div class="bg-white/70 backdrop-blur-m p-4 rounded-lg shadow-lg flex flex-col group">
   <!-- 画像（クリックで詳細画面へ遷移） -->
-  <div class="h-60 flex items-center justify-center rounded-md overflow-hidden">
+  <div class="relative h-60 flex items-center justify-center rounded-md overflow-hidden">
+    <% if seichi_memo.user == current_user %>
+      <span class="absolute top-2 right-2 bg-primary text-white text-xs font-bold py-1 px-2 rounded shadow">
+        あなたの投稿
+      </span>
+    <% end %>
     <%= link_to seichi_memo_path(seichi_memo), data: { action: "click->loading#show" } do %>
-      <%= image_tag (seichi_memo.seichi_photo.present? ? seichi_memo.seichi_photo.url : SeichiPhotoUploader.new.default_url),
-          alt: "聖地画像",
-          class: "object-cover w-full h-full cursor-pointer transition hover:opacity-80" %>
+      <%= image_tag(
+            seichi_memo.seichi_photo.present? ? seichi_memo.seichi_photo.url : SeichiPhotoUploader.new.default_url,
+            alt: "聖地画像",
+            class: "object-cover w-full h-full cursor-pointer transition hover:opacity-80"
+          ) %>
     <% end %>
   </div>
 
   <!-- コンテンツ -->
   <div class="flex flex-grow flex-col">
     <div class="flex items-start mt-3 space-x-2 justify-start">
-      <h2 class="text-lg font-bold flex-grow"><%= seichi_memo.title.truncate(25) %></h2>
+      <!-- 聖地メモのタイトル -->
+      <h2 class="text-lg font-bold flex-grow group-hover:underline transition duration-150"><%= seichi_memo.title.truncate(25) %></h2>
     </div>
-    <h3 class="font-bold"><%= seichi_memo.anime.title %></h3>
+
+    <!-- 作品タイトル -->
+    <h3 class="font-bold group-hover:underline transition duration-150"><%= seichi_memo.anime.title %></h3>
 
     <!-- 作品ジャンル -->
     <% if seichi_memo.genre_tags.present? %>
@@ -36,7 +46,8 @@
       </div>
     <% end %>
 
-    <p class="text-gray-600 line-clamp-3 mt-2"><%= seichi_memo.body.truncate(100) %></p>
+    <!-- 聖地メモの本文 -->
+    <p class="text-gray-600 line-clamp-3 mt-2 group-hover:underline transition duration-150"><%= seichi_memo.body.truncate(100) %></p>
   </div>
 
   <!-- ユーザー情報 -->
