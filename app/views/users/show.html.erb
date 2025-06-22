@@ -20,7 +20,17 @@
       </p>
 
       <% if @user == current_user %>
-        <%= link_to "プロフィール編集", edit_user_registration_path, class: "btn bg-primary text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 hover:scale-105 w-full sm:w-auto max-w-xs", data: { action: "click->loading#show" } %>
+        <div class="flex flex-col sm:flex-row sm:space-x-4 w-full sm:w-auto justify-center items-center gap-2 sm:gap-0">
+          <%= link_to edit_user_registration_path, class: "btn bg-primary text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 hover:scale-105 w-full sm:w-auto flex items-center justify-center gap-2", data: { action: "click->loading#show" } do %>
+            <i class="fas fa-user-cog"></i>
+            プロフィール編集
+          <% end %>
+
+          <%= button_to destroy_user_session_path, method: :delete, class: "btn bg-red-500 text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 hover:scale-105 w-full sm:w-auto flex items-center justify-center gap-2", data: { action: "click->loading#show" } do %>
+            <i class="fas fa-sign-out-alt"></i>
+            ログアウト
+          <% end %>
+        </div>
       <% end %>
     </div>
   </div>
