@@ -19,18 +19,12 @@
           <i class="fas fa-envelope"></i>
           メールアドレス <span class="text-red-500">*</span>
         </label>
-        <%= f.email_field :email,
-              class: "w-full p-3 border border-gray-300 rounded-md shadow-sm mb-4",
-              placeholder: "メールアドレスを入力してください",
-              autofocus: true,
-              autocomplete: "email" %>
+        <%= f.email_field :email, class: "w-full p-3 border border-gray-300 rounded-md shadow-sm mb-4", placeholder: "メールアドレスを入力してください", autofocus: true, autocomplete: "email" %>
       </div>
 
       <!-- メール送信ボタン -->
       <div class="mt-6">
-        <%= button_tag type: "submit",
-            class: "btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 w-full flex items-center justify-center gap-2",
-            data: { action: "click->loading#show" } do %>
+        <%= button_tag type: "submit", class: "btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 w-full flex items-center justify-center gap-2", data: { action: "click->loading#show" } do %>
           <i class="fas fa-paper-plane"></i>
           確認メールを送信
         <% end %>
@@ -39,9 +33,7 @@
 
     <!-- ログインページへのリンク -->
     <div class="text-center mt-4">
-      <%= link_to new_session_path(resource_name),
-          class: "btn bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-6 shadow-md transition duration-200 w-full flex items-center justify-center gap-2",
-          data: { action: "click->loading#show" } do %>
+      <%= link_to new_session_path(resource_name), class: "btn bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-6 shadow-md transition duration-200 w-full flex items-center justify-center gap-2", data: { action: "click->loading#show" } do %>
         <i class="fas fa-arrow-left"></i>
         ログインページへ戻る
       <% end %>
