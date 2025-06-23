@@ -24,31 +24,43 @@
 
   <!-- 🔹 聖地メモのタイトル -->
   <div class="mt-4">
-    <label class="block text-gray-700 font-semibold mb-1">タイトル <span class="text-red-500">*</span></label>
+    <label class="block text-gray-700 font-semibold mb-1">
+      <i class="fas fa-book text-primary mr-1"></i> タイトル <span class="text-red-500">*</span>
+    </label>
     <%= f.text_field :title, class: "w-full p-3 border border-gray-300 rounded-md shadow-sm", placeholder: "巡礼記録のタイトルを入力してください" %>
+    <p class="text-gray-500 text-sm mt-1">（30文字以内）</p>
   </div>
 
   <!-- 🔹メモ -->
   <div class="mt-2">
-    <label class="block text-gray-700 font-semibold mb-1">メモ <span class="text-red-500">*</span></label>
+    <label class="block text-gray-700 font-semibold mb-1">
+      <i class="fas fa-pen text-primary mr-1"></i> メモ <span class="text-red-500">*</span>
+    </label>
     <%= f.text_area :body, class: "w-full p-3 border border-gray-300 rounded-md shadow-sm", placeholder: "シーンの解説や撮影スポットの詳細、ベストな訪問時間など" %>
-  </div>
+    <p class="text-gray-500 text-sm mt-1">（500文字以内）</p>
+    </div>
 
   <!-- 🔹 画像アップロード -->
   <div class="mt-4" data-controller="image-upload" data-image-upload-type-value="seichi_photo">
-    <label class="block text-gray-700 font-semibold mb-1">聖地の写真</label>
+    <label class="block text-gray-700 font-semibold mb-1">
+      <i class="fas fa-image text-primary mr-1"></i> 聖地の写真
+    </label>
     <%= f.file_field :seichi_photo, class: "btn w-full p-2 border cursor-pointer shadow-sm", data: { action: "change->image-upload#upload", image_upload_target: "input" } %>
     <%= f.hidden_field :seichi_photo_cache, data: { image_upload_target: "cacheField" } %>
   </div>
 
   <div class="mt-4" data-controller="image-upload" data-image-upload-type-value="scene_image">
-    <label class="block text-gray-700 font-semibold mb-1">聖地が登場したシーン画像</label>
+    <lavel class="block text-gray-700 font-semibold mb-1">
+      <i class="fas fa-image text-primary mr-1"></i> 聖地が登場したシーン画像
+    </label>
     <%= f.file_field :scene_image, class: "btn w-full p-2 border cursor-pointer shadow-sm", data: { action: "change->image-upload#upload", image_upload_target: "input" } %>
     <%= f.hidden_field :scene_image_cache, data: { image_upload_target: "cacheField" } %>
   </div>
 
   <!-- 🔹 ステップボタン -->
   <div class="flex justify-center mt-4">
-    <button type="button" class="btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 w-auto mt-2" data-action="click->step-form#next">次のステップへ</button>
+    <button type="button" class="btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 w-auto mt-2" data-action="click->step-form#next">
+      次のステップへ <i class="fas fa-arrow-right ml-2"></i>
+    </button>
   </div>
 </div>

@@ -22,7 +22,7 @@ class SeichiMemoForm
 
   # 🔹 バリデーション（ステップごとに適用）
   validates :title, presence: true, length: { maximum: 30 }, if: -> { current_step == "memo" }
-  validates :body, presence: true, length: { maximum: 1000 }, if: -> { current_step == "memo" }
+  validates :body, presence: true, length: { maximum: 500 }, if: -> { current_step == "memo" }
   validates :anime_title, presence: true, length: { maximum: 100 }, if: -> { current_step == "anime" }
   validates :place_name, presence: true, length: { maximum: 100 }, if: -> { current_step == "place" }
   validates :anime_official_site_url, format: { with: URI::DEFAULT_PARSER.make_regexp, message: "は正しいURL形式で入力してください" }, allow_blank: true, if: -> { current_step == "anime" }

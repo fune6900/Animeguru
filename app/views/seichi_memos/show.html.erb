@@ -10,7 +10,7 @@
   <div class="max-w-3xl mx-auto px-4 sm:px-6 md:px-8 py-6 space-y-6 bg-white shadow-lg rounded-lg">
     <!-- タイトル -->
     <div class="flex justify-start items-center">
-      <h1 class="text-2xl font-bold"><%= @seichi_memo.title %></h1>
+      <h1 class="text-2xl font-bold border-l-4 border-primary pl-4"><%= @seichi_memo.title %></h1>
     </div>
 
     <!-- ユーザー情報エリア -->
@@ -172,7 +172,10 @@
         <span>ここへ行く</span>
       <% end %>
 
-      <%= link_to "みんなの投稿に戻る", seichi_memos_path, class: "btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 w-full max-w-xs", data: { action: "click->loading#show" } %>
+      <%= link_to seichi_memos_path, class: "btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 w-full max-w-xs flex items-center justify-center gap-2", data: { action: "click->loading#show" } do %>
+        <i class="fas fa-arrow-left"></i>
+        <span>聖地メモ検索に戻る</span>
+      <% end %>
     </div>
   </div>
 </div>

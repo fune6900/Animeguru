@@ -9,7 +9,7 @@ module ApplicationHelper
   def default_meta_tags
     {
       site: "アニめぐる",
-      title: "聖地巡礼情報共有プラットフォーム",
+      title: "アニめぐる",
       reverse: true,
       charset: "utf-8",
       description: "あなたの足で紡ぐ、作品と現実の交差点。アニめぐるは、アニメファン向けの聖地情報共有プラットフォームです。聖地巡礼の思い出を聖地メモとして共有しよう。",

@@ -20,14 +20,24 @@
       </p>
 
       <% if @user == current_user %>
-        <%= link_to "プロフィール編集", edit_user_registration_path, class: "btn bg-primary text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 hover:scale-105 w-full sm:w-auto max-w-xs", data: { action: "click->loading#show" } %>
+        <div class="flex flex-col sm:flex-row sm:space-x-4 w-full sm:w-auto justify-center items-center gap-2 sm:gap-0">
+          <%= link_to edit_user_registration_path, class: "btn bg-primary text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-200 hover:scale-105 flex items-center justify-center gap-2", data: { action: "click->loading#show" } do %>
+            <i class="fas fa-user-cog"></i>
+            プロフィール編集
+          <% end %>
+
+          <%= button_to destroy_user_session_path, method: :delete, class: "btn bg-red-500 text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-200 hover:scale-105 w-full sm:w-auto flex items-center justify-center gap-2", data: { action: "click->loading#show" } do %>
+            <i class="fas fa-sign-out-alt"></i>
+            ログアウト
+          <% end %>
+        </div>
       <% end %>
     </div>
   </div>
 
   <!-- 🔹 聖地メモ一覧 -->
   <div class="max-w-5xl w-full mx-auto bg-white shadow-xl rounded-2xl p-6 sm:p-8">
-    <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-6 border-b pb-2 flex items-center justify-between">
+    <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-6 border-b pb-2 border-l-4 border-primary pl-4 flex items-center justify-between">
       <span>過去の聖地メモ</span>
       <span class="text-sm sm:text-base text-gray-500">（<%= @seichi_memos.total_count %>件）</span>
     </h3>

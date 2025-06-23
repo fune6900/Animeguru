@@ -5,6 +5,11 @@
 
 <div class="mb-24">
   <div <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+    <!-- ブックマーク件数表示 -->
+    <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-6 border-b pb-2 border-l-4 border-primary pl-4 flex items-center justify-between">
+      <span>ブックマーク済み</span>
+      <span class="text-sm sm:text-base text-gray-500">（<%= @bookmark_seichi_memos.total_count %>件）</span>
+    </h3>
     <% if @bookmark_seichi_memos.any? %>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         <% @bookmark_seichi_memos.each do |seichi_memo| %>
