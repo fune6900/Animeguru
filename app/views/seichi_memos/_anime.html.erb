@@ -24,8 +24,11 @@
 
   <!-- 🔹 作品タイトル -->
   <div class="mt-4 relative">
-    <label class="block text-gray-700 font-semibold mb-1">作品タイトル <span class="text-red-500">*</span></label>
+    <label class="block text-gray-700 font-semibold mb-1">
+      <i class="fas fa-film text-primary mr-1"></i> 作品タイトル <span class="text-red-500">*</span>
+    </label>
     <%= f.text_field :anime_title, class: "w-full p-2 border rounded-md", placeholder: "作品のタイトルを入力してください", data: { anime_search_target: "title", action: "input->anime-search#autocomplete" } %>
+    <p class="text-gray-500 text-sm mt-1">（100文字以内）</p>
 
     <!-- 🔹 オートコンプリート候補表示エリア -->
     <div data-anime-search-target="suggestions"
@@ -35,20 +38,26 @@
 
   <!-- 🔹 公式サイト -->
   <div class="mt-2">
-    <label class="block text-gray-700 font-semibold mb-1">公式サイト</label>
+    <label class="block text-gray-700 font-semibold mb-1">
+      <i class="fas fa-link text-primary mr-1"></i> 公式サイト
+    </label>
     <%= f.text_field :anime_official_site_url, class: "w-full p-2 border rounded-md", placeholder: "例: https://www.example-anime.jp/", data: { anime_search_target: "site" } %>
   </div>
 
   <!-- 🔹 作品イメージ -->
   <div class="mt-4" data-controller="image-upload" data-image-upload-type-value="image_url">
-    <label class="block text-gray-700 font-semibold mb-1">作品イメージ</label>
+    <label class="block text-gray-700 font-semibold mb-1">
+      <i class="fas fa-image text-primary mr-1"></i> 作品イメージ
+    </label>
     <%= f.file_field :image_url, class: "btn w-full p-2 border cursor-pointer shadow-sm", data: { action: "change->image-upload#upload", image_upload_target: "input" } %>
     <%= f.hidden_field :image_url_cache, data: { image_upload_target: "cacheField" } %>
   </div>
 
   <!-- 🔹 作品ジャンル -->
   <div data-controller="genre-modal" class="mt-4">
-    <label class="block text-gray-700 font-semibold mb-1">作品ジャンル</label>
+    <label class="block text-gray-700 font-semibold mb-1">
+      <i class="fas fa-tags text-primary mr-1"></i> 作品ジャンル
+    </label>
 
     <!-- トリガー -->
     <input type="checkbox" id="genre-modal-toggle" class="hidden peer" />
@@ -95,7 +104,11 @@
 
   <!-- 🔹 ステップボタン -->
   <div class="flex justify-center mt-6 space-x-4">
-    <button type="button" class="btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 w-auto mt-2" data-action="click->step-form#prev">前のステップへ</button>
-    <button type="button" class="btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 w-auto mt-2" data-action="click->step-form#next">次のステップへ</button>
+    <button type="button" class="btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 w-auto mt-2" data-action="click->step-form#prev">
+      <i class="fas fa-arrow-left mr-2"></i> 前のステップへ
+    </button>
+    <button type="button" class="btn bg-primary text-white py-2 px-6 shadow-md transition duration-200 w-auto mt-2" data-action="click->step-form#next">
+      次のステップへ <i class="fas fa-arrow-right ml-2"></i>
+    </button>
   </div>
 </div>

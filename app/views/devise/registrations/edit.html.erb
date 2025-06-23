@@ -16,7 +16,7 @@
       <!-- プロフィール画像アップロード -->
       <div class="mb-6">
         <label class="block text-gray-700 font-semibold mb-1">
-          <i class="fas fa-camera mr-1"></i>
+          <i class="fas fa-image mr-1"></i>
           プロフィール画像
         </label>
         <%= f.file_field :profile_image, class: "btn w-full p-2 border border-gray-300 rounded-md cursor-pointer shadow-sm",  data: { action: "change->preview#show", preview_target: "input" } %>
@@ -38,7 +38,6 @@
           メールアドレス <span class="text-red-500">*</span>
         </label>
         <%= f.email_field :email, class: "w-full p-3 border border-gray-300 rounded-md shadow-sm", placeholder: "メールアドレスを入力してください" %>
-        <p class="text-gray-500 text-sm mt-1">（6文字以上）</p>
       </div>
 
       <!-- 自己紹介 -->
@@ -48,7 +47,7 @@
           ひとこと
         </label>
         <%= f.text_area :introduction, rows: 4, class: "w-full p-3 border border-gray-300 rounded-md shadow-sm", placeholder: "好きなアニメや作品に対する熱い思いなど！" %>
-        <p class="text-gray-500 text-sm mt-1">（500文字以上）</p>
+        <p class="text-gray-500 text-sm mt-1">（500文字以内）</p>
         </div>
 
       <div class="mb-6">
@@ -57,7 +56,7 @@
           好きなアニメ作品
         </label>
         <%= f.text_field :favorite_anime, class: "w-full p-3 border border-gray-300 rounded-md shadow-sm", placeholder: "例: ぼっち・ざ・ろっく！など" %>
-        <p class="text-gray-500 text-sm mt-1">（50文字以上）</p>
+        <p class="text-gray-500 text-sm mt-1">（50文字以内）</p>
       </div>
 
       <div class="flex flex-col items-center space-y-2 mt-8">
