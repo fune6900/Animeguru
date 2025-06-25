@@ -34,6 +34,10 @@ begin
 rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
+
+# capybara等ファイルの読み込み設定
+Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_paths = [
@@ -70,4 +74,18 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   config.include FactoryBot::Syntax::Methods
+  config.include LoginMacrosAdd commentMore actions
+
+  # system spec
+  config.before(:each, type: :system) do
+    if ENV["SELENIUM_DRIVER_URL"]
+      driven_by :remote_chrome
+      Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
+      Capybara.server_port = 4444
+      Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
+      Capybara.ignore_hidden_elements = false
+    else
+      driven_by :selenium_chrome_headless
+    end
+  end
 end
