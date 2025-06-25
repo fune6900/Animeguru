@@ -34,11 +34,18 @@ services: # コンテナの定義開始
       - node_modules:/myapp/node_modules # node_modulesの永続化
     environment: # 環境変数の設定
       TZ: Asia/Tokyo # タイムゾーンを日本に設定
+      SELENIUM_DRIVER_URL: http://chrome:4444/wd/hub # SeleniumドライバーのURL設定
     ports: # ポート設定
       - "3000:3000" # Rails標準のポート
     depends_on: # 依存関係の設定
       db: # dbサービスに依存
         condition: service_healthy # dbの健康チェックが通るまで待機
+
+  # システムスペックに対応
+  chrome: # Selenium Chromeコンテナの設定
+    image: seleniarm/standalone-chromium:latest # Seleniumの公式イメージを使用
+    ports: # ポート設定
+      - 4444:4444 # Seleniumのポート設定
 
   redis: # Redisの設定
     image: "redis:7.4-alpine" # Redisの公式イメージを使用
