@@ -5,7 +5,7 @@ ja:
       blank: "を入力してください"
       invalid: "は有効な値ではありません"
       too_short: "は%{count}文字以上で入力してください"
-      extension_allowlist_error: "は jpg, jpeg, png, gif のいずれかの形式でアップロードしてください"
+      extension_allowlist_error: "はjpg, jpeg, png, gif, webpのいずれかの形式でアップロードしてください"
 
   activerecord:
     models:
