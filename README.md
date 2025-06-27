@@ -191,7 +191,7 @@ XやインスタなどのSNSでは聖地巡礼に関する投稿などが多く�
 | API        | Annict API / Google Places API / Google Maps JavaScript API / Google Geocoding API |
 | VCS        | GitHub                                                               |
 | CI/CD      | GitHub Actions                                                       |
-
+| その他      | AOS.js                                                               |
 ## ■ 画面遷移図
 [figma](https://www.figma.com/design/NHcv8Fk1rtyFR7uRKs7vC0/Animeguru?node-id=0-1&p=f&t=PZtGRakzKWE5ngOr-0)
 

@@ -11,9 +11,9 @@ ja:
         user:
           attributes:
             email:
-              taken: "このメールアドレスは既に使用されています"
+              taken: "は既に使用されています"
             username:
-              taken: "このユーザー名は既に使用されています"
+              taken: "は既に使用されています"
 
   devise:
     sessions:
