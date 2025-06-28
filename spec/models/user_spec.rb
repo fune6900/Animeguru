@@ -22,7 +22,7 @@ RSpec.describe User, type: :model do
       expect(user.errors[:username]).to include("は2文字以上で入力してください")
     end
 
-        it "ユーザー名が25文字以上であれば無効であること" do
+    it "ユーザー名が25文字以上であれば無効であること" do
       user = build(:user, username: "a" * 26)
       expect(user).to be_invalid
       expect(user.errors[:username]).to include("は25文字以内で入力してください")
