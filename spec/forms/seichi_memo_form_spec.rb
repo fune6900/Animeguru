@@ -150,13 +150,13 @@ RSpec.describe SeichiMemoForm, type: :model do
     end
 
     it "genre_tag_ids が0〜3個以内なら有効" do
-      form = SeichiMemoForm.new(attributes.merge(genre_tag_ids: [1, 2, 3]))
+      form = SeichiMemoForm.new(attributes.merge(genre_tag_ids: [ 1, 2, 3 ]))
       expect(form).to be_valid
       expect(form.errors).to be_empty
     end
 
     it "genre_tag_ids が4個以上なら無効" do
-      form = SeichiMemoForm.new(attributes.merge(genre_tag_ids: [1, 2, 3, 4]))
+      form = SeichiMemoForm.new(attributes.merge(genre_tag_ids: [ 1, 2, 3, 4 ]))
       expect(form).to be_invalid
       expect(form.errors[:genre_tag_ids]).to include("は3つまでしか選択できません")
     end
