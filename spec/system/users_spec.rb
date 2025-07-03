@@ -87,7 +87,31 @@ RSpec.describe "Users", type: :system do
     describe "ログイン後" do
       before { login_as(user) }
 
+      describe "マイページ" do
+        context "ログインしている状態" do
+          it "マイページへのアクセスが成功する" do
+            visit profile_path
+            expect(page).to have_content(user.username)
+            expect(current_path).to eq profile_path
+          end
+        end
+      end
+
       describe "ユーザー編集" do
+        context "フォームの入力値が正常" do
+          it "ユーザー編集が成功する" do
+            visit edit_user_registration_path
+            fill_in "user_username", with: "アニめぐる"
+            fill_in "user_email", with: "animeguru@example.com"
+            attach_file("user_profile_image", Rails.root.join("spec/fixtures/files/test.jpg"))
+            fill_in "user_introduction", with: "よろしくお願いします。"
+            fill_in "user_favorite_anime", with: "ぼっち・ざ・ろっく！"
+            click_button "更新"
+            expect(page).to have_text("プロフィールを更新しました")
+            expect(current_path).to eq profile_path
+          end
+        end
+
         context "メールアドレスが未入力" do
           it "ユーザー編集が失敗する" do
             visit edit_user_registration_path
@@ -183,30 +207,6 @@ RSpec.describe "Users", type: :system do
             fill_in "user_favorite_anime", with: "ぼっち・ざ・ろっく！"
             click_button "更新"
             expect(page).to have_content("プロフィールを更新しました")
-            expect(current_path).to eq profile_path
-          end
-        end
-
-        context "フォームの入力値が正常" do
-          it "ユーザー編集が成功する" do
-            visit edit_user_registration_path
-            fill_in "user_username", with: "アニめぐる"
-            fill_in "user_email", with: "animeguru@example.com"
-            attach_file("user_profile_image", Rails.root.join("spec/fixtures/files/test.jpg"))
-            fill_in "user_introduction", with: "よろしくお願いします。"
-            fill_in "user_favorite_anime", with: "ぼっち・ざ・ろっく！"
-            click_button "更新"
-            expect(page).to have_current_path(profile_path, wait: 10)
-            expect(page).to have_text("プロフィールを更新しました", wait: 10)
-          end
-        end
-      end
-
-      describe "マイページ" do
-        context "ログインしている状態" do
-          it "マイページへのアクセスが成功する" do
-            visit profile_path
-            expect(page).to have_content(user.username)
             expect(current_path).to eq profile_path
           end
         end
