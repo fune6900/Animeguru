@@ -97,9 +97,8 @@ RSpec.describe "Users", type: :system do
             fill_in "user_introduction", with: "よろしくお願いします。"
             fill_in "user_favorite_anime", with: "ぼっち・ざ・ろっく！"
             click_button "更新"
-            expect(page).to have_content("プロフィールを更新しました", wait: 10)
-            expect(current_path).to eq profile_path
-
+            expect(page).to have_current_path(profile_path, wait: 10)
+            expect(page).to have_text("プロフィールを更新しました", wait: 10)
           end
         end
 
