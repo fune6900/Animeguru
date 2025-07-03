@@ -15,46 +15,46 @@
 
       <!-- プロフィール画像アップロード -->
       <div class="mb-6">
-        <label class="block text-gray-700 font-semibold mb-1">
+        <%= f.label :profile_image, class: "block text-gray-700 font-semibold mb-1" do %>
           <i class="fas fa-image mr-1"></i>
           プロフィール画像
-        </label>
+        <% end %>
         <%= f.file_field :profile_image, class: "btn w-full p-2 border border-gray-300 rounded-md cursor-pointer shadow-sm",  data: { action: "change->preview#show", preview_target: "input" } %>
       </div>
 
       <!-- ユーザー名 -->
       <div class="mb-6">
-        <label class="block text-gray-700 font-semibold mb-1">
+        <%= f.label :username, class: "block text-gray-700 font-semibold mb-1" do %>
           <i class="fas fa-user mr-1"></i>
           ユーザー名 <span class="text-red-500">*</span>
-        </label>
+        <% end %>
         <%= f.text_field :username, class: "w-full p-3 border border-gray-300 rounded-md shadow-sm", placeholder: "ユーザー名を入力してください" %>
         <p class="text-gray-500 text-sm mt-1">（2文字以上）</p>
       </div>
 
       <div class="mb-6">
-        <label class="block text-gray-700 font-semibold mb-1">
+        <%= f.label :email, class: "block text-gray-700 font-semibold mb-1" do %>
           <i class="fas fa-envelope mr-1"></i>
           メールアドレス <span class="text-red-500">*</span>
-        </label>
+        <% end %>
         <%= f.email_field :email, class: "w-full p-3 border border-gray-300 rounded-md shadow-sm", placeholder: "メールアドレスを入力してください" %>
       </div>
 
       <!-- 自己紹介 -->
       <div class="mb-6">
-        <label class="block text-gray-700 font-semibold mb-1">
+        <%= f.label :instroduction, class: "block text-gray-700 font-semibold mb-1" do %>
           <i class="fas fa-comment-dots mr-1"></i>
           ひとこと
-        </label>
+        <% end %>
         <%= f.text_area :introduction, rows: 4, class: "w-full p-3 border border-gray-300 rounded-md shadow-sm", placeholder: "好きなアニメや作品に対する熱い思いなど！" %>
         <p class="text-gray-500 text-sm mt-1">（500文字以内）</p>
         </div>
 
       <div class="mb-6">
-        <label class="block text-gray-700 font-semibold mb-1">
+        <%= f.label :favorite_anime, class: "block text-gray-700 font-semibold mb-1" do %>
           <i class="fas fa-film mr-1"></i>
           好きなアニメ作品
-        </label>
+        <% end %>
         <%= f.text_field :favorite_anime, class: "w-full p-3 border border-gray-300 rounded-md shadow-sm", placeholder: "例: ぼっち・ざ・ろっく！など" %>
         <p class="text-gray-500 text-sm mt-1">（50文字以内）</p>
       </div>

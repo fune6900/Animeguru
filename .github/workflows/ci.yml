@@ -83,6 +83,13 @@ jobs:
       - name: Run rspec
         run: bundle exec rspec
 
+      - name: Upload Capybara screenshot artifacts
+        if: failure()  # テストが失敗したときだけ
+        uses: actions/upload-artifact@v4
+        with:
+          name: capybara-screenshots
+          path: tmp/capybara
+
       # - name: Run tests
       #   env:
       #     RAILS_ENV: test

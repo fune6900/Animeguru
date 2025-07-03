@@ -17,39 +17,39 @@
 
       <!-- ユーザー名 -->
       <div>
-        <label class="block text-gray-700 font-semibold mb-1">
+        <%= f.label :username, class: "block text-gray-700 font-semibold mb-1" do %>
           <i class="fas fa-user mr-1"></i>
           ユーザー名 <span class="text-red-500">*</span>
-        </label>
+        <% end %>
         <%= f.text_field :username, class: "w-full p-3 border border-gray-300 rounded-md shadow-sm", placeholder: "ユーザー名を入力してください" %>
         <p class="text-gray-500 text-sm mt-1">（2文字以上）</p>
       </div>
 
       <!-- メール -->
       <div>
-        <label class="block text-gray-700 font-semibold mb-1">
+        <%= f.label :email, class: "block text-gray-700 font-semibold mb-1" do %>
           <i class="fas fa-envelope mr-1"></i>
           メールアドレス <span class="text-red-500">*</span>
-        </label>
+        <% end %>
         <%= f.email_field :email, class: "w-full p-3 border border-gray-300 rounded-md shadow-sm", placeholder: "メールアドレスを入力してください", autofocus: true, autocomplete: "email" %>
       </div>
 
       <!-- パスワード -->
       <div>
-        <label class="block text-gray-700 font-semibold mb-1">
+        <%= f.label :password, class: "block text-gray-700 font-semibold mb-1" do %>
           <i class="fas fa-lock mr-1"></i>
           パスワード <span class="text-red-500">*</span>
-        </label>
+        <% end %>
         <%= f.password_field :password, class: "w-full p-3 border border-gray-300 rounded-md shadow-sm", placeholder: "パスワードを入力してください", autocomplete: "new-password" %>
         <p class="text-gray-500 text-sm mt-1">（6文字以上）</p>
       </div>
 
       <!-- パスワード確認 -->
       <div>
-        <label class="block text-gray-700 font-semibold mb-1">
+        <%= f.label :password_confirmation, class: "block text-gray-700 font-semibold mb-1" do %>
           <i class="fas fa-lock mr-1"></i>
           パスワード確認 <span class="text-red-500">*</span>
-        </label>
+        <% end %>
         <%= f.password_field :password_confirmation, class: "w-full p-3 border border-gray-300 rounded-md shadow-sm", placeholder: "パスワードを再入力してください", autocomplete: "new-password" %>
         <p class="text-gray-500 text-sm mt-1">（6文字以上）</p>
       </div>
