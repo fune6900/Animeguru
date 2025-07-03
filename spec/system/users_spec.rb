@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Users", type: :system do
   include LoginMacros
-  let(:user) { create(:user) }
+  let!(:user) { create(:user) }
 
   describe "ログイン前" do
     describe "ユーザー新規登録" do
@@ -97,7 +97,7 @@ RSpec.describe "Users", type: :system do
             fill_in "user_introduction", with: "よろしくお願いします。"
             fill_in "user_favorite_anime", with: "ぼっち・ざ・ろっく！"
             click_button "更新"
-            expect(page).to have_content("プロフィールを更新しました")
+            expect(page).to have_content("プロフィールを更新しました", wait: 5)
             expect(current_path).to eq profile_path
           end
         end
