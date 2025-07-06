@@ -21,7 +21,7 @@ RSpec.describe Place, type: :model do
     end
 
     it "nameが重複していると無効になる" do
-      place1 = create(:place , name: "秋葉原")
+      place1 = create(:place, name: "秋葉原")
       place2 = build(:place, name: "秋葉原")
       expect(place2).to be_invalid
       expect(place2.errors[:name]).to include("はすでに存在します")

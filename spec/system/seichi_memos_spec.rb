@@ -59,7 +59,7 @@ RSpec.describe "SeichiMemos", type: :system do
           attach_file("seichi_memo_form_seichi_photo", Rails.root.join("spec/fixtures/files/test.jpg"))
           attach_file("seichi_memo_form_scene_image", Rails.root.join("spec/fixtures/files/test.jpg"))
           find("#step1-next-button").click
-          
+
           # ステップ２：作品の基本情報
           expect(page).to have_text("ステップ 2/4：作品の基本情報")
           fill_in "seichi_memo_form_anime_title", with: "アニめぐるの冒険"
