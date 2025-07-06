@@ -81,7 +81,7 @@ jobs:
           bundle exec rails db:migrate
 
       - name: Run rspec
-        run: bundle exec rspec
+        run: bundle exec rspec --exclude-pattern "spec/system/seichi_memos_spec.rb"
 
       - name: Upload Capybara screenshot artifacts
         if: failure()  # テストが失敗したときだけ

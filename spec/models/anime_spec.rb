@@ -21,7 +21,7 @@ RSpec.describe Anime, type: :model do
     end
 
     it "重複したタイトルは無効になる" do
-      anime1 = create(:anime)
+      anime1 = create(:anime, title: "title")
       anime2 = build(:anime, title: "title")
       expect(anime2).to be_invalid
       expect(anime2.errors[:title]).to include("はすでに存在します")
