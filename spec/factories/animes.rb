@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :anime do
-    title { "title" }
+    sequence(:title) { |n| "title#{n}" }
     official_site_url { "https://example.com" }
     image_url { nil }
   end
