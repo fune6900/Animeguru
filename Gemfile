@@ -80,6 +80,8 @@ group :development, :test do
   gem "pry-byebug"
 
   gem "faker"
+  gem 'bullet'
+  gem 'rack-mini-profiler'
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", "~> 7.1.0", require: false
