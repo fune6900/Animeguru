@@ -81,7 +81,7 @@ group :development, :test do
 
   gem "faker"
   gem 'bullet'
-  gem 'rack-mini-profiler'
+  gem 'rack-mini-profiler', require: false
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", "~> 7.1.0", require: false
