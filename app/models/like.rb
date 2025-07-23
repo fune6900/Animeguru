@@ -1,5 +1,6 @@
 class Like < ApplicationRecord
   belongs_to :seichi_memo
+  counter_culture :seichi_memo
   belongs_to :user
 
   # 同じ投稿に複数回いいねできないようにする
