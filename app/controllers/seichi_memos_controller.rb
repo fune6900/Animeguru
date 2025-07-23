@@ -7,7 +7,7 @@ class SeichiMemosController < ApplicationController
 
   def index
     @q = SeichiMemo.ransack(params[:q])
-    @seichi_memos = @q.result(distinct: true).includes(:anime, :place, :user, :genre_tags).order(created_at: :desc).page(params[:page]).per(18)
+    @seichi_memos = @q.result(distinct: true).includes(:anime, :likes, :user, :genre_tags).order(created_at: :desc).page(params[:page]).per(18)
     @jenre_tags = GenreTag.all
   end
 
