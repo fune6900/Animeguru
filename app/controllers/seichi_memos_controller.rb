@@ -7,7 +7,7 @@ class SeichiMemosController < ApplicationController
 
   def index
     @q = SeichiMemo.ransack(params[:q])
-    @seichi_memos = @q.result(distinct: true).includes(:anime, :place, :user, :genre_tags).order(created_at: :desc).page(params[:page]).per(18)
+    @seichi_memos = @q.result(distinct: true).includes(:anime, :user, :genre_tags).order(created_at: :desc).page(params[:page]).per(18)
     @jenre_tags = GenreTag.all
   end
 
@@ -111,7 +111,7 @@ class SeichiMemosController < ApplicationController
 
   def bookmarks
     @q = current_user.bookmark_seichi_memos.ransack(params[:q])
-    @bookmark_seichi_memos = @q.result(distinct: true).includes(:anime, :place, :genre_tags).order(created_at: :desc).page(params[:page]).per(18)
+    @bookmark_seichi_memos = @q.result(distinct: true).includes(:anime, :user, :genre_tags).order(created_at: :desc).page(params[:page]).per(18)
     @jenre_tags = GenreTag.all
   end
 

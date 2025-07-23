@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_24_163900) do
+ActiveRecord::Schema[7.2].define(version: 2025_07_23_103916) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -81,6 +81,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_24_163900) do
     t.datetime "updated_at", null: false
     t.string "seichi_photo"
     t.string "scene_image"
+    t.integer "likes_count"
     t.index ["anime_id"], name: "index_seichi_memos_on_anime_id"
     t.index ["place_id"], name: "index_seichi_memos_on_place_id"
     t.index ["user_id"], name: "index_seichi_memos_on_user_id"

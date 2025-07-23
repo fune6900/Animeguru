@@ -3,14 +3,14 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @seichi_memos = @user.seichi_memos.order(created_at: :desc).page(params[:page]).per(6)
+    @seichi_memos = @user.seichi_memos.includes(:anime, :genre_tags).order(created_at: :desc).page(params[:page]).per(6)
   rescue ActiveRecord::RecordNotFound
     redirect_to seichi_memos_path, alert: "ユーザーが見つかりません"
   end
 
   def profile
     @user = current_user
-    @seichi_memos = @user.seichi_memos.order(created_at: :desc).page(params[:page]).per(6)
+    @seichi_memos = @user.seichi_memos.includes(:anime, :genre_tags).order(created_at: :desc).page(params[:page]).per(6)
     render :show
   end
 end

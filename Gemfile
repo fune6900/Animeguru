@@ -33,8 +33,12 @@ gem "ransack"
 # OGP
 gem "meta-tags", require: "meta_tags"
 
+# 集計キャッシュ用
+gem "counter_culture"
+
 # Background Job
 gem "sidekiq"
+
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.2.1"
@@ -80,6 +84,8 @@ group :development, :test do
   gem "pry-byebug"
 
   gem "faker"
+  gem "bullet"
+  gem "rack-mini-profiler", require: false
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", "~> 7.1.0", require: false
