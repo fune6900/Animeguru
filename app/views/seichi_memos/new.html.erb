@@ -1,3 +1,11 @@
 <% content_for(:title, t(".title")) %>
-<h2 class="text-2xl font-bold text-center my-6">新規投稿</h2>
+<!-- タイトル＋ボタンを横並び -->
+<div class="flex justify-center items-center gap-4 my-6 flex-wrap">
+  <!-- タイトル -->
+  <h2 class="text-2xl font-bold whitespace-nowrap">新規投稿</h2>
+
+  <!-- ボタン -->
+  <%= render "howto_use" %>
+</div>
+
 <%= render "form", seichi_memo_form: @seichi_memo_form %>

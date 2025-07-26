@@ -81,7 +81,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_23_103916) do
     t.datetime "updated_at", null: false
     t.string "seichi_photo"
     t.string "scene_image"
-    t.integer "likes_count"
+    t.integer "likes_count", default: 0, null: false
     t.index ["anime_id"], name: "index_seichi_memos_on_anime_id"
     t.index ["place_id"], name: "index_seichi_memos_on_place_id"
     t.index ["user_id"], name: "index_seichi_memos_on_user_id"

@@ -85,8 +85,8 @@
   <div class="grid grid-cols-1 gap-8 max-w-3xl w-full text-center">
     <% steps = [
       { title: "ステップ1：巡礼記憶", image: "camera_icon.webp", desc: "訪れた思い出やシーンを振り返って、感じたことや印象的な場面をメモや写真で登録しましょう。" },
-      { title: "ステップ2：聖地の基本情報", image: "location_pin_icon.webp", desc: "聖地名を入力すれば住所と郵便番号は自動でラクチン入力！！" },
-      { title: "ステップ3：作品の基本情報", image: "anime_work_info_icon.webp", desc: "聖地に関わる作品タイトルや公式サイトを登録！作品イメージや作品ジャンルも登録出来ます。" },
+      { title: "ステップ2：作品の基本情報", image: "anime_work_info_icon.webp", desc: "聖地に関わる作品タイトルや公式サイトを登録！作品イメージや作品ジャンルも登録出来ます。" },
+      { title: "ステップ3：聖地の基本情報", image: "location_pin_icon.webp", desc: "聖地名を入力すれば住所と郵便番号は自動でラクチン入力！！" },
       { title: "ステップ4：投稿する", image: "launch_rocket_icon.webp", desc: "確認画面で投稿内容に誤りがないか確認して投稿ボタンを押しましょう。あなたの聖地メモをみんなに届けましょう！" }
     ] %>
 
@@ -116,8 +116,24 @@
 </div>
 
 <!-- 聖地メモ投稿ボタンセクション -->
-<div class="mt-4 mb-24 text-center" data-aos="fade-up" data-aos-delay="100">
+<div class="mb-8 text-center" data-aos="fade-up" data-aos-delay="100">
   <%= link_to "聖地メモを投稿する", new_seichi_memo_path,
-    class: "btn bg-primary text-white rounded-full shadow-md transition duration-200",
+    class: "btn px-6 h-14 bg-primary text-white border-none rounded-full shadow transition duration-200",
     data: { action: "click->loading#show" } %>
+</div>
+
+<!-- 聖地メモ一覧画面セクション -->
+<!-- 聖地メモ一覧画面セクション -->
+<div class="flex justify-center px-4 mt-6 mb-24" data-aos="fade-up" data-aos-delay="80">
+  <div class=" bg-primary bg-opacity-90 text-white shadow-lg rounded-xl p-6 w-full max-w-7xl text-center">
+    <div class="flex flex-col items-center justify-center gap-4 pt-8 text-center">
+      <p class="text-2xl sm:text-3xl md:text4xl font-semibold font-rampart w-full">聖地巡礼への世界へようこそ！</p>
+      <p class="text-sm sm:text-base  opacity-90 w-full">新しい作品や聖地との出会いがあるかもしれません。</p>
+      <div class="w-full flex justify-center pt-6">
+        <%= link_to "みんなの聖地メモを見る", seichi_memos_path,
+          class: "btn px-6 h-14 bg-white text-primary border-none rounded-full shadow transition duration-200",
+          data: { action: "click->loading#show" } %>
+      </div>
+    </div>
+  </div>
 </div>
