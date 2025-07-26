@@ -16,3 +16,7 @@ genre_names.each do |name|
 end
 
 puts "✅ #{genre_names.size}件のジャンルタグを登録しました。"
+
+puts "🔧 counter_culture実行中..."
+Like.counter_culture_fix_counts
+puts "✅ likes_count 修正完了！"
