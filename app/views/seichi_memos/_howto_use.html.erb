@@ -1,0 +1,133 @@
+<!-- 聖地メモ作成フォーム使い方ガイド -->
+<div class="flex justify-center">
+  <button class=" bg-transparent text-primary transition duration-200 rounded-full hover:text-white" onclick="howto_use.showModal()">
+    <i class="fas fa-question-circle text-lg"></i>
+  </button>
+</div>
+<dialog id="howto_use" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box w-full max-w-7xl h-[80vh] overflow-hidden bg-white">
+
+    <!-- モーダル閉じるボタン -->
+    <form method="dialog" class="modal-backdrop">
+      <button class="btn btn-sm btn-circle absolute right-2 top-2 sm:right-4 sm:top-4">✕</button>
+    </form>
+
+    <!-- スワイプコンテナ -->
+    <div id="howto_slider" class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-thin scrollbar-thumb-primary scrollbar-track-gray-200 h-full">
+
+      <!-- ステップ 1：巡礼記録 -->
+      <div class="w-full max-w-md snap-center flex-shrink-0 p-4 overflow-y-auto max-h-[calc(90vh-60px)] bg-white">
+        <h1 class="text-2xl sm:text-3xl font-bold mb-8 text-center">～聖地メモ作成ガイド～</h1>
+        <h1 class="text-xl sm:text-2xl font-semibold my-2">ステップ 1：巡礼記録</h1>
+        <p class="text-sm sm:text-base mb-4">ステップ1ではあなたが訪れた聖地の巡礼記録を以下の項目に沿って入力していきましょう！</p>
+        <%= image_tag "pilgrimage_record.webp", class: "w-full h-auto rounded-lg mb-4" %>
+        <ol class="list-decimal list-inside space-y-2 mb-6 text-sm sm:text-base">
+          <li><strong>タイトル（必須）：</strong>聖地メモのタイトルを入力してください。※作品タイトルとは別です。</li>
+          <li><strong>メモ（必須）：</strong>訪れた聖地の感想やシーンの解説、撮影スポットの詳細、ベストな訪問時間などを入力してください。</li>
+          <li><strong>聖地の写真（任意）：</strong>訪れた聖地の写真をアップロードしてください。※画像の形式は、jpg、jpeg、gif、png、webp に対応しています。</li>
+          <li><strong>聖地が登場したシーン画像（任意）：</strong>訪れた聖地がアニメや映画の中で実際に登場した場面のキャプチャ画像やスクリーンショットをアップロードしてください。※画像の形式は、jpg、jpeg、gif、png、webp に対応しています。</li>
+        </ol>
+        <div class="alert alert-info bg-primary shadow-sm text-sm sm:text-base">
+          <div class="flex items-start">
+            <i class="fas fa-exclamation-circle text-lg mr-2 mt-1"></i>
+            <div class="flex-1">
+              <p class="text-sm sm:text-base">画像は“<strong>2枚セット</strong>”で投稿するのがおすすめ！<br>
+                実際の風景とアニメのシーンを並べて眺めることで、自分も作品の中に入り込んだような没入感を楽しめます。
+              </p>
+              <div class="mt-3">
+                <%= image_tag "seichi_memo_guidepoint_1.webp", class: "w-full max-w-md h-auto rounded-lg shadow-sm" %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-center gap-2 mt-4">
+          <div class="w-2 h-2 rounded-full bg-primary"></div>
+          <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+          <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+          <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+        </div>
+      </div>
+
+      <!-- ステップ 2：作品の基本情報 -->
+      <div class="w-full max-w-md snap-center flex-shrink-0 p-4 overflow-y-auto max-h-[calc(90vh-60px)] bg-white">
+        <h1 class="text-2xl sm:text-3xl font-bold mb-8 text-center">～聖地メモ作成ガイド～</h1>
+        <h1 class="text-xl sm:text-2xl font-semibold mt-6 mb-2">ステップ 2：作品の基本情報</h1>
+        <p class="text-sm sm:text-base mb-4">ステップ2では聖地に関連するアニメ作品の基本情報について以下の項目に沿って入力していきましょう！</p>
+        <%= image_tag "anime_info.webp", class: "w-full h-auto rounded-lg mb-4" %>
+        <ol class="list-decimal list-inside space-y-2 mb-6 text-sm sm:text-base">
+          <li><strong>作品タイトル（必須）：</strong>作品タイトルを入力してください。</li>
+          <li><strong>公式サイト（任意）：</strong>関連作品の公式サイトのURLを入力してください。</li>
+          <li><strong>作品イメージ（任意）：</strong>関連作品のメインビジュアルなどの画像をアップロードしてください。※画像の形式は、jpg、jpeg、gif、png、webp に対応しています。</li>
+          <li><strong>作品ジャンル（任意）：</strong>関連作品の作成ジャンルを入力してください。※ジャンルタグは最大3つまで選択できます。</li>
+        </ol>
+        <div class="alert alert-info bg-primary shadow-sm text-sm sm:text-base">
+          <div class="flex items-start">
+            <i class="fas fa-exclamation-circle text-lg mr-2 mt-1"></i>
+            <div class="flex-1">
+              <p class="text-sm sm:text-base">作品タイトルと公式サイトURLは簡単入力！！<br>
+                作品タイトルを候補の中から選択すると、関連する作品の公式サイトURLが自動で入力されます。<br>
+                ※公式サイトURLはない場合もございます。
+              </p>
+              <div class="mt-3">
+                <%= image_tag "seichi_memo_guidepoint_2.webp", class: "w-full max-w-md h-auto rounded-lg shadow-sm" %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-center gap-2 mt-4">
+          <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+          <div class="w-2 h-2 rounded-full bg-primary"></div>
+          <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+          <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+        </div>
+      </div>
+
+      <!-- ステップ 3：聖地の基本情報 -->
+      <div class="w-full max-w-md snap-center flex-shrink-0 p-4 overflow-y-auto max-h-[calc(90vh-60px)] bg-white">
+        <h1 class="text-2xl sm:text-3xl font-bold mb-8 text-center">～聖地メモ作成ガイド～</h1>
+        <h1 class="text-xl sm:text-2xl font-semibold mt-6 mb-2">ステップ 3：聖地の基本情報</h1>
+        <p class="text-sm sm:text-base mb-4">ステップ3では聖地に関する基本情報について以下の項目に沿って入力していきましょう！</p>
+        <%= image_tag "place_info.webp", class: "w-full h-auto rounded-lg mb-4" %>
+        <ol class="list-decimal list-inside space-y-2 mb-6 text-sm sm:text-base">
+          <li><strong>聖地名（必須）：</strong>聖地名を入力してください。</li>
+          <li><strong>住所（任意）：</strong>聖地の住所を入力してください。</li>
+          <li><strong>郵便番号（任意）：</strong>聖地の郵便番号を入力してください。</li>
+        </ol>
+        <div class="alert alert-info bg-primary shadow-sm text-sm sm:text-base">
+          <div class="flex items-start">
+            <i class="fas fa-exclamation-circle text-lg mr-2 mt-1"></i>
+            <div class="flex-1">
+              <p class="text-sm sm:text-base">聖地と住所、郵便番号は簡単入力！！<br>
+                聖地名を候補の中から選択すると、住所と郵便番号が自動で入力されます。<br>
+              </p>
+              <div class="mt-3">
+                <%= image_tag "seichi_memo_guidepoint_3.webp", class: "w-full max-w-md h-auto rounded-lg shadow-sm" %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-center gap-2 mt-4">
+          <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+          <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+          <div class="w-2 h-2 rounded-full bg-primary"></div>
+          <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+        </div>
+      </div>
+
+      <!-- ステップ 4：確認画面 -->
+      <div class="w-full max-w-md snap-center flex-shrink-0 p-4 overflow-y-auto max-h-[calc(90vh-60px)] bg-white">
+        <h1 class="text-2xl sm:text-3xl font-bold mb-8 text-center">～聖地メモ作成ガイド～</h1>
+        <h1 class="text-xl sm:text-2xl font-semibold mt-6 mb-2">ステップ 4：確認画面</h1>
+        <p class="text-sm sm:text-base mb-4">ステップ4ではこれまでのステップで入力してきた項目の確認ができます。入力内容にに誤りがないかを確認して投稿ボタンを押しましょう！！</p>
+        <%= image_tag "confirmation_1.webp", class: "w-full h-auto rounded-lg" %>
+        <%= image_tag "confirmation_2.webp", class: "w-full h-auto rounded-lg mb-4" %>
+        <div class="flex justify-center gap-2 mt-4">
+          <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+          <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+          <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+          <div class="w-2 h-2 rounded-full bg-primary"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
