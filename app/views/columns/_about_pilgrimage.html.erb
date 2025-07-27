@@ -1,0 +1,40 @@
+<!-- 聖地巡礼について -->
+<div class="relative w-1/2 md:w-full mx-auto mt-4 mb-4 transform transition duration-200 hover:scale-105 shadow-md" onclick="about_pilgrimage.showModal()">
+  <%= image_tag "what_is_seichi_pilgrimage.webp", class: "w-full h-auto rounded-lg" %>
+  <span class="absolute bottom-0 left-0 w-full text-center text-2xl font-extrabold text-white py-10 text-lg bg-black bg-opacity-30 hover:text-primary hover:bg-opacity-50">聖地巡礼ってなんだろう？</span>
+</div>
+<dialog id="about_pilgrimage" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box w-full max-w-7xl h-auto bg-white">
+
+  <form method="dialog" class="modal-backdrop">
+    <button class="btn btn-sm btn-circle absolute right-2 top-2 sm:right-4 sm:top-4">✕</button>
+  </form>
+
+    <!-- モーダル本文 -->
+    <h3 class="text-2xl font-extrabold text-gray-900 text-center pr-10">聖地巡礼ってなんだろう？</h3>
+    <div class="divider divide-gray-200"></div>
+    <div class="px-4 space-y-6 text-gray-800 text-sm leading-relaxed">
+      <p>
+        「聖地巡礼」という言葉を耳にしたことはありますか？最近ではよく使われるこの言葉、実はもともと宗教で使われていた表現なんです。ここでは聖地巡礼の意味やルーツ、そして日本での広がりと歴史についてご紹介します。
+      </p>
+
+      <h2 class="text-lg font-semibold mt-6 border-l-4 border-primary pl-2">アニメにおける聖地巡礼とは？</h2>
+      <%= image_tag "seichi_pilgrimage.webp", class: "w-48 h-auto rounded-lg mx-auto" %>
+      <p>
+        アニメの「聖地巡礼」とは、作品の舞台になった実在の場所をファンが訪れることです。街や神社、学校など「ここだ！」と分かる場所を巡ることで、作品の世界に入り込んだようなワクワクを味わうことができます。ファンにとっては、まさに特別な体験ですね。
+      </p>
+
+      <h2 class="text-lg font-semibold mt-6 border-l-4 border-primary pl-2">「聖地巡礼」という言葉のルーツ</h2>
+      <%= image_tag "origin_of_the_seichi_pilgrimage.webp", class: "w-48 h-auto rounded-lg mx-auto" %>
+      <p>
+        もともと「巡礼」は宗教的に聖地を訪れる行為のことで日本でもお寺や神社を巡る伝統がありました。これがアニメファンの間で、作品の舞台となった場所を訪れることに転用され、「聖地巡礼」と呼ばれるようになりました。最初はオタク用語でしたが、SNSの発展や自治体の観光活用をきっかけに広まり、今では一般にも浸透した言葉になっていきました。
+      </p>
+
+      <h2 class="text-lg font-semibold mt-6 border-l-4 border-primary pl-2">アニメ聖地巡礼の広がりと歴史</h2>
+      <%= image_tag "history_of_seichi_pilgrimage.webp", class: "w-48 h-auto rounded-lg mx-auto" %>
+      <p>
+        アニメの聖地巡礼は1990年代から静かに始まり、1991年の『究極超人あ〜る』の舞台・長野県田切駅には「発祥の地」の記念碑もあるほどです。本格的なブームの火付け役は2007年の『らき☆すた』。舞台の鷲宮神社に多くのファンが訪れ、“痛絵馬”なども話題になりました。その後『涼宮ハルヒの憂鬱』でも巡礼が注目されました。そして2016年の『君の名は。』で社会現象に。須賀神社の階段や飛騨市には国内外から多くのファンが訪れ、「聖地巡礼」という言葉が流行語に選ばれるまでに広まりました。同年には「アニメツーリズム協会」が発足し、「訪れてみたいアニメ聖地88」を発表。今では聖地巡礼は観光としても注目され、地域活性化にもつながっています。
+      </p>
+    </div>
+  </div>
+</dialog>
