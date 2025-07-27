@@ -30,7 +30,8 @@
     <% features = [
       { title: "聖地メモ作成投稿", image: "camera_and_memory_icon.webp", desc: "聖地巡礼で訪れた聖地の思い出を投稿しよう！！" },
       { title: "みんなの聖地メモの閲覧", image: "map_with_pin_icon.webp", desc: "みんなの聖地メモを見て次に訪れたい聖地を見つけよう！！" },
-      { title: "聖地メモ検索", image: "search_icon.webp", desc: "聖地名、作品タイトル、作品ジャンル、エリア、マップ検索からの検索ができます" }
+      { title: "聖地メモ検索", image: "search_icon.webp", desc: "聖地名、作品タイトル、作品ジャンル、エリア、マップ検索からの検索ができます" },
+      { title: "聖地巡礼コラム", image: "seichi_pilgrimage_column_icon .webp", desc: "聖地巡礼コラムで初めての聖地巡礼の不安を解消します！！" }
     ] %>
 
     <% features.each_with_index do |feature, i| %>
@@ -131,6 +132,14 @@
       <p class="text-sm sm:text-base  opacity-90 w-full">新しい作品や聖地との出会いがあるかもしれません。</p>
       <div class="w-full flex justify-center pt-6">
         <%= link_to "みんなの聖地メモを見る", seichi_memos_path,
+          class: "btn px-6 h-14 bg-white text-primary border-none rounded-full shadow transition duration-200",
+          data: { action: "click->loading#show" } %>
+      </div>
+      <div class="flex items-center my-5">
+        <p class="mx-4 text-sm">または</p>
+      </div>
+      <div class="w-full flex justify-center">
+        <%= link_to "聖地巡礼コラムを見る", columns_path,
           class: "btn px-6 h-14 bg-white text-primary border-none rounded-full shadow transition duration-200",
           data: { action: "click->loading#show" } %>
       </div>
