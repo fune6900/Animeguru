@@ -1,4 +1,4 @@
-# アニめぐる
+# アニめぐる（現在サービス停止中）
 ### サービスURL：https://animeguru.jp/
 ### 開発記事URL：https://qiita.com/fune_6900/items/fd2085bc135dd7b09cfe
 ![Image](app/assets/images/ogp.png)
